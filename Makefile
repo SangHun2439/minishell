@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 INC = -Iincludes
-NAME = philo
+NAME = minishell
 
 SRC_DIR =
 SRC_NAME =

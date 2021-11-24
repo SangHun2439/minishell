@@ -4,7 +4,7 @@ RM = rm -f
 INC = -Iincludes
 NAME = minishell
 
-SRC_DIR =
+SRC_DIR = ./srcs/
 SRC_NAME =
 SRCS = $(addsuffix .c ,$(addprefix $(SRC_DIR), $(SRC_NAME)))
 OBJS = $(SRCS:.c=.o)
@@ -12,10 +12,10 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(ARCHI) $(OBJS) -o $@ $(INC)
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(INC)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(ARCHI) -c $< -o $@ $(INC)
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 
 clean:
 	$(RM) $(OBJS)

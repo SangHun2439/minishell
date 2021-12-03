@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   signal_handler.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/03 14:57:34 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/12/03 12:00:15 by sangjeon          #+#    #+#             */
+/*   Updated: 2021/12/03 12:07:54 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef SIGNAL_HANDLER_H
+# define SIGNAL_HANDLER_H
 
-int	main()
-{
-	char	*cmd;
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "libft.h"
 
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	while (1)
-	{
-		cmd = rl_gets();
-// 입력된 명령어에 따라 실행
-	}
-}
+void	sig_handler(int sig);
+
+#endif

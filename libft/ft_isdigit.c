@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sangjeon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/03 14:57:34 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/05/11 18:19:08 by sangjeon          #+#    #+#             */
+/*   Updated: 2021/08/10 18:26:34 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main()
+int	ft_isdigit(int c)
 {
-	char	*cmd;
-
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	while (1)
-	{
-		cmd = rl_gets();
-// 입력된 명령어에 따라 실행
-	}
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }

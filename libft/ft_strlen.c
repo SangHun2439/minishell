@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sangjeon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/03 14:57:34 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/05/11 11:54:15 by sangjeon          #+#    #+#             */
+/*   Updated: 2021/08/10 18:34:27 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main()
+size_t	ft_strlen(const char *s)
 {
-	char	*cmd;
+	size_t		len;
 
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	while (1)
-	{
-		cmd = rl_gets();
-// 입력된 명령어에 따라 실행
-	}
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
 }

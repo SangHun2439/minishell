@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sangjeon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/03 14:57:34 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/05/11 09:40:09 by sangjeon          #+#    #+#             */
+/*   Updated: 2021/05/15 18:43:10 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main()
+char	*ft_strrchr(const char *s, int c)
 {
-	char	*cmd;
+	char	chr_c;
+	char	*res;
 
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	while (1)
+	res = 0;
+	chr_c = (char)c;
+	while (*s)
 	{
-		cmd = rl_gets();
-// 입력된 명령어에 따라 실행
+		if (*s == chr_c)
+			res = (char *)s;
+		s++;
 	}
+	if (!chr_c)
+		res = (char *)s;
+	return (res);
 }

@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   read_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/03 14:57:34 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/11/26 18:10:57 by sangjeon          #+#    #+#             */
+/*   Updated: 2021/12/03 15:17:38 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "read_cmd.h"
 
-int	main()
+extern int	rl_catch_signals;
+
+void	eof_handler(void)
 {
-	char	*cmd;
+	ft_putstr_fd("exit minishell\n", 1);
+	exit(0);
+}
 
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	while (1)
+char	*rl_gets(void)
+{
+	static char	*line_read;
+
+	rl_catch_signals = 0;
+	if (line_read)
 	{
-		cmd = rl_gets();
-// 입력된 명령어에 따라 실행
+		free(line_read);
+		line_read = 0;
 	}
+	line_read = readline("eakshell~");
+	if (!line_read)
+		eof_handler();
+	if (line_read && *line_read)
+		add_history(line_read);
+	return (line_read);
 }

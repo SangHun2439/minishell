@@ -9,7 +9,8 @@ NAME = minishell
 
 SRC_DIR = ./srcs/
 SRC_NAME = main read_cmd sig_handler \
-			parse_cmd utils
+			parse_cmd utils err_handle \
+			end_handle
 SRCS = $(addsuffix .c ,$(addprefix $(SRC_DIR), $(SRC_NAME)))
 OBJS = $(SRCS:.c=.o)
 

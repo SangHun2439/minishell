@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/05 02:46:14 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/05 09:02:18 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main()
 		line = rl_gets();
 		parse_cmd(&cmd_list, line);
 		// 입력된 명령어에 따라 실행
-		// ft_lstiter(cmd_list, print_cmd_info);
+		ft_lstiter(cmd_list, print_cmd_info);
 		ft_lstclear(&cmd_list, del_cmd);
 	}
 }

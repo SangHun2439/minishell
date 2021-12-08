@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:36:00 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/07 18:36:03 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/08 17:36:48 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ typedef struct	s_cmd
 	// 리다이렉션이나 파이프 상태를 저장하는 변수 ex) >, >>, |, <, <<
 	// 상태는 아래에 상수로 define해둠
 	char	multi_status;
+	/* export, env함수에서 환경변수를 변경하기위해
+	env_ptr를 가지고가서 역참조를 통해 변경*/
+	char	***env_ptr;
 }	t_cmd;
+
+int	g_last_status;
 
 # define REDIRECT_INPUT 1
 # define REDIRECT_OUTPUT 2

@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/08 16:12:08 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:48:02 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv)
 	/* 리다이렉션이나 파이프가 걸리면 여러개의 명령어를 처리해야해서
 	리스트로 명령어들을 구현 */
 	t_list	*cmd_list;
+	extern char	**environ;
 
 	if (argc != 1)
 		return (0);

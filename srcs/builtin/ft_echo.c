@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/04 11:50:39 by jeson             #+#    #+#             */
-/*   Updated: 2021/12/04 14:44:48 by jeson            ###   ########.fr       */
-=======
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/04 11:50:39 by jeson             #+#    #+#             */
-/*   Updated: 2021/12/05 00:31:24 by sangjeon         ###   ########.fr       */
->>>>>>> d0be41d19b7c86389030dd8329984bf1e9351410
+/*   Created: 2021/12/08 16:16:56 by sangjeon          #+#    #+#             */
+/*   Updated: 2021/12/08 16:16:58 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +62,7 @@ void	ft_echo_env(char **cmd, char **envs, int i)
 	env_value = find_env(&(cmd[i][1]), envs);
 	ft_putstr_fd(env_value, STDOUT);
 }
-
+// t_cmd *cmd <- parameter로 해서 함수
 void	ft_echo(char **cmd, char **envs)
 {
 	int	i;

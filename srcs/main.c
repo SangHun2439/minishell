@@ -6,13 +6,13 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/05 11:46:04 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:12:08 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv)
 {
 	char	*line;
 	/* 리다이렉션이나 파이프가 걸리면 여러개의 명령어를 처리해야해서

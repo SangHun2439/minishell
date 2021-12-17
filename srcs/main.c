@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/08 16:48:02 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/18 00:57:15 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,21 @@ int	main(int argc, char **argv)
 	리스트로 명령어들을 구현 */
 	t_list	*cmd_list;
 	extern char	**environ;
+	char 		**my_environ;
 
 	if (argc != 1)
 		return (0);
-	(void)argv;
-	cmd_list = 0;
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
+	init(argv, &cmd_list, environ, &my_environ);
+	environ = my_environ;
 	while (1)
 	{
 		line = rl_gets();
-		parse_cmd(&cmd_list, line);
-		// 입력된 명령어에 따라 실행
-		ft_lstiter(cmd_list, print_cmd_info);
+		if (parse_cmd(&cmd_list, line, &environ))
+			ft_lstiter(cmd_list, print_cmd_info);
+			// 입력된 명령어에 따라 실행
+			// exec_cmd(cmd_list);
+		else
+			perr_and_init();
 		ft_lstclear(&cmd_list, del_cmd);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:56:00 by jeson             #+#    #+#             */
-/*   Updated: 2021/12/07 17:25:04 by jeson            ###   ########.fr       */
+/*   Updated: 2021/12/12 14:09:01 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int	exec_builtin(t_cmd *cmd, char **line)
 	builtin = cmd->argv;
 	builtin_return = 0;
 	if (!ft_strcmp(builtin, "echo"))
-		bulitin_return = ft_echo(builtin, envs);
+		builtin_return = ft_echo(builtin, envs);
 	else if (!ft_strcmp(builtin, "cd"))
-		bulitin_return = ft_cd();
+		builtin_return = ft_cd();
 	else if (!ft_strcmp(builtin, "pwd"))
-		bulitin_return = ft_pwd();
+		builtin_return = ft_pwd();
 	else if (!ft_strcmp(builtin, "export"))
-		bulitin_return = ft_export();
+		builtin_return = ft_export();
 	else if (!ft_strcmp(builtin, "unset"))
 		builtin_return = ft_unset();
 	else if (!ft_strcmp(builtin, "env"))

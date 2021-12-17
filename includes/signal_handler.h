@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:00:15 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/04 14:44:32 by jeson            ###   ########.fr       */
+/*   Updated: 2021/12/17 19:40:44 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
+# include "my_errno.h"
 
 void	sig_handler(int sig);
 

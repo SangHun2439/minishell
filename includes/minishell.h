@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:36:00 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/08 17:36:48 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/17 20:01:36 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,45 +16,48 @@
 # include "read_cmd.h"
 # include "libft.h"
 # include "signal_handler.h"
+# include "parse_cmd.h"
+# include "my_errno.h"
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
-# include <errno.h>
+# include <fcntl.h>
 
-typedef struct	s_cmd
-{
-	// int main(int argc, char **argv)에서 argv와 같다고보면됨
-	// 명령어 라인을 ' '(공백)으로 split한 문자열배열
-	char	**argv;
-	// 리다이렉션이나 파이프 상태를 저장하는 변수 ex) >, >>, |, <, <<
-	// 상태는 아래에 상수로 define해둠
-	char	multi_status;
-	/* export, env함수에서 환경변수를 변경하기위해
-	env_ptr를 가지고가서 역참조를 통해 변경*/
-	char	***env_ptr;
-}	t_cmd;
-
+// 가장 최근 프로그램의 종료상태를 저장하기위한 변수
 int	g_last_status;
-
-# define REDIRECT_INPUT 1
-# define REDIRECT_OUTPUT 2
-# define REDIRECT_HEREDOC 3
-# define REDIRECT_APPEND 4
-# define PIPE 5
 
 # define TRUE 1
 # define FALSE 0
 
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
+# define SUCCESS 0
+# define FAIL 1
+
+# define EXIST 0
+# define NOT_EXIST 1
 
 # define PWD_BUF_SIZE 200
 
 void	err_handle1(void);
-void	parse_cmd(t_list **cmd_list_ptr, char *line);
+int		err_handle2(void);
+void	parse_error(void);
+int		parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr);
 void	print_cmd_info(void *content);
 void	del_cmd(void *content);
+int		get_child_return(pid_t pid, char *full_path);
+int		file_exist(char *path);
+void	free_split(char **str_arr);
+int		exec_cmd(t_list *cmd_list);
+int		exec_ft(t_cmd *cmd, char **path);
+int		redirect_append(t_cmd *first_cmd, t_list *cmd_list, char **path);
+int		redirect_heredoc(t_cmd *first_cmd, t_list *cmd_list, char **path);
+int		redirect_input(t_cmd *first_cmd, t_list *cmd_list, char **path);
+int		redirect_output(t_cmd *first_cmd, t_list *cmd_list, char **path);
+int		_pipe(t_list *cmd_lisr, char **path);
+int		init(char **argv, t_list **cmd_list_ptr, char **environ, char ***my_environ);
+void	*err_handle3(void);
+char	*get_full_path(char *each_cmd, char *each_path);
 
 #endif

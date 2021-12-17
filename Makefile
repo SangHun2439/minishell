@@ -8,9 +8,10 @@ LIB = -Llibft -L/opt/homebrew/opt/readline/lib -lft -lreadline
 NAME = minishell
 
 SRC_DIR = ./srcs/
-SRC_NAME = main read_cmd sig_handler \
-			parse_cmd utils err_handle \
-			end_handle
+SRC_NAME = main read_cmd sig_handler init\
+			parse_cmd parse_cmd_utils parse_cmd_utils2 parse_cmd_err \
+			utils err_handle my_errno end_handle
+			# exec_cmd redirect_pipe
 SRCS = $(addsuffix .c ,$(addprefix $(SRC_DIR), $(SRC_NAME)))
 OBJS = $(SRCS:.c=.o)
 

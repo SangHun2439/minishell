@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:30:38 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/17 21:36:46 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/18 01:58:00 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,11 @@ int	exec_cmd(t_list *cmd_list)
 		return (0);
 	path = ft_split(getenv("PATH"), ':');
 	if (!path)
-		return (err_handle2());
+		return (0);
 	if (!cmd_list->next)
 		res = exec_ft(cmd_list->content, path);
 	else
-		res = exec_multi_cmd(cmd_list, path);
+		res = exec_pipe(cmd_list, path);
 	free_split(path);
 	return (res);
 }

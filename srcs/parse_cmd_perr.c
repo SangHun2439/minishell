@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err_handle.c                                       :+:      :+:    :+:   */
+/*   parse_cmd_perr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/05 11:02:34 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/22 13:48:30 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/12/17 18:02:24 by sangjeon          #+#    #+#             */
+/*   Updated: 2021/12/24 08:59:57 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parse_cmd.h"
 
-void	err_handle1(void)
+void	normal_err(void)
 {
 	ft_putstr_fd(strerror(errno), STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
-	exit(1);
+	errno = 0;
 }
 
-int	err_handle2(void)
+void	parse_err(char *info)
 {
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	return (1);
+	ft_putstr_fd("parse error ", STDERR_FILENO);
+	if (info)
+	{
+		ft_putstr_fd("near ", STDERR_FILENO);
+		ft_putstr_fd(info, STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
+	}
+	errno = 0;
+}
+
+void	perr_and_init(char *info)
+{
+	if (!errno)
+		return ;
+	if (errno == EPARSE)
+		return (parse_err(info));
+	if (errno)
+		return (normal_err());
 }

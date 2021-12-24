@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 00:59:16 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/18 00:18:42 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/24 09:51:02 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	case_cmd(char **one_cmd_ptr, t_list **cmd_line_list_ptr)
 
 	str = get_word_move_addr(one_cmd_ptr);
 	if (!str)
-		return (0);
+		return (parse_err_mem());
 	new_lst = ft_lstnew(str);
 	if (!new_lst)
 	{
 		free(str);
-		return (0);
+		return (parse_err_mem());
 	}
 	ft_lstadd_back(cmd_line_list_ptr, new_lst);
 	return (1);
@@ -40,7 +40,7 @@ int	case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status)
 		return (parse_unexpected_err());
 	redi = malloc(sizeof(t_redi));
 	if (!redi)
-		return (0);
+		return (parse_err_mem());
 	redi->redi_status = redi_status;
 	redi->arg = get_word_move_addr(one_cmd_ptr);
 	if (!redi->arg)
@@ -90,7 +90,10 @@ t_cmd	*parse_one_cmd(char *one_cmd, char ***env_ptr)
 	while (*one_cmd)
 	{
 		if (!_isspace(*one_cmd))
-			fill_cmd_redi_list(&one_cmd, &cmd_line_list, &redi_list);
+		{
+			if (!fill_cmd_redi_list(&one_cmd, &cmd_line_list, &redi_list))
+				return (0);
+		}
 		else
 			one_cmd++;
 	}
@@ -104,24 +107,20 @@ int	parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr)
 	t_cmd	*cmd;
 	t_list	*new_lst;
 
-	skip_space(&line);
-	if (!*line)
-		return (0);
-	cmd_arr = ft_split(line, '|');
-	if (!cmd_arr)
-		return (0);
+	if (!parse_init(&line, &cmd_arr))
+		return (1);
 	i = 0;
 	while (cmd_arr[i])
 	{
 		cmd = parse_one_cmd(cmd_arr[i], env_ptr);
 		if (!cmd)
-			return (err_parse_cmd(cmd_arr));
+			return (parse_err_cmd(cmd_arr));
 		new_lst = ft_lstnew(cmd);
 		if (!new_lst)
-			return (mem_err_parse_cmd(cmd_arr, cmd));
+			return (parse_err_mem2(cmd_arr, cmd));
 		ft_lstadd_back(cmd_list_ptr, new_lst);
 		i++;
 	}
 	_free_split(cmd_arr);
-	return (1);
+	return (0);
 }

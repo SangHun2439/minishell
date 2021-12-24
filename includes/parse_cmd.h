@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 00:00:43 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/18 00:47:00 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/24 09:52:30 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define PARSE_CMD_H
 
 # include "libft.h"
-# include "my_errno.h"
+# include <errno.h>
+# include <string.h>
 # include <unistd.h>
 
 typedef struct	s_cmd
@@ -42,6 +43,8 @@ typedef struct s_redi
 # define REDIRECT_APPEND 4
 # define PIPE 5
 
+# define EPARSE 258
+
 int		_isspace(char chr);
 int		is_multi_cmd(char *str);
 void	redi_move_ptr(char **line_ptr, int redi_status);
@@ -54,11 +57,13 @@ int		mem_err_redi2(t_redi *redi);
 void	_free_split(char **str_arr);
 int		fill_cmd_redi_list(char **one_cmd_ptr, \
 t_list **cmd_line_list_ptr, t_list **redi_list_ptr);
-int		err_parse_cmd(char **cmd_arr);
-int		mem_err_parse_cmd(char **cmd_arr, t_cmd *cmd);
-void	skip_space(char **line_ptr);
+int		parse_init(char **line_ptr, char ***cmd_arr_ptr);
 int		case_cmd(char **one_cmd_ptr, t_list **cmd_line_list_ptr);
 int		case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status);
 char	*get_word_move_addr(char **str_ptr);
+void	perr_and_init(char *info);
+int		parse_err_mem(void);
+int		parse_err_cmd(char **cmd_arr);
+int		parse_err_mem2(char **cmd_arr, t_cmd *cmd);
 
 #endif

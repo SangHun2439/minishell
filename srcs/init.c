@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 21:11:45 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/12 14:50:07 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/18 01:26:11 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ char	**env_cpy(char **src)
 		env_cnt++;
 	res = (char **)malloc(sizeof(char *) * (env_cnt + 1));
 	if (!res)
-		return (err_handle3());
+		return (init_err());
 	i = 0;
 	while (i < env_cnt)
 	{
 		len = ft_strlen(src[i]);
 		res[i] = (char *)malloc(sizeof(char) * (len + 1));
 		if (!res[i])
-			return (err_handle3());
+			return (init_err());
 		res[i] = ft_memcpy(res[i], src[i], len + 1);
 		i++;
 	}

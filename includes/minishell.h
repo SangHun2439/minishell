@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:36:00 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/17 20:01:36 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/22 13:44:10 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "libft.h"
 # include "signal_handler.h"
 # include "parse_cmd.h"
-# include "my_errno.h"
+# include <errno.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <unistd.h>
@@ -42,7 +42,7 @@ int	g_last_status;
 
 void	err_handle1(void);
 int		err_handle2(void);
-void	parse_error(void);
+void	*init_err(void);
 int		parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr);
 void	print_cmd_info(void *content);
 void	del_cmd(void *content);

@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err_handle.c                                       :+:      :+:    :+:   */
+/*   parse_cmd_errhandle.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/05 11:02:34 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/22 13:48:30 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/12/17 16:25:51 by sangjeon          #+#    #+#             */
+/*   Updated: 2021/12/24 09:52:01 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parse_cmd.h"
 
-void	err_handle1(void)
+int	parse_err_mem(void)
 {
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	exit(1);
+	perr_and_init(0);
+	return (0);
 }
 
-int	err_handle2(void)
+int	parse_err_cmd(char **cmd_arr)
 {
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
+	_free_split(cmd_arr);
 	return (1);
+}
+
+int	parse_err_mem2(char **cmd_arr, t_cmd *cmd)
+{
+	perr_and_init(0);
+	_free_split(cmd_arr);
+	_free_split(cmd->argv);
+	ft_lstclear(&(cmd->redi_list), del_redi_one);
+	return (1);
+}
+
+int	parse_unexpected_err(void)
+{
+	errno = EPARSE;
+	perr_and_init(0);
+	return (0);
 }

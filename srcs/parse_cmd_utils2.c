@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 21:02:43 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/18 00:47:52 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/24 09:09:43 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ int	list_clear(t_list **cmd_line_list_ptr, t_list **redi_list_ptr)
 	return (0);
 }
 
-void	skip_space(char **line_ptr)
-{
-	while (**line_ptr && _isspace(**line_ptr))
-		(*line_ptr)++;
-}
-
 void	_free_split(char **str_arr)
 {
 	int	i;
@@ -33,25 +27,6 @@ void	_free_split(char **str_arr)
 	while (str_arr[i])
 		free(str_arr[i++]);
 	free(str_arr);
-}
-
-int	fill_cmd_redi_list(char **one_cmd_ptr, \
-t_list **cmd_line_list_ptr, t_list **redi_list_ptr)
-{
-	int		redi_status;
-
-	redi_status = is_multi_cmd(*one_cmd_ptr);
-	if (!redi_status)
-	{
-		if (!case_cmd(one_cmd_ptr, cmd_line_list_ptr))
-			return (list_clear(cmd_line_list_ptr, redi_list_ptr));
-	}
-	else
-	{
-		if (!case_redi(one_cmd_ptr, redi_list_ptr, redi_status))
-			return (list_clear(cmd_line_list_ptr, redi_list_ptr));
-	}
-	return (1);
 }
 
 char	*get_word_move_addr(char **str_ptr)

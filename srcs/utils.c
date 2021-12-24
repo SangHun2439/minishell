@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/17 21:33:58 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/22 13:51:33 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ char	*get_full_path(char *each_cmd, char *each_path)
 
 	tmp = ft_strjoin(each_path, "/");
 	if (!tmp)
-		return (err_handle3());
+		return (0);
 	full_path = ft_strjoin(tmp, each_cmd);
 	free(tmp);
 	if (!full_path)
-		return (err_handle3());
+		return (0);
 	return(full_path);
 }

@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 00:00:30 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/24 08:53:40 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/27 21:21:15 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	_isspace(char chr)
 	return (0);
 }
 
-int	is_multi_cmd(char *str)
+int	is_multi_cmd(const char *str)
 {
 	if (!ft_strncmp(">>", str, 2))
 		return (REDIRECT_APPEND);

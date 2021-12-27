@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 00:59:16 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/24 09:51:02 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/27 22:18:02 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	case_cmd(char **one_cmd_ptr, t_list **cmd_line_list_ptr)
 		return (parse_err_mem());
 	}
 	ft_lstadd_back(cmd_line_list_ptr, new_lst);
-	return (1);
+	return (0);
 }
 
 int	case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status)
@@ -37,7 +37,7 @@ int	case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status)
 
 	redi_move_ptr(one_cmd_ptr, redi_status);
 	if (!**one_cmd_ptr || is_multi_cmd(*one_cmd_ptr))
-		return (parse_unexpected_err());
+		return (parse_unexpected_err(*one_cmd_ptr));
 	redi = malloc(sizeof(t_redi));
 	if (!redi)
 		return (parse_err_mem());
@@ -49,55 +49,58 @@ int	case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status)
 	if (!new_lst)
 		return (mem_err_redi2(redi));
 	ft_lstadd_back(redi_list_ptr, new_lst);
-	return (1);
+	return (0);
 }
 
-t_cmd	*init_cmd(t_list *cmd_line_list, t_list *redi_list, char ***env_ptr)
+int	init_cmd(t_list *cmd_line_list, t_list *redi_list, char ***env_ptr, \
+t_cmd **cmd_ptr)
 {
-	t_cmd	*cmd;
 	t_list	*lst;
 
 	if (!cmd_line_list && !redi_list)
 		return (0);
-	cmd = (t_cmd *)malloc(sizeof(t_cmd));
-	if (!cmd)
-		return (0);
-	cmd->argv = list_to_arr(cmd_line_list);
+	*cmd_ptr = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!*cmd_ptr)
+		return (EMEMLACK);
+	(*cmd_ptr)->argv = list_to_arr(cmd_line_list);
 	while (cmd_line_list)
 	{
 		lst = cmd_line_list;
 		cmd_line_list = cmd_line_list->next;
 		free(lst);
 	}
-	if (!cmd->argv)
+	if (!(*cmd_ptr)->argv)
 	{
-		free(cmd);
+		free(*cmd_ptr);
 		list_clear(&cmd_line_list, &redi_list);
-		return (0);
+		return (EMEMLACK);
 	}
-	cmd->redi_list = redi_list;
-	cmd->env_ptr = env_ptr;
-	return (cmd);
+	(*cmd_ptr)->redi_list = redi_list;
+	(*cmd_ptr)->env_ptr = env_ptr;
+	return (0);
 }
 
-t_cmd	*parse_one_cmd(char *one_cmd, char ***env_ptr)
+int	parse_one_cmd(char *one_cmd, char ***env_ptr, t_cmd **cmd_ptr)
 {
 	t_list	*cmd_line_list;
 	t_list	*redi_list;
+	int		res;
 
 	cmd_line_list = 0;
 	redi_list = 0;
+	res = 0;
 	while (*one_cmd)
 	{
 		if (!_isspace(*one_cmd))
 		{
-			if (!fill_cmd_redi_list(&one_cmd, &cmd_line_list, &redi_list))
-				return (0);
+			res = fill_cmd_redi_list(&one_cmd, &cmd_line_list, &redi_list);
+			if (res != 0)
+				return (res);
 		}
 		else
 			one_cmd++;
 	}
-	return (init_cmd(cmd_line_list, redi_list, env_ptr));
+	return (init_cmd(cmd_line_list, redi_list, env_ptr, cmd_ptr));
 }
 
 int	parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr)
@@ -106,15 +109,17 @@ int	parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr)
 	int		i;
 	t_cmd	*cmd;
 	t_list	*new_lst;
+	int		res;
 
-	if (!parse_init(&line, &cmd_arr))
-		return (1);
+	res = parse_init(&line, &cmd_arr);
+	if (res != 0)
+		return (res);
 	i = 0;
 	while (cmd_arr[i])
 	{
-		cmd = parse_one_cmd(cmd_arr[i], env_ptr);
-		if (!cmd)
-			return (parse_err_cmd(cmd_arr));
+		res = parse_one_cmd(cmd_arr[i], env_ptr, &cmd);
+		if (res != 0)
+			return (parse_err_cmd(cmd_arr, res));
 		new_lst = ft_lstnew(cmd);
 		if (!new_lst)
 			return (parse_err_mem2(cmd_arr, cmd));

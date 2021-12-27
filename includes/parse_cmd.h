@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 00:00:43 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/24 09:52:30 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/27 21:53:05 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,16 @@ typedef struct s_redi
 # define PIPE 5
 
 # define EPARSE 258
+# define EMEMLACK 1
+
+# define EMPTYLINE -1
 
 int		_isspace(char chr);
-int		is_multi_cmd(char *str);
+int		is_multi_cmd(const char *str);
 void	redi_move_ptr(char **line_ptr, int redi_status);
 char	**list_to_arr(t_list *list);
 int	list_clear(t_list **cmd_line_list_ptr, t_list **redi_list_ptr);
 void	del_redi_one(void *content);
-int		parse_unexpected_err(void);
 int		mem_err_redi(t_redi *redi);
 int		mem_err_redi2(t_redi *redi);
 void	_free_split(char **str_arr);
@@ -61,9 +63,10 @@ int		parse_init(char **line_ptr, char ***cmd_arr_ptr);
 int		case_cmd(char **one_cmd_ptr, t_list **cmd_line_list_ptr);
 int		case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status);
 char	*get_word_move_addr(char **str_ptr);
-void	perr_and_init(char *info);
+void	perr_and_init(void);
 int		parse_err_mem(void);
-int		parse_err_cmd(char **cmd_arr);
+int	parse_err_cmd(char **cmd_arr, int res);
 int		parse_err_mem2(char **cmd_arr, t_cmd *cmd);
+int		parse_unexpected_err(const char *one_cmd);
 
 #endif

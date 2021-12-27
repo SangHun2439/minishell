@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/22 13:51:33 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/27 22:40:52 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,43 +57,4 @@ void	free_split(char **str_arr)
 	while (str_arr[i])
 		free(str_arr[i++]);
 	free(str_arr);
-}
-
-int	file_exist(char *path)
-{
-	struct stat	buf;
-
-	if (!stat(path, &buf))
-		return (1);
-	else
-		return (0);
-}
-
-int	get_child_return(pid_t pid, char *full_path)
-{
-	int	status;
-
-	status = 0;
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		g_last_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		g_last_status = 128 + WTERMSIG(status);
-	free(full_path);
-	return (EXIST);
-}
-
-char	*get_full_path(char *each_cmd, char *each_path)
-{
-	char	*tmp;
-	char	*full_path;
-
-	tmp = ft_strjoin(each_path, "/");
-	if (!tmp)
-		return (0);
-	full_path = ft_strjoin(tmp, each_cmd);
-	free(tmp);
-	if (!full_path)
-		return (0);
-	return(full_path);
 }

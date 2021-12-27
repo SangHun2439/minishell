@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:25:51 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/27 21:45:21 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/28 00:35:13 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,11 @@ int	parse_unexpected_err(const char *one_cmd)
 	ft_putstr_fd("parse error near ", STDERR_FILENO);
 	ft_putstr_fd(info, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
+	return (EPARSE);
+}
+
+int	parse_unexpected_err2(void)
+{
+	ft_putstr_fd("parse error near '|'\n", STDERR_FILENO);
 	return (EPARSE);
 }

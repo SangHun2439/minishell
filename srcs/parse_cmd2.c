@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:04:30 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/27 21:53:09 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/28 00:39:32 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	parse_init(char **line_ptr, char ***cmd_arr_ptr)
 		(*line_ptr)++;
 	if (!(**line_ptr))
 		return (EMPTYLINE);
+	if (**line_ptr == '|')
+		return (parse_unexpected_err2());
 	*cmd_arr_ptr = ft_split(*line_ptr, '|');
 	if (!*cmd_arr_ptr)
 		return (parse_err_mem());

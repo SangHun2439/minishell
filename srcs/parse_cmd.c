@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 00:59:16 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/27 22:18:02 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/28 00:35:32 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_cmd **cmd_ptr)
 	t_list	*lst;
 
 	if (!cmd_line_list && !redi_list)
-		return (0);
+		return (parse_unexpected_err2());
 	*cmd_ptr = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!*cmd_ptr)
 		return (EMEMLACK);

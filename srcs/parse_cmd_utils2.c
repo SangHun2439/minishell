@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 21:02:43 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/24 09:09:43 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/27 23:29:36 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,13 @@ char	*get_word_move_addr(char **str_ptr)
 		word[i++] = *tmp++;
 	word[i] = 0;
 	return (word);
+}
+
+void	perr_and_init(void)
+{
+	if (!errno)
+		return ;
+	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	errno = 0;
 }

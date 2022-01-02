@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:30:38 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/28 00:53:10 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/03 08:46:21 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	exec_util(t_cmd *cmd, char **path)
 		if (file_exist(full_path))
 		{
 			pid = fork();
+			if (pid == -1)
+				return (execve_err());
 			if (pid == 0)
 			{
 				if (execve(full_path, cmd->argv, *(cmd->env_ptr)) == -1)
@@ -62,14 +64,14 @@ int	exec_util(t_cmd *cmd, char **path)
 	return (NOCMD);
 }
 
-int	exec_ft_with_redi(t_cmd *cmd, char **path)
+int	exec_ft_with_redi(t_cmd *cmd, char **path, int num)
 {
 	int	res;
 	int	fd_stdout;
 	int	fd_stdin;
 
 	save_fd_std(&fd_stdout, &fd_stdin);
-	res = redirect(cmd->redi_list);
+	res = redirect(cmd->redi_list, num);
 	if (res != 0)
 		return (end_exec_ft(res, fd_stdout, fd_stdin));
 	res = exec_builtin(cmd, path);
@@ -84,12 +86,12 @@ int	exec_ft_with_redi(t_cmd *cmd, char **path)
 	return (end_exec_ft(res, fd_stdout, fd_stdin));
 }
 
-int	exec_ft(t_cmd *cmd, char **path)
+int	exec_ft(t_cmd *cmd, char **path, int num)
 {
 	int	res;
 
 	if (cmd->redi_list)
-		return (exec_ft_with_redi(cmd, path));
+		return (exec_ft_with_redi(cmd, path, num));
 	res = exec_builtin(cmd, path);
 	if (res != NOCMD)
 		return (res);
@@ -113,7 +115,7 @@ int	exec_cmd(t_list *cmd_list)
 	if (!path)
 		return (1);
 	if (!cmd_list->next)
-		res = exec_ft(cmd_list->content, path);
+		res = exec_ft(cmd_list->content, path, 0);
 	else
 		// res = exec_pipe(cmd_list, path);
 		res = 0;

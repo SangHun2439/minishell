@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 23:21:43 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/28 00:44:45 by sangjeon         ###   ########.fr       */
+/*   Updated: 2021/12/31 09:00:22 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ int	end_redirect_err(void)
 
 int	execve_err(void)
 {
+	exec_perr_and_init();
+	return (1);
+}
+
+int	end_heredoc_err(char *fname)
+{
+	free(fname);
 	exec_perr_and_init();
 	return (1);
 }

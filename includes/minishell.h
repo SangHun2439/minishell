@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:36:00 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:44:00 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/03 22:31:13 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <limits.h>
 
 int	g_last_status;
 
@@ -76,5 +77,17 @@ int		init(char **argv, t_list **cmd_list_ptr, \
 char **environ, char ***my_environ);
 void	sig_handler(int sig);
 void	*err_handle3(void);
+
+/* builtin */
+
+int		ft_echo(t_cmd *cmd);
+int		ft_env(t_cmd *cmd);
+int		ft_exit(t_cmd *cmd);
+int		ft_export(t_cmd *cmd);
+int		ft_pwd(void);
+/*
+int		ft_unset();
+int		ft_cd();
+*/
 
 #endif

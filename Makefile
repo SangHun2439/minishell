@@ -13,7 +13,10 @@ SRC_NAME = main read_cmd sig_handler init init_err \
 			./parse_cmd/parse_cmd ./parse_cmd/parse_cmd2 ./parse_cmd/parse_cmd_utils \
 			./parse_cmd/parse_cmd_utils2 ./parse_cmd/parse_cmd_errhandle ./parse_cmd/parse_cmd_errhandle2 \
 			./exec_cmd/exec_cmd ./exec_cmd/exec_cmd2 ./exec_cmd/exec_cmd_utils \
-			./exec_cmd/exec_cmd_utils2 ./exec_cmd/exec_cmd_redi ./exec_cmd/exec_cmd_end
+			./exec_cmd/exec_cmd_utils2 ./exec_cmd/exec_cmd_redi ./exec_cmd/exec_cmd_end \
+			./builtin/ft_echo ./builtin/ft_pwd ./builtin/ft_export \
+			./builtin/ft_env ./builtin/ft_exit
+
 SRCS = $(addsuffix .c ,$(addprefix $(SRC_DIR), $(SRC_NAME)))
 OBJS = $(SRCS:.c=.o)
 

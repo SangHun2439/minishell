@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/06 16:12:54 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/03 11:33:26 by jeson            ###   ########.fr       */
+/*   Created: 2022/01/03 10:32:22 by jeson             #+#    #+#             */
+/*   Updated: 2022/01/03 15:45:54 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_pwd(void)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char	*pwd;
+	unsigned char c1;
+	unsigned char c2;
 
-	pwd = getcwd(0, 256);
-	if (!pwd)
+	while (1)
 	{
-		ft_putendl_fd("fail to get current directory", 1);
-		return (0);
+		c1 = *s1++;
+		c2 = *s2++;
+		if (c1 != c2)
+			return (1);
+		if (!c2)
+			break ;
 	}
-	else
-	{
-		ft_putendl_fd(pwd, 1);
-		free(pwd);
-		return (0);
-	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 16:28:55 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/03 22:35:14 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int argc, char **argv)
 	if (argc != 1)
 		return (0);
 	init(argv, &cmd_list, environ, &my_environ);
-	sleep(1000);
 	environ = my_environ;
 	while (1)
 	{

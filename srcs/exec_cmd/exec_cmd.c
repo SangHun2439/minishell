@@ -6,11 +6,11 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:30:38 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 08:46:21 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/03 15:44:17 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec_cmd.h"
+#include "minishell.h"
 
 int	exec_builtin(t_cmd *cmd, char **path)
 {
@@ -56,7 +56,7 @@ int	exec_util(t_cmd *cmd, char **path)
 					return (execve_err());
 			}
 			if (pid > 0)
-				return (get_child_return(pid, full_path));
+				return (parents_do(pid, full_path));
 		}
 		free(full_path);
 		path++;
@@ -108,9 +108,13 @@ int	exec_cmd(t_list *cmd_list)
 {
 	int		res;
 	char	**path;
+	char	*path_str;
 
 	if (!cmd_list)
 		return (0);
+	path_str = getenv("PATH");
+	// if (!path_str)
+	// 	return (exec_path_err())
 	path = ft_split(getenv("PATH"), ':');
 	if (!path)
 		return (1);

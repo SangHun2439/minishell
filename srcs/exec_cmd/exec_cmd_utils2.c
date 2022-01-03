@@ -6,11 +6,11 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 23:30:20 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/31 09:27:45 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/03 13:08:04 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec_cmd.h"
+#include "minishell.h"
 
 void	exec_perr_and_init(void)
 {

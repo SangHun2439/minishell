@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 21:11:45 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/18 01:26:11 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/03 15:44:55 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	init(char **argv, t_list **cmd_list_ptr, char **environ, char ***my_environ)
 	*cmd_list_ptr = 0;
 	g_last_status = 0;
 	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
+	signal(SIGTERM, sig_handler);
 	*my_environ = env_cpy(environ);
 	return (0);
 }

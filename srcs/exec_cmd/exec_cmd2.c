@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.h                                   :+:      :+:    :+:   */
+/*   exec_cmd2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/03 12:00:15 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/22 13:44:24 by sangjeon         ###   ########.fr       */
+/*   Created: 2022/01/03 14:39:58 by sangjeon          #+#    #+#             */
+/*   Updated: 2022/01/03 15:45:53 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_HANDLER_H
-# define SIGNAL_HANDLER_H
+#include "minishell.h"
 
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
-# include <errno.h>
+int	parents_do(pid_t pid, char *full_path)
+{
+	int		status;
+	int		res;
 
-void	sig_handler(int sig);
-
-#endif
+	free(full_path);
+	res = 0;
+	status = 0;
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		res = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		res = 128 + WTERMSIG(status);
+	return (res);
+}

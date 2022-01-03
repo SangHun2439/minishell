@@ -6,11 +6,11 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 21:56:46 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/31 09:39:29 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/03 13:07:55 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec_cmd.h"
+#include "minishell.h"
 
 int	redirect_append(char *arg)
 {

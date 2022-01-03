@@ -6,11 +6,11 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 22:40:32 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/28 00:58:32 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/03 15:09:28 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec_cmd.h"
+#include "minishell.h"
 
 int	file_exist(char *path)
 {
@@ -20,22 +20,6 @@ int	file_exist(char *path)
 		return (1);
 	else
 		return (0);
-}
-
-int	get_child_return(pid_t pid, char *full_path)
-{
-	int	status;
-	int	res;
-
-	res = 0;
-	status = 0;
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		res = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		res = 128 + WTERMSIG(status);
-	free(full_path);
-	return (res);
 }
 
 char	*get_full_path(char *each_cmd, char *each_path)

@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_cmd.c                                         :+:      :+:    :+:   */
+/*   exec_cmd_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 18:10:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:41:40 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/12/31 09:45:48 by sangjeon          #+#    #+#             */
+/*   Updated: 2022/01/03 13:07:58 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "read_cmd.h"
+#include "minishell.h"
 
-void	eof_handler(void)
+int	exec_pipe(t_list *cmd_list, char **path)
 {
-	ft_putstr_fd("exit minishell\n", 1);
-	exit(0);
-}
+	int	pipe_fd[2];
 
-char	*rl_gets(void)
-{
-	static char	*line_read;
-	extern int	rl_catch_signals;
-
-	rl_catch_signals = 0;
-	if (line_read)
+	while (cmd_list)
 	{
-		free(line_read);
-		line_read = 0;
+		cmd_list = cmd_list->next;
 	}
-	line_read = readline("eakshell~");
-	if (!line_read)
-		eof_handler();
-	if (line_read && *line_read)
-		add_history(line_read);
-	return (line_read);
+	if(pipe(pipe_fd) == -1)
+		return (0);
 }

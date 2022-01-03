@@ -1,38 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_cmd.c                                         :+:      :+:    :+:   */
+/*   init_err.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 18:10:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:41:40 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/12/18 01:25:31 by sangjeon          #+#    #+#             */
+/*   Updated: 2021/12/18 01:26:02 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "read_cmd.h"
+#include "minishell.h"
 
-void	eof_handler(void)
+void	*init_err(void)
 {
-	ft_putstr_fd("exit minishell\n", 1);
-	exit(0);
-}
-
-char	*rl_gets(void)
-{
-	static char	*line_read;
-	extern int	rl_catch_signals;
-
-	rl_catch_signals = 0;
-	if (line_read)
-	{
-		free(line_read);
-		line_read = 0;
-	}
-	line_read = readline("eakshell~");
-	if (!line_read)
-		eof_handler();
-	if (line_read && *line_read)
-		add_history(line_read);
-	return (line_read);
+	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	exit(1);
+	return (0);
 }

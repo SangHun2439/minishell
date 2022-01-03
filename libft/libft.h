@@ -6,7 +6,7 @@
 /*   By: sangjeon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 08:56:05 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/08/10 18:42:14 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/03 22:15:36 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char			*ft_strnstr(const char *haystack, const char *needle, \
 		size_t len);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
+int				ft_strcmp(const char *s1, const char *s2);
 void			*ft_memccpy(void *dst, const void *src, int c, size_t n);
 int				ft_atoi(const char *str);
 void			*ft_memmove(void *dst, const void *src, size_t len);

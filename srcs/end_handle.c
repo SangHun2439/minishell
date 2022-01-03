@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_cmd.c                                         :+:      :+:    :+:   */
+/*   end_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 18:10:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:41:40 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/12/05 11:02:12 by sangjeon          #+#    #+#             */
+/*   Updated: 2021/12/18 00:48:46 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "read_cmd.h"
+#include "minishell.h"
 
-void	eof_handler(void)
+void	del_cmd(void *content)
 {
-	ft_putstr_fd("exit minishell\n", 1);
-	exit(0);
-}
+	t_cmd	*cmd;
 
-char	*rl_gets(void)
-{
-	static char	*line_read;
-	extern int	rl_catch_signals;
-
-	rl_catch_signals = 0;
-	if (line_read)
-	{
-		free(line_read);
-		line_read = 0;
-	}
-	line_read = readline("eakshell~");
-	if (!line_read)
-		eof_handler();
-	if (line_read && *line_read)
-		add_history(line_read);
-	return (line_read);
+	cmd = content;
+	free_split(cmd->argv);
+	ft_lstclear(&(cmd->redi_list), del_redi_one);
+	free(cmd);
 }

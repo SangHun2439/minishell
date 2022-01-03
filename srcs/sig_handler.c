@@ -6,29 +6,37 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 11:55:32 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/03 14:35:46 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/03 16:16:14 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signal_handler.h"
+#include "minishell.h"
 
 void	sigint_handler(void)
 {
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	int	status;
+
+	if (waitpid(-1, &status, WNOHANG) == -1 && errno == ECHILD)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		errno = 0;
+	}
+	else
+		write(STDOUT_FILENO, "\n", 1);
 }
 
-void	sigquit_handler(void)
+void	sigterm_handler(void)
 {
-	ft_putstr_fd("quit signal\n", 1);
+	// ft_putstr_fd("term signal\n", 1);
 }
 
 void	sig_handler(int sig)
 {
 	if (sig == SIGINT)
 		return (sigint_handler());
-	if (sig == SIGQUIT)
-		return (sigquit_handler());
+	if (sig == SIGTERM)
+		return (sigterm_handler());
 }

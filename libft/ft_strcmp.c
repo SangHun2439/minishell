@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_cmd.h                                         :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 18:16:37 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 22:31:04 by jeson            ###   ########.fr       */
+/*   Created: 2022/01/03 10:32:22 by jeson             #+#    #+#             */
+/*   Updated: 2022/01/03 15:45:54 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READ_CMD_H
-#define READ_CMD_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	unsigned char c1;
+	unsigned char c2;
 
-char	*rl_gets(void);
-
-#endif
+	while (1)
+	{
+		c1 = *s1++;
+		c2 = *s2++;
+		if (c1 != c2)
+			return (1);
+		if (!c2)
+			break ;
+	}
+	return (0);
+}

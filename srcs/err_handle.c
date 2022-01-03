@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_cmd.c                                         :+:      :+:    :+:   */
+/*   err_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 18:10:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:41:40 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/12/05 11:02:34 by sangjeon          #+#    #+#             */
+/*   Updated: 2021/12/22 13:48:30 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "read_cmd.h"
+#include "minishell.h"
 
-void	eof_handler(void)
+void	err_handle1(void)
 {
-	ft_putstr_fd("exit minishell\n", 1);
-	exit(0);
+	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	exit(1);
 }
 
-char	*rl_gets(void)
+int	err_handle2(void)
 {
-	static char	*line_read;
-	extern int	rl_catch_signals;
-
-	rl_catch_signals = 0;
-	if (line_read)
-	{
-		free(line_read);
-		line_read = 0;
-	}
-	line_read = readline("eakshell~");
-	if (!line_read)
-		eof_handler();
-	if (line_read && *line_read)
-		add_history(line_read);
-	return (line_read);
+	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	return (1);
 }

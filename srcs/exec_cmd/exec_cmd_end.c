@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.h                                   :+:      :+:    :+:   */
+/*   exec_cmd_end.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/03 12:00:15 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/03 12:07:54 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/12/27 23:21:43 by sangjeon          #+#    #+#             */
+/*   Updated: 2022/01/03 13:08:01 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_HANDLER_H
-# define SIGNAL_HANDLER_H
+#include "minishell.h"
 
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
+int	end_exec_ft(int res, int fd_stdout, int fd_stdin)
+{
+	getback_fd_std(fd_stdout, fd_stdin);
+	return (res);
+}
 
-void	sig_handler(int sig);
+int	end_redirect_err(void)
+{
+	exec_perr_and_init();
+	return (1);
+}
 
-#endif
+int	execve_err(void)
+{
+	exec_perr_and_init();
+	return (1);
+}
+
+int	end_heredoc_err(char *fname)
+{
+	free(fname);
+	exec_perr_and_init();
+	return (1);
+}

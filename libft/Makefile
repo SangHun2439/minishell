@@ -10,6 +10,7 @@ SRCS = $(SRCS_DIR)ft_memset.c \
 	   $(SRCS_DIR)ft_strrchr.c $(SRCS_DIR)ft_bzero.c \
 	   $(SRCS_DIR)ft_strnstr.c $(SRCS_DIR)ft_memcpy.c \
 	   $(SRCS_DIR)ft_strncmp.c $(SRCS_DIR)ft_memccpy.c \
+	   $(SRCS_DIR)ft_strcmp.c \
 	   $(SRCS_DIR)ft_atoi.c $(SRCS_DIR)ft_memmove.c \
 	   $(SRCS_DIR)ft_isalpha.c $(SRCS_DIR)ft_memchr.c \
 	   $(SRCS_DIR)ft_isdigit.c $(SRCS_DIR)ft_memcmp.c \

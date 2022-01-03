@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_cmd.h                                         :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 18:16:37 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 22:31:04 by jeson            ###   ########.fr       */
+/*   Created: 2021/12/06 16:12:54 by jeson             #+#    #+#             */
+/*   Updated: 2022/01/03 11:33:26 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READ_CMD_H
-#define READ_CMD_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
+int	ft_pwd(void)
+{
+	char	*pwd;
 
-char	*rl_gets(void);
-
-#endif
+	pwd = getcwd(0, 256);
+	if (!pwd)
+	{
+		ft_putendl_fd("fail to get current directory", 1);
+		return (0);
+	}
+	else
+	{
+		ft_putendl_fd(pwd, 1);
+		free(pwd);
+		return (0);
+	}
+}

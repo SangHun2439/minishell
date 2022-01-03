@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_cmd.c                                         :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 18:10:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:41:40 by sangjeon         ###   ########.fr       */
+/*   Created: 2021/12/06 16:01:43 by jeson             #+#    #+#             */
+/*   Updated: 2022/01/03 12:40:52 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "read_cmd.h"
+#include "minishell.h"
 
-void	eof_handler(void)
+int	ft_env(t_cmd *cmd)
 {
-	ft_putstr_fd("exit minishell\n", 1);
-	exit(0);
-}
+	char **envs;
 
-char	*rl_gets(void)
-{
-	static char	*line_read;
-	extern int	rl_catch_signals;
-
-	rl_catch_signals = 0;
-	if (line_read)
-	{
-		free(line_read);
-		line_read = 0;
-	}
-	line_read = readline("eakshell~");
-	if (!line_read)
-		eof_handler();
-	if (line_read && *line_read)
-		add_history(line_read);
-	return (line_read);
+	envs = *(cmd->env_ptr);
+	while (*envs)
+		ft_putendl_fd(*envs++, 1);
+	return (0);
 }

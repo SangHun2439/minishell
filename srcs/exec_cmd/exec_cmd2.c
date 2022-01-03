@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_cmd.c                                         :+:      :+:    :+:   */
+/*   exec_cmd2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 18:10:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:41:40 by sangjeon         ###   ########.fr       */
+/*   Created: 2022/01/03 14:39:58 by sangjeon          #+#    #+#             */
+/*   Updated: 2022/01/03 15:45:53 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "read_cmd.h"
+#include "minishell.h"
 
-void	eof_handler(void)
+int	parents_do(pid_t pid, char *full_path)
 {
-	ft_putstr_fd("exit minishell\n", 1);
-	exit(0);
-}
+	int		status;
+	int		res;
 
-char	*rl_gets(void)
-{
-	static char	*line_read;
-	extern int	rl_catch_signals;
-
-	rl_catch_signals = 0;
-	if (line_read)
-	{
-		free(line_read);
-		line_read = 0;
-	}
-	line_read = readline("eakshell~");
-	if (!line_read)
-		eof_handler();
-	if (line_read && *line_read)
-		add_history(line_read);
-	return (line_read);
+	free(full_path);
+	res = 0;
+	status = 0;
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		res = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		res = 128 + WTERMSIG(status);
+	return (res);
 }

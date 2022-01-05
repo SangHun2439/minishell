@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:36:00 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 22:31:13 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/05 13:39:10 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "read_cmd.h"
 # include "libft.h"
-# include "parse_cmd.h"
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -26,6 +25,19 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <limits.h>
+
+typedef struct	s_cmd
+{
+	char	**argv;
+	t_list	*redi_list;
+	char	***env_ptr;
+}	t_cmd;
+
+typedef struct s_redi
+{
+	char	redi_status;
+	char	*arg;
+}	t_redi;
 
 int	g_last_status;
 
@@ -44,6 +56,17 @@ int	g_last_status;
 # define RPIPE 0
 # define WPIPE 1
 
+# define REDIRECT_INPUT 1
+# define REDIRECT_OUTPUT 2
+# define REDIRECT_HEREDOC 3
+# define REDIRECT_APPEND 4
+
+# define EPARSE 258
+# define EMEMLACK 1
+
+# define EMPTYLINE -1
+
+/* exec_cmd */
 int		redirect(t_list *redi_list, int num);
 int		redirect_append(char *arg);
 int		redirect_heredoc(char *arg, int num);
@@ -66,6 +89,32 @@ void	exec_free_split(char **str_arr);
 char	*get_tmpf_name(int num);
 int		end_heredoc_err(char *fname);
 void	rlw_tmpf(int fd, char *arg);
+/* exec_cmd */
+
+/* parser */
+int		parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr);
+int		_isspace(char chr);
+int		is_multi_cmd(const char *str);
+void	redi_move_ptr(char **line_ptr, int redi_status);
+char	**list_to_arr(t_list *list);
+int		list_clear(t_list **cmd_line_list_ptr, t_list **redi_list_ptr);
+void	del_redi_one(void *content);
+int		mem_err_redi(t_redi *redi);
+int		mem_err_redi2(t_redi *redi);
+void	_free_split(char **str_arr);
+int		fill_cmd_redi_list(char **one_cmd_ptr, \
+t_list	**cmd_line_list_ptr, t_list **redi_list_ptr);
+int		parse_init(char **line_ptr, char ***cmd_arr_ptr);
+int		case_cmd(char **one_cmd_ptr, t_list **cmd_line_list_ptr);
+int		case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status);
+char	*get_word_move_addr(char **str_ptr);
+void	perr_and_init(void);
+int		parse_err_mem(void);
+int		parse_err_cmd(char **cmd_arr, int res);
+int		parse_err_mem2(char **cmd_arr, t_cmd *cmd);
+int		parse_unexpected_err(const char *one_cmd);
+int		parse_unexpected_err2(void);
+/* parser */
 
 void	err_handle1(void);
 int		err_handle2(void);

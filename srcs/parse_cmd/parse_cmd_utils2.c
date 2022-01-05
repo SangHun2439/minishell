@@ -6,11 +6,11 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 21:02:43 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/27 23:29:36 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/05 13:39:18 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_cmd.h"
+#include "minishell.h"
 
 int	list_clear(t_list **cmd_line_list_ptr, t_list **redi_list_ptr)
 {
@@ -29,6 +29,10 @@ void	_free_split(char **str_arr)
 	free(str_arr);
 }
 
+// char	*get_word_move_addr(char **str_ptr)
+// {
+// 	char	buff
+// }
 char	*get_word_move_addr(char **str_ptr)
 {
 	char	*tmp;

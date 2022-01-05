@@ -6,13 +6,13 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2021/12/07 17:25:32 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/05 11:33:42 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.c"
 
-int	ft_cd()
+int	ft_cd(t_cmd	*cmd)
 {
-	
+	d
 }

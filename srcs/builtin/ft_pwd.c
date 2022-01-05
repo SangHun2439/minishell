@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 16:12:54 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/03 11:33:26 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/05 11:45:47 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_pwd(void)
 	if (!pwd)
 	{
 		ft_putendl_fd("fail to get current directory", 1);
-		return (0);
+		return (1);
 	}
 	else
 	{

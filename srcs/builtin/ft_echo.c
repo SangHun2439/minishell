@@ -6,7 +6,11 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:16:56 by sangjeon          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/01/04 20:03:49 by jeson            ###   ########.fr       */
+=======
+/*   Updated: 2022/01/03 16:19:54 by jeson            ###   ########.fr       */
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +76,11 @@ int	ft_echo(t_cmd *cmd)
 			ft_echo_env(cmd->argv[i]);
 		else
 			ft_putstr_fd(cmd->argv[i], 1);
+<<<<<<< HEAD
 		if (cmd->argv[i + 1] != NULL)
+=======
+		if (cmd->argv[i] != NULL)
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 			ft_putstr_fd(" ", 1);
 		++i;
 	}

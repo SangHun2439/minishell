@@ -16,7 +16,10 @@ SRC_NAME = main read_cmd sig_handler init init_err \
 			./exec_cmd/exec_cmd_utils2 ./exec_cmd/exec_cmd_redi ./exec_cmd/exec_cmd_end \
 			./builtin/ft_echo ./builtin/ft_pwd ./builtin/ft_export \
 			./builtin/ft_env ./builtin/ft_exit
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 SRCS = $(addsuffix .c ,$(addprefix $(SRC_DIR), $(SRC_NAME)))
 OBJS = $(SRCS:.c=.o)
 

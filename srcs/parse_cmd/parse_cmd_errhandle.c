@@ -6,11 +6,11 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:25:51 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/28 00:35:13 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/05 13:37:59 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_cmd.h"
+#include "minishell.h"
 
 int	parse_err_mem(void)
 {

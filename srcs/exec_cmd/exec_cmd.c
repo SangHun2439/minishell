@@ -6,7 +6,11 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:30:38 by sangjeon          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/01/03 22:31:53 by jeson            ###   ########.fr       */
+=======
+/*   Updated: 2022/01/05 11:42:28 by sangjeon         ###   ########.fr       */
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +22,10 @@ int	exec_builtin(t_cmd *cmd, char **path)
 
 	cmd_name = cmd->argv[0];
 	(void)path;
+<<<<<<< HEAD
+=======
+	printf("it is builtin\n");
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 	if (!ft_strcmp(cmd_name, "echo"))
 	 	return (ft_echo(cmd));
 	/*else if (!ft_strcmp(cmd_name, "cd"))

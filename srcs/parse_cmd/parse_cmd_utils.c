@@ -6,11 +6,11 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 00:00:30 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/27 21:21:15 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/05 13:38:07 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_cmd.h"
+#include "minishell.h"
 
 int	_isspace(char chr)
 {

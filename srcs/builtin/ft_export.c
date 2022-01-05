@@ -6,7 +6,11 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/01/05 15:01:06 by jeson            ###   ########.fr       */
+=======
+/*   Updated: 2022/01/03 16:25:11 by jeson            ###   ########.fr       */
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +37,7 @@ void	print_export_no_argv(t_cmd *cmd)
 	}
 }
 
+<<<<<<< HEAD
 int		length_to_equ(char *s1)
 {
 	int	i;
@@ -88,6 +93,19 @@ void	export_override(t_cmd *cmd, char *argv_ptr)
 		i++;;
 	}
 }
+=======
+/*
+void	export_override(t_cmd *cmd, char *argv_ptr)
+{
+	char **argv_split;
+	char *key_tmp;
+
+	argv_split = ft_split(argv_ptr, '=');
+	key_tmp = *argv_split;
+	getenv
+}
+*/
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 
 int	is_valid(char *str)
 {
@@ -106,21 +124,30 @@ int	is_valid(char *str)
 		}
 		i++;
 	}
+<<<<<<< HEAD
 	if (cnt == 1 && idx != 0)
+=======
+	if (cnt == 1 && (idx != 0 && idx != (i - 1)))
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 		return (0);
 	return (1);
 }
 
 int	is_envs(char *tmp_env)
 {
+<<<<<<< HEAD
 	char **env_split;
 
 	env_split = ft_split(tmp_env, '=');
 	if (!getenv(*env_split))
+=======
+	if (!getenv(tmp_env))
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 		return (1);
 	return (0);
 }
 
+<<<<<<< HEAD
 char	**export_env(t_cmd *cmd, char *argv_ptr)
 {
 	int		len;
@@ -152,16 +179,23 @@ char	**export_env(t_cmd *cmd, char *argv_ptr)
 	return (env_cpy);
 }
 
+=======
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 int	ft_export(t_cmd *cmd)
 {
 	int	i;
 	int	res;
+<<<<<<< HEAD
 	int	flg_form;
 	char	**myenviron;
 
 	i = 1;
 	flg_form = 0;
 	myenviron = *cmd->env_ptr;
+=======
+
+	i = 1;
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 	if (!cmd->argv[1])
 	{
 		print_export_no_argv(cmd);
@@ -171,11 +205,17 @@ int	ft_export(t_cmd *cmd)
 	{
 		if (!is_valid(cmd->argv[i]))
 			res = is_envs(cmd->argv[i]);
+<<<<<<< HEAD
 		if (res == 0)
 			export_override(cmd, cmd->argv[i]);
 		else
 			*cmd->env_ptr = export_env(cmd, cmd->argv[i]);
 		i++;
+=======
+	/*	if (res == 0)
+			export_override(cmd, cmd->argv[i]);
+	*/	i++;
+>>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 	}
 	return (0);
 }

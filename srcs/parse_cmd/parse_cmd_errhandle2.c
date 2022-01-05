@@ -6,11 +6,11 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 08:49:56 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/27 21:24:03 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/05 13:38:04 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_cmd.h"
+#include "minishell.h"
 
 int	mem_err_redi(t_redi *redi)
 {

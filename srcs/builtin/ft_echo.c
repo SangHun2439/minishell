@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:16:56 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/04 20:03:49 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/06 19:04:08 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ int	isecho_nopt(char *echoopt)
 {
 	int	i;
 
-	if (ft_strlen(echoopt) < 2)
-		return (0);
-	if (ft_strncmp(echoopt, "-n", 2) != 0)
+	if (ft_strcmp(echoopt, "-n") != 0)
 		return (0);
 	i = 2;
 	while (echoopt[i])

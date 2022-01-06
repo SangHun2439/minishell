@@ -6,11 +6,8 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:36:00 by sangjeon          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/01/03 22:31:13 by jeson            ###   ########.fr       */
-=======
+/*   Updated: 2022/01/06 19:46:37 by jeson            ###   ########.fr       */
 /*   Updated: 2022/01/05 13:39:10 by sangjeon         ###   ########.fr       */
->>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +26,6 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <limits.h>
-<<<<<<< HEAD
-=======
 
 typedef struct	s_cmd
 {
@@ -44,7 +39,6 @@ typedef struct s_redi
 	char	redi_status;
 	char	*arg;
 }	t_redi;
->>>>>>> 2b92af95d14440155de3e5e750fa73c8572eb48b
 
 int	g_last_status;
 
@@ -141,9 +135,12 @@ int		ft_env(t_cmd *cmd);
 int		ft_exit(t_cmd *cmd);
 int		ft_export(t_cmd *cmd);
 int		ft_pwd(void);
-/*
 int		ft_unset();
+/*
 int		ft_cd();
 */
+
+/* env_utils */
+int		is_valid_str(char *str);
 
 #endif

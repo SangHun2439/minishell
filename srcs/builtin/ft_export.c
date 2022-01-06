@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/05 15:03:20 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/06 19:45:15 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,19 @@ void	print_export_no_argv(t_cmd *cmd)
 	char *key;
 	char *value;
 
-	envs = *(cmd->env_ptr);
+	envs = *cmd->env_ptr;
 	while (*envs)
 	{
 		split = ft_split(*envs++, '=');
-		key = *split++;
-		value = *split;
+		key = split[0];
+		value = split[1];
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(key, 1);
 		ft_putstr_fd("=\"", 1);
 		ft_putstr_fd(value, 1);
 		ft_putendl_fd("\"", 1);
+		while (*split)
+			free(*split++);
 	}
 }
 
@@ -38,7 +40,7 @@ int		length_to_equ(char *s1)
 	int	i;
 
 	i = 0;
-	while (s1[i] != '=')
+	while (s1[i] && s1[i] != '=')
 		i++;
 	return (i);
 }
@@ -58,7 +60,7 @@ void	export_override(t_cmd *cmd, char *argv_ptr)
 	while (myenv[i])
 	{
 		len = length_to_equ(myenv[i]);
-		if (!ft_strncmp(myenv[i], export_key, len))
+		if (!ft_strncmp(myenv[i], export_key, len + 1))
 		{
 			free(myenv[i]);
 			myenv[i] = (char *)malloc(sizeof(char) * (ft_strlen(argv_ptr) + 1));
@@ -66,9 +68,37 @@ void	export_override(t_cmd *cmd, char *argv_ptr)
 		}
 		i++;;
 	}
+	free(export_key);
 }
 
-int	is_valid(char *str)
+int	is_valid_str(char *str)
+{
+	int	i;
+	int	len_to_equ;
+	int	flg_valid_str;
+
+	flg_valid_str = 0;
+	len_to_equ = length_to_equ(str);
+	if (ft_isdigit(str[0]))
+		return (0);
+	i = 0;
+	while (i < len_to_equ)
+	{
+		if (ft_isalnum(str[i]) || str[i] == '_')
+			flg_valid_str = 1;
+		else
+		{
+			flg_valid_str = 0;
+			break ;
+		}
+		i++;
+	}
+	if (flg_valid_str == 1)
+		return (1);
+	return (0);
+}
+
+int	is_valid_form_export(char *str)
 {
 	int	i;
 	int idx;
@@ -76,6 +106,12 @@ int	is_valid(char *str)
 
 	i = 0;
 	cnt = 0;
+	if (!is_valid_str(str))
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
+		return (0);
+	}
 	while (str[i])
 	{
 		if (str[i] == '=')
@@ -86,21 +122,21 @@ int	is_valid(char *str)
 		i++;
 	}
 	if (cnt == 1 && idx != 0)
-		return (0);
-	return (1);
-}
-
-int	is_envs(char *tmp_env)
-{
-	char **env_split;
-
-	env_split = ft_split(tmp_env, '=');
-	if (!getenv(*env_split))
 		return (1);
 	return (0);
 }
 
-char	**export_env(t_cmd *cmd, char *argv_ptr)
+int	is_envs_export(char *tmp_env)
+{
+	char	**env_split;
+
+	env_split = ft_split(tmp_env, '=');
+	if (!getenv(env_split[0]))
+		return (0);
+	return (1);
+}
+
+char	**export_env(t_cmd *cmd, char *argv)
 {
 	int		len;
 	int		env_cnt;
@@ -125,8 +161,8 @@ char	**export_env(t_cmd *cmd, char *argv_ptr)
 		env_cpy[i] = ft_memcpy(env_cpy[i], myenv[i], (len + 1));
 		i++;
 	}
-	env_cpy[i] = (char *)malloc(sizeof(char) * (ft_strlen(argv_ptr) + 1));
-	env_cpy[i] = ft_memcpy(env_cpy[i], argv_ptr, ft_strlen(argv_ptr) + 1);
+	env_cpy[i] = (char *)malloc(sizeof(char) * (ft_strlen(argv) + 1));
+	env_cpy[i] = ft_memcpy(env_cpy[i], argv, ft_strlen(argv) + 1);
 	env_cpy[env_cnt + 1] = 0;
 	return (env_cpy);
 }
@@ -136,11 +172,9 @@ int	ft_export(t_cmd *cmd)
 	int	i;
 	int	res;
 	int	flg_form;
-	char	**myenviron;
 
 	i = 1;
 	flg_form = 0;
-	myenviron = *cmd->env_ptr;
 	if (!cmd->argv[1])
 	{
 		print_export_no_argv(cmd);
@@ -148,12 +182,15 @@ int	ft_export(t_cmd *cmd)
 	}
 	while (cmd->argv[i])
 	{
-		if (!is_valid(cmd->argv[i]))
-			res = is_envs(cmd->argv[i]);
-		if (res == 0)
-			export_override(cmd, cmd->argv[i]);
-		else
-			*cmd->env_ptr = export_env(cmd, cmd->argv[i]);
+		flg_form = is_valid_form_export(cmd->argv[i]);
+		if (flg_form == 1)
+		{
+			res = is_envs_export(cmd->argv[i]);
+			if (res == 1)
+				export_override(cmd, cmd->argv[i]);
+			else
+				*cmd->env_ptr = export_env(cmd, cmd->argv[i]);
+		}
 		i++;
 	}
 	return (0);

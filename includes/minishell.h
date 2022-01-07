@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/07 11:17:21 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/07 20:44:03 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_cmd
 	char	**argv;
 	t_list	*redi_list;
 	char	***env_ptr;
+	char	*home;
 }	t_cmd;
 
 typedef struct s_redi
@@ -96,7 +97,7 @@ void	rlw_tmpf(int fd, char *arg);
 /* exec_cmd */
 
 /* parser */
-int		parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr);
+int		parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr, char *homepath);
 int		_isspace(char chr);
 int		is_redi(const char *str);
 void	redi_move_ptr(char **line_ptr, int redi_status);
@@ -142,9 +143,9 @@ int		ft_exit(t_cmd *cmd);
 int		ft_export(t_cmd *cmd);
 int		ft_pwd(void);
 int		ft_unset(t_cmd * cmd);
+int		ft_cd(t_cmd *cmd);
+
 int		is_valid_str(char *str);
-/*
-int		ft_cd();
-*/
+void	export_override(t_cmd *cmd, char *argv_ptr);
 
 #endif

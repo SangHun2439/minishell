@@ -6,11 +6,21 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/06 22:37:46 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/07 19:22:59 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	length_to_equ_unset(const char *s1)
+{
+	size_t	len;
+
+	len = 0;
+	while (s1[len] != '=')
+		len++;
+	return (len);
+}
 
 int	is_valid_form_unset(char *str)
 {
@@ -38,24 +48,23 @@ int	is_envs_unset(char *tmp_env)
 char	**unset_env(t_cmd *cmd, char *argv)
 {
 	int	len;
-	int	env_cnt;
 	int	i;
 	int	j;
 	char **myenv;
 	char **env_cpy;
 
-	env_cnt = 0;
+	i = 0;
 	myenv = *cmd->env_ptr;
-	while (myenv[env_cnt])
-		env_cnt++;
-	env_cpy = (char **)malloc(sizeof(char *) * (env_cnt + 1));
+	while (myenv[i])
+		i++;
+	env_cpy = (char **)malloc(sizeof(char *) * i);
 	if (!env_cpy)
 		return (init_err());
 	i = -1;
 	j = -1;
 	while (myenv[++i])
 	{
-		len = ft_strlen(argv);
+		len = length_to_equ_unset(myenv[i]);
 		if (!ft_strncmp(myenv[i], argv, len))
 			i++;
 		j++;
@@ -65,7 +74,7 @@ char	**unset_env(t_cmd *cmd, char *argv)
 			return (init_err());
 		ft_memcpy(env_cpy[j], myenv[i], (len + 1));
 	}
-	env_cpy[j + 1] = 0;
+	env_cpy[i - 1] = 0;
 	return (env_cpy);
 }
 

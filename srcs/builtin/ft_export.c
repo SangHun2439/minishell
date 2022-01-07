@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/06 19:45:15 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/07 19:56:38 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	export_override(t_cmd *cmd, char *argv_ptr)
 	while (myenv[i])
 	{
 		len = length_to_equ(myenv[i]);
-		if (!ft_strncmp(myenv[i], export_key, len + 1))
+		if (!ft_strncmp(myenv[i], export_key, len))
 		{
 			free(myenv[i]);
 			myenv[i] = (char *)malloc(sizeof(char) * (ft_strlen(argv_ptr) + 1));
 			ft_memcpy(myenv[i], argv_ptr, ft_strlen(argv_ptr) + 1);
 		}
-		i++;;
+		i++;
 	}
 	free(export_key);
 }
@@ -193,5 +193,6 @@ int	ft_export(t_cmd *cmd)
 		}
 		i++;
 	}
+	printf("homepath : %s\n", cmd->home);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:25:51 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/05 13:37:59 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/07 11:18:05 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	parse_unexpected_err(const char *one_cmd)
 		info = "\\n";
 	else
 	{
-		status = is_multi_cmd(one_cmd);
+		status = is_redi(one_cmd);
 		if (status == REDIRECT_APPEND)
 			info = ">>";
 		else if (status == REDIRECT_INPUT)

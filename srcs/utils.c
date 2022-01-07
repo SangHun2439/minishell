@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/27 22:40:52 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/07 11:17:04 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,26 @@ void	free_split(char **str_arr)
 	while (str_arr[i])
 		free(str_arr[i++]);
 	free(str_arr);
+}
+
+char	*ft_strndup(const char *s1, size_t max)
+{
+	char			*res;
+	size_t			len;
+	size_t			i;
+
+	len = ft_strlen(s1);
+	if (len > max)
+		len = max;
+	res = (char *)malloc(sizeof(char) * (len + 1));
+	if (!res)
+		return (0);
+	i = 0;
+	while (s1[i] && i < max)
+	{
+		res[i] = s1[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }

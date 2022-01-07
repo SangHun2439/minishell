@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:04:30 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/05 13:38:24 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/07 08:56:17 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status)
 	t_list	*new_lst;
 
 	redi_move_ptr(one_cmd_ptr, redi_status);
-	if (!**one_cmd_ptr || is_multi_cmd(*one_cmd_ptr))
+	if (!**one_cmd_ptr || is_redi(*one_cmd_ptr))
 		return (parse_unexpected_err(*one_cmd_ptr));
 	redi = malloc(sizeof(t_redi));
 	if (!redi)
@@ -58,7 +58,7 @@ t_list **cmd_line_list_ptr, t_list **redi_list_ptr)
 	int		redi_status;
 	int		res;
 
-	redi_status = is_multi_cmd(*one_cmd_ptr);
+	redi_status = is_redi(*one_cmd_ptr);
 	if (!redi_status)
 		res = case_cmd(one_cmd_ptr, cmd_line_list_ptr);
 	else

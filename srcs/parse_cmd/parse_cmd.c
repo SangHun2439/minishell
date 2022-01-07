@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 00:59:16 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/05 13:38:20 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/07 11:16:41 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_cmd **cmd_ptr)
 		return (parse_unexpected_err2());
 	*cmd_ptr = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!*cmd_ptr)
-		return (EMEMLACK);
+		return (parse_err_mem3(&cmd_line_list, &redi_list));
 	(*cmd_ptr)->argv = list_to_arr(cmd_line_list);
 	while (cmd_line_list)
 	{
@@ -74,6 +74,9 @@ int	parse_one_cmd(char *one_cmd, char ***env_ptr, t_cmd **cmd_ptr)
 		else
 			one_cmd++;
 	}
+	// res = dollar_handle(cmd_line_list, redi_list);
+	if (res != 0)
+		return (parse_err_mem3(&cmd_line_list, &redi_list));
 	return (init_cmd(cmd_line_list, redi_list, env_ptr, cmd_ptr));
 }
 

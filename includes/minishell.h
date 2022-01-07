@@ -5,9 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/07 18:36:00 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/06 19:46:37 by jeson            ###   ########.fr       */
-/*   Updated: 2022/01/05 13:39:10 by sangjeon         ###   ########.fr       */
+/*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
+/*   Updated: 2022/01/07 11:17:21 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +61,10 @@ int	g_last_status;
 # define REDIRECT_HEREDOC 3
 # define REDIRECT_APPEND 4
 
+# define PARSE_CMD_BUF_SIZE 200
+# define BIG_QUOTE 1
+# define SMALL_QUOTE 2
+
 # define EPARSE 258
 # define EMEMLACK 1
 
@@ -95,7 +98,7 @@ void	rlw_tmpf(int fd, char *arg);
 /* parser */
 int		parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr);
 int		_isspace(char chr);
-int		is_multi_cmd(const char *str);
+int		is_redi(const char *str);
 void	redi_move_ptr(char **line_ptr, int redi_status);
 char	**list_to_arr(t_list *list);
 int		list_clear(t_list **cmd_line_list_ptr, t_list **redi_list_ptr);
@@ -113,8 +116,10 @@ void	perr_and_init(void);
 int		parse_err_mem(void);
 int		parse_err_cmd(char **cmd_arr, int res);
 int		parse_err_mem2(char **cmd_arr, t_cmd *cmd);
+int		parse_err_mem3(t_list **cmd_line_list, t_list **redi_list);
 int		parse_unexpected_err(const char *one_cmd);
 int		parse_unexpected_err2(void);
+int		is_quote(char c);
 /* parser */
 
 void	err_handle1(void);
@@ -126,6 +131,7 @@ void	free_split(char **str_arr);
 int		init(char **argv, t_list **cmd_list_ptr, \
 char **environ, char ***my_environ);
 void	sig_handler(int sig);
+char	*ft_strndup(const char *s1, size_t max);
 void	*err_handle3(void);
 
 /* builtin */
@@ -135,12 +141,10 @@ int		ft_env(t_cmd *cmd);
 int		ft_exit(t_cmd *cmd);
 int		ft_export(t_cmd *cmd);
 int		ft_pwd(void);
-int		ft_unset();
+int		ft_unset(t_cmd * cmd);
+int		is_valid_str(char *str);
 /*
 int		ft_cd();
 */
-
-/* env_utils */
-int		is_valid_str(char *str);
 
 #endif

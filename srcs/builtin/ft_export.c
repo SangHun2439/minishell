@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/07 19:56:38 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/08 11:58:48 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,5 @@ int	ft_export(t_cmd *cmd)
 		}
 		i++;
 	}
-	printf("homepath : %s\n", cmd->home);
 	return (0);
 }

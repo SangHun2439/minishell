@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/07 19:22:59 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/08 17:15:08 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**unset_env(t_cmd *cmd, char *argv)
 		return (init_err());
 	i = -1;
 	j = -1;
-	while (myenv[++i])
+	while (myenv[++i] && myenv[i + 1])
 	{
 		len = length_to_equ_unset(myenv[i]);
 		if (!ft_strncmp(myenv[i], argv, len))
@@ -74,7 +74,7 @@ char	**unset_env(t_cmd *cmd, char *argv)
 			return (init_err());
 		ft_memcpy(env_cpy[j], myenv[i], (len + 1));
 	}
-	env_cpy[i - 1] = 0;
+	env_cpy[i] = 0;
 	return (env_cpy);
 }
 

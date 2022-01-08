@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/07 22:50:18 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/08 17:13:10 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /*
  * getcwd(buf, size) : buf = NULL 이면 현재 작업 디렉토리 경로 가져옴
- * 가져오는데 실패 하면 상세 오류 내용이 errno에 저장됨
+ * getcwd, chdir : 실패 하면 상세 오류 내용이 errno에 저장됨
  */
 
 void	ft_errno(int error, char *dir)
@@ -24,6 +24,16 @@ void	ft_errno(int error, char *dir)
 	ft_putstr_fd(dir, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(strerror(error), STDERR_FILENO);
+}
+
+int	cd_home(t_cmd *cmd)
+{
+	if (chdir(cmd->home) < 0)
+	{
+		ft_errno(errno, cmd->home);
+		return (1);
+	}
+	return (0);
 }
 
 int	cd_home_env(t_cmd *cmd)
@@ -37,6 +47,8 @@ int	cd_home_env(t_cmd *cmd)
 		return (1);
 	}
 	if (!ft_strcmp(env_home, cmd->home))
+		return (cd_home(cmd));
+	else
 	{
 		if (chdir(env_home) < 0)
 		{
@@ -61,19 +73,6 @@ void	change_pwd(t_cmd *cmd)
 	if (getenv("OLDPWD"))
 		export_override(cmd, old);
 	free(old);
-}
-
-int	cd_home(t_cmd *cmd)
-{
-	if  (!ft_strcmp(cmd->argv[1], "~"))
-	{
-		if (chdir(cmd->home) < 0)
-		{
-			ft_errno(errno, cmd->argv[1]);
-			return (1);
-		}
-	}
-	return (0);
 }
 
 int	absolute_path(t_cmd *cmd)

@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/08 17:15:08 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/09 11:28:11 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_valid_form_unset(char *str)
 
 	i = 0;
 	cnt = 0;
-	if (!is_valid_str(str) && ft_strchr(str, '='))
+	if (!is_valid_str(str) || ft_strchr(str, '='))
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
@@ -48,33 +48,36 @@ int	is_envs_unset(char *tmp_env)
 char	**unset_env(t_cmd *cmd, char *argv)
 {
 	int	len;
+	int	env_cnt;
 	int	i;
 	int	j;
 	char **myenv;
 	char **env_cpy;
 
-	i = 0;
+	env_cnt = 0;
 	myenv = *cmd->env_ptr;
-	while (myenv[i])
-		i++;
-	env_cpy = (char **)malloc(sizeof(char *) * i);
+	while (myenv[env_cnt])
+		env_cnt++;
+	env_cpy = (char **)malloc(sizeof(char *) * env_cnt);
 	if (!env_cpy)
 		return (init_err());
 	i = -1;
 	j = -1;
-	while (myenv[++i] && myenv[i + 1])
+	while (myenv[++i])
 	{
-		len = length_to_equ_unset(myenv[i]);
+		len = ft_strlen(argv);
 		if (!ft_strncmp(myenv[i], argv, len))
 			i++;
 		j++;
+		if (i == env_cnt)
+			break ;
 		len = ft_strlen(myenv[i]);
 		env_cpy[j] = (char *)malloc(sizeof(char) * (len + 1));
 		if (!env_cpy[j])
 			return (init_err());
 		ft_memcpy(env_cpy[j], myenv[i], (len + 1));
 	}
-	env_cpy[i] = 0;
+	env_cpy[j] = 0;
 	return (env_cpy);
 }
 
@@ -84,9 +87,9 @@ int	ft_unset(t_cmd * cmd)
 	int	res;
 	int	flg_form;
 
-	i = 1;
+	i = 0;
 	flg_form = 0;
-	while (cmd->argv[i])
+	while (cmd->argv[++i])
 	{
 		flg_form = is_valid_form_unset(cmd->argv[i]);
 		if (flg_form == 1)
@@ -97,7 +100,6 @@ int	ft_unset(t_cmd * cmd)
 			else
 				break ;
 		}
-		i++;
 	}
 	return (0);
 }

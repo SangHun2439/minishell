@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 18:10:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:41:40 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/12 14:07:17 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	eof_handler(void)
 {
-	ft_putstr_fd("exit minishell\n", 1);
+	ft_putstr_fd("exit minishell\n", STDOUT_FILENO);
 	exit(0);
 }
 

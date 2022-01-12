@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err_handle.c                                       :+:      :+:    :+:   */
+/*   my_perr.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/05 11:02:34 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/22 13:48:30 by sangjeon         ###   ########.fr       */
+/*   Created: 2022/01/12 13:45:25 by sangjeon          #+#    #+#             */
+/*   Updated: 2022/01/12 14:03:18 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MY_ERR_H
+# define MY_ERR_H
 
-void	err_handle1(void)
-{
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	exit(1);
-}
+# include <errno.h>
+# include <string.h>
+# include <unistd.h>
+# include "libft.h"
 
-int	err_handle2(void)
-{
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	return (1);
-}
+# define EUNEXPECTED 256
+# define EUNCLOSED 257
+
+void	put_errmsg(void);
+
+#endif

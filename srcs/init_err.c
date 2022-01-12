@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 01:25:31 by sangjeon          #+#    #+#             */
-/*   Updated: 2021/12/18 01:26:02 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/12 13:57:58 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	*init_err(void)
 {
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
+	put_errmsg();
 	exit(1);
 	return (0);
 }

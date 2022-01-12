@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/07 20:44:03 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/12 23:18:32 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "read_cmd.h"
 # include "libft.h"
-# include <errno.h>
+# include "my_perr.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <unistd.h>
@@ -66,9 +66,6 @@ int	g_last_status;
 # define BIG_QUOTE 1
 # define SMALL_QUOTE 2
 
-# define EPARSE 258
-# define EMEMLACK 1
-
 # define EMPTYLINE -1
 
 /* exec_cmd */
@@ -104,7 +101,7 @@ void	redi_move_ptr(char **line_ptr, int redi_status);
 char	**list_to_arr(t_list *list);
 int		list_clear(t_list **cmd_line_list_ptr, t_list **redi_list_ptr);
 void	del_redi_one(void *content);
-int		mem_err_redi(t_redi *redi);
+int		parse_err_redi(t_redi *redi);
 int		mem_err_redi2(t_redi *redi);
 void	_free_split(char **str_arr);
 int		fill_cmd_redi_list(char **one_cmd_ptr, \
@@ -114,17 +111,21 @@ int		case_cmd(char **one_cmd_ptr, t_list **cmd_line_list_ptr);
 int		case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status);
 char	*get_word_move_addr(char **str_ptr);
 void	perr_and_init(void);
-int		parse_err_mem(void);
+int		parse_err(void);
 int		parse_err_cmd(char **cmd_arr, int res);
 int		parse_err_mem2(char **cmd_arr, t_cmd *cmd);
 int		parse_err_mem3(t_list **cmd_line_list, t_list **redi_list);
-int		parse_unexpected_err(const char *one_cmd);
-int		parse_unexpected_err2(void);
+int		parse_unexpected_err(void);
 int		is_quote(char c);
+int		write_str(char **res, char c);
+char	*unclosedquotes_err(char *str);
+char	*parse_err_get_word(char *str);
+int		parse_err_convert_env(char *str);
+int		convert_env_return(char *str);
+int		only_dollar(char **res);
+int		get_recent_status(char **str_ptr, char **res);
 /* parser */
 
-void	err_handle1(void);
-int		err_handle2(void);
 void	*init_err(void);
 void	print_cmd_info(void *content);
 void	del_cmd(void *content);

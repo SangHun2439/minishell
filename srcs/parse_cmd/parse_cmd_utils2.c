@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 21:02:43 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/07 11:04:10 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/12 16:56:38 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,26 @@ void	_free_split(char **str_arr)
 	free(str_arr);
 }
 
-void	perr_and_init(void)
+int	write_str(char **res, char c)
 {
-	if (!errno)
-		return ;
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	errno = 0;
-}
+	static char	buf[PARSE_CMD_BUF_SIZE + 1];
+	static int	idx;
+	char		*tmp;
 
-int	is_closed_quote(char *str)
-{
-	int	res;
-
-	res = is_quote(*str);
-	if (!res)
-		return (0);
-	str++;
-	while (*str && is_quote(*str) != res)
-		str++;
-	if (!*str)
-		return (0);
-	return (res);
+	buf[idx++] = c;
+	if (c == 0 || idx == PARSE_CMD_BUF_SIZE)
+	{
+		tmp = *res;
+		buf[idx] = 0;
+		*res = ft_strjoin(*res, buf);
+		idx = 0;
+		while (buf[idx])
+			buf[idx++] = 0;
+		idx = 0;
+		if (tmp != 0)
+			free(tmp);
+		if (!*res)
+			return (1);
+	}
+	return (0);
 }

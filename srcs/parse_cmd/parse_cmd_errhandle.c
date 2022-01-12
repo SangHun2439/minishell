@@ -6,16 +6,16 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:25:51 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/07 11:18:05 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/12 14:29:21 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse_err_mem(void)
+int	parse_err(void)
 {
-	perr_and_init();
-	return (EMEMLACK);
+	put_errmsg();
+	return (FAIL);
 }
 
 int	parse_err_cmd(char **cmd_arr, int res)
@@ -26,42 +26,23 @@ int	parse_err_cmd(char **cmd_arr, int res)
 
 int	parse_err_mem2(char **cmd_arr, t_cmd *cmd)
 {
-	perr_and_init();
+	put_errmsg();
 	_free_split(cmd_arr);
 	_free_split(cmd->argv);
 	ft_lstclear(&(cmd->redi_list), del_redi_one);
-	return (EMEMLACK);
+	return (FAIL);
 }
 
-int	parse_unexpected_err(const char *one_cmd)
+int	parse_err_mem3(t_list **cmd_line_list, t_list **redi_list)
 {
-	char	*info;
-	int		status;
-
-	if (!*one_cmd)
-		info = "\\n";
-	else
-	{
-		status = is_redi(one_cmd);
-		if (status == REDIRECT_APPEND)
-			info = ">>";
-		else if (status == REDIRECT_INPUT)
-			info = "<";
-		else if (status == REDIRECT_OUTPUT)
-			info = ">";
-		else if (status == REDIRECT_HEREDOC)
-			info = "<<";
-		else
-			info = "unknown character";
-	}
-	ft_putstr_fd("parse error near ", STDERR_FILENO);
-	ft_putstr_fd(info, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	return (EPARSE);
+	put_errmsg();
+	list_clear(cmd_line_list, redi_list);
+	return (FAIL);
 }
 
-int	parse_unexpected_err2(void)
+int	parse_unexpected_err(void)
 {
-	ft_putstr_fd("parse error near '|'\n", STDERR_FILENO);
-	return (EPARSE);
+	errno = EUNEXPECTED;
+	put_errmsg();
+	return (FAIL);
 }

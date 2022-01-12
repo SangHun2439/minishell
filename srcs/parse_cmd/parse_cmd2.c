@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:04:30 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/07 08:56:17 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/12 23:18:16 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	case_cmd(char **one_cmd_ptr, t_list **cmd_line_list_ptr)
 
 	str = get_word_move_addr(one_cmd_ptr);
 	if (!str)
-		return (parse_err_mem());
+		return (parse_err());
 	new_lst = ft_lstnew(str);
 	if (!new_lst)
 	{
 		free(str);
-		return (parse_err_mem());
+		return (parse_err());
 	}
 	ft_lstadd_back(cmd_line_list_ptr, new_lst);
 	return (0);
@@ -37,14 +37,14 @@ int	case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status)
 
 	redi_move_ptr(one_cmd_ptr, redi_status);
 	if (!**one_cmd_ptr || is_redi(*one_cmd_ptr))
-		return (parse_unexpected_err(*one_cmd_ptr));
+		return (parse_unexpected_err());
 	redi = malloc(sizeof(t_redi));
 	if (!redi)
-		return (parse_err_mem());
+		return (parse_err());
 	redi->redi_status = redi_status;
 	redi->arg = get_word_move_addr(one_cmd_ptr);
 	if (!redi->arg)
-		return (mem_err_redi(redi));
+		return (parse_err_redi(redi));
 	new_lst = ft_lstnew(redi);
 	if (!new_lst)
 		return (mem_err_redi2(redi));
@@ -63,7 +63,31 @@ t_list **cmd_line_list_ptr, t_list **redi_list_ptr)
 		res = case_cmd(one_cmd_ptr, cmd_line_list_ptr);
 	else
 		res = case_redi(one_cmd_ptr, redi_list_ptr, redi_status);
-	if (res != 0)
+	if (res != SUCCESS)
 		list_clear(cmd_line_list_ptr, redi_list_ptr);
 	return (res);
+}
+
+int	only_dollar(char **res)
+{
+	if (write_str(res, '$') != SUCCESS)
+		return (1);
+	return (0);
+}
+
+int	get_recent_status(char **str_ptr, char **res)
+{
+	char	*recent_status;
+
+	(*str_ptr)++;
+	recent_status = ft_itoa(g_last_status);
+	if (!recent_status)
+		return (FAIL);
+	while (*recent_status)
+	{
+		if (write_str(res, *recent_status) != SUCCESS)
+			return (1);
+		recent_status++;
+	}
+	return (SUCCESS);
 }

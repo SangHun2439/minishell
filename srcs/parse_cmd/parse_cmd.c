@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 00:59:16 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/07 19:58:38 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/12 14:26:52 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	parse_init(char **line_ptr, char ***cmd_arr_ptr)
 	if (!(**line_ptr))
 		return (EMPTYLINE);
 	if (**line_ptr == '|')
-		return (parse_unexpected_err2());
+		return (parse_unexpected_err());
 	*cmd_arr_ptr = ft_split(*line_ptr, '|');
 	if (!*cmd_arr_ptr)
-		return (parse_err_mem());
+		return (parse_err());
 	return (0);
 }
 
@@ -32,7 +32,7 @@ t_cmd **cmd_ptr, char *homepath)
 	t_list	*lst;
 
 	if (!cmd_line_list && !redi_list)
-		return (parse_unexpected_err2());
+		return (parse_unexpected_err());
 	*cmd_ptr = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!*cmd_ptr)
 		return (parse_err_mem3(&cmd_line_list, &redi_list));
@@ -47,12 +47,12 @@ t_cmd **cmd_ptr, char *homepath)
 	{
 		free(*cmd_ptr);
 		list_clear(&cmd_line_list, &redi_list);
-		return (EMEMLACK);
+		return (FAIL);
 	}
 	(*cmd_ptr)->redi_list = redi_list;
 	(*cmd_ptr)->env_ptr = env_ptr;
 	(*cmd_ptr)->home = homepath;
-	return (0);
+	return (SUCCESS);
 }
 
 int	parse_one_cmd(char *one_cmd, char ***env_ptr, t_cmd **cmd_ptr, char *homepath)

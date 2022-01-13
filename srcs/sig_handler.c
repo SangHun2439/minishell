@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 11:55:32 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 16:16:14 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/13 17:52:28 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	sigint_handler(void)
 		write(STDOUT_FILENO, "\n", 1);
 }
 
-void	sigterm_handler(void)
+void	sigquit_handler(void)
 {
-	// ft_putstr_fd("term signal\n", 1);
+	return ;
 }
 
 void	sig_handler(int sig)
 {
 	if (sig == SIGINT)
 		return (sigint_handler());
-	if (sig == SIGTERM)
-		return (sigterm_handler());
+	if (sig == SIGQUIT)
+		return (sigquit_handler());
 }

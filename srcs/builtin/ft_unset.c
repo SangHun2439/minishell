@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/14 14:48:27 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/14 19:29:14 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,21 @@ int	is_valid_form_unset(char *str)
 	return (1);
 }
 
-int	is_envs_unset(char *tmp_env)
+int	is_envs_unset(t_cmd *cmd, char *argv)
 {
-	if (!getenv(tmp_env))
-		return (0);
-	return (1);
+	char **myenv;
+	int	i;
+	int	len;
+
+	myenv = *cmd->env_ptr;
+	i = -1;
+	while (myenv[++i])
+	{
+		len = length_to_equ_unset(myenv[i]);
+		if (!ft_strncmp(argv, myenv[i], len))
+			return (1);
+	}
+	return (0);
 }
 
 char	**unset_env(t_cmd *cmd, char *argv)
@@ -94,7 +104,7 @@ int	ft_unset(t_cmd * cmd)
 		flg_form = is_valid_form_unset(cmd->argv[i]);
 		if (flg_form == 1)
 		{
-			res = is_envs_unset(cmd->argv[i]);
+			res = is_envs_unset(cmd, cmd->argv[i]);
 			if (res == 1)
 				*cmd->env_ptr = unset_env(cmd, cmd->argv[i]);
 			else

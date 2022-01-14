@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/14 15:47:16 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/14 20:46:26 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	print_export_no_argv(t_cmd *cmd)
 		value = split[1];
 		printf("declare -x %s=\"%s\"\n", key, value);
 	}
+	while (*split)
+		free(*split++);
 }
 
 int		length_to_equ(char *s1)
@@ -121,14 +123,21 @@ int	is_valid_form_export(char *str)
 	return (0);
 }
 
-int	is_envs_export(char *tmp_env)
+int	is_envs_export(t_cmd *cmd, char *argv)
 {
-	char	**env_split;
+	char	**myenv;
+	int	i;
+	int	argv_len;
 
-	env_split = ft_split(tmp_env, '=');
-	if (!getenv(env_split[0]))
-		return (0);
-	return (1);
+	myenv = *cmd->env_ptr;
+	i = -1;
+	while (myenv[++i])
+	{
+		argv_len = length_to_equ(argv);
+		if (!ft_strncmp(argv, myenv[i], argv_len + 1))
+			return (1);
+	}
+	return (0);
 }
 
 char	**export_env(t_cmd *cmd, char *argv)
@@ -180,7 +189,7 @@ int	ft_export(t_cmd *cmd)
 		flg_form = is_valid_form_export(cmd->argv[i]);
 		if (flg_form == 1)
 		{
-			res = is_envs_export(cmd->argv[i]);
+			res = is_envs_export(cmd, cmd->argv[i]);
 			if (res == 1)
 				export_override(cmd, cmd->argv[i]);
 			else

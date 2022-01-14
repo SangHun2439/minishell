@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:39:58 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:45:53 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/14 18:09:22 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	parents_do(pid_t pid, char *full_path)
 	int		status;
 	int		res;
 
-	free(full_path);
+	if (full_path)
+		free(full_path);
 	res = 0;
 	status = 0;
 	waitpid(pid, &status, 0);

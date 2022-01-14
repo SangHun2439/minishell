@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 22:40:32 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:09:28 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/14 18:51:53 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ int	file_exist(char *path)
 		return (1);
 	else
 		return (0);
+}
+
+int	is_direc(char *path)
+{
+	struct stat buf;
+
+	stat(path, &buf);
+	if (S_ISDIR(buf.st_mode))
+		return (1);
+	return (0);
 }
 
 char	*get_full_path(char *each_cmd, char *each_path)

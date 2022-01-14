@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 INC = -Iincludes -Ilibft -I/opt/homebrew/opt/readline/include
 LIB_NAME = ft

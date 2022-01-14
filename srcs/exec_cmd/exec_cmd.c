@@ -6,12 +6,13 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:30:38 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/07 20:41:44 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/14 18:51:59 by jeson            ###   ########.fr       */
 /*   Updated: 2022/01/05 11:42:28 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <errno.h>
 
 int	exec_builtin(t_cmd *cmd, char **path)
 {
@@ -20,7 +21,6 @@ int	exec_builtin(t_cmd *cmd, char **path)
 	cmd_name = cmd->argv[0];
 	(void)path;
 	
-	printf("it is builtin\n");
 	if (!ft_strcmp(cmd_name, "echo"))
 	 	return (ft_echo(cmd));
 	else if (!ft_strcmp(cmd_name, "cd"))
@@ -83,10 +83,43 @@ int	exec_ft_with_redi(t_cmd *cmd, char **path, int num)
 	res = exec_util(cmd, path);
 	if (res != NOCMD)
 		return (end_exec_ft(res, fd_stdout, fd_stdin));
-	ft_putstr_fd("command not found: ", STDERR_FILENO);
 	ft_putstr_fd(cmd->argv[0], STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
+	ft_putendl_fd(": command not found", STDERR_FILENO);
 	return (end_exec_ft(res, fd_stdout, fd_stdin));
+}
+
+void	errno_print(int	error, char *str)
+{
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(strerror(error), STDERR_FILENO);
+}
+
+int	is_path(char *str, char **argv, char **env)
+{
+	pid_t	pid;
+
+	if (is_direc(str))
+	{
+		errno_print(EISDIR, str);
+		return (126);
+	}
+	pid = fork();
+	if (pid == -1)
+		return (execve_err());
+	if (pid == 0)
+	{
+		execve(str, argv, env);
+		errno_print(errno, str);
+		if (errno == ENOENT)
+			exit (127);
+		if (errno == EACCES)
+			exit (126);
+		exit (126);
+	}
+	if (pid > 0)
+		return (parents_do(pid, NULL));
+	return (0);
 }
 
 int	exec_ft(t_cmd *cmd, char **path, int num)
@@ -98,12 +131,13 @@ int	exec_ft(t_cmd *cmd, char **path, int num)
 	res = exec_builtin(cmd, path);
 	if (res != NOCMD)
 		return (res);
+	if (ft_strchr(cmd->argv[0], '/') != NULL)
+		return (is_path(cmd->argv[0], cmd->argv, *(cmd->env_ptr)));
 	res = exec_util(cmd, path);
 	if (res != NOCMD)
 		return (res);
-	ft_putstr_fd("command not found: ", STDERR_FILENO);
 	ft_putstr_fd(cmd->argv[0], STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
+	ft_putendl_fd(": command not found", STDERR_FILENO);
 	return (res);
 }
 

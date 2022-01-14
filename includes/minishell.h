@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/14 18:53:02 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/14 22:53:45 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	g_last_status;
 # define NOCMD 127
 # define RPIPE 0
 # define WPIPE 1
+# define NODO 777
 
 # define REDIRECT_INPUT 1
 # define REDIRECT_OUTPUT 2

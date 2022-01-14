@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/14 23:06:24 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/14 23:16:59 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,16 @@ int	is_envs_unset(t_cmd *cmd, char *argv)
 {
 	char **myenv;
 	int	i;
-	int	len;
+	int	argv_len;
+	int	myenv_len;
 
 	myenv = *cmd->env_ptr;
 	i = -1;
 	while (myenv[++i])
 	{
-		len = length_to_equ_unset(myenv[i]);
-		if (!ft_strncmp(argv, myenv[i], len))
+		myenv_len = length_to_equ_unset(myenv[i]);
+		argv_len = ft_strlen(argv);
+		if (myenv_len == argv_len && !ft_strncmp(argv, myenv[i], argv_len))
 			return (1);
 	}
 	return (0);

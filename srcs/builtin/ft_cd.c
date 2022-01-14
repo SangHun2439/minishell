@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/08 17:13:10 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/14 15:24:31 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	change_pwd(t_cmd *cmd)
 	if (!getenv("PWD"))
 		return ;
 	old = ft_strjoin("OLDPWD=", getenv("PWD"));
-	new = ft_strjoin("PWD=", getcwd(0, 256));
+	new = ft_strjoin("PWD=", getcwd(NULL, 0));
 	export_override(cmd, new);
 	free(new);
 	if (getenv("OLDPWD"))
@@ -116,19 +116,15 @@ int	relative_path(t_cmd *cmd)
 
 int	ft_cd(t_cmd	*cmd)
 {
-	int	i;
 	char *tmp;
 	int	res;
 
-	i = 0;
 	tmp = cmd->argv[1];
-	while (cmd->argv[i])
-		i++;
 	if (!tmp || !ft_strcmp(tmp, ""))
 		res = cd_home_env(cmd);
 	else if (!ft_strcmp(tmp, "~"))
 		res = cd_home(cmd);
-	else if (tmp[1] == '/')
+	else if (tmp[0] == '/')
 		res = absolute_path(cmd);
 	else
 		res = relative_path(cmd);

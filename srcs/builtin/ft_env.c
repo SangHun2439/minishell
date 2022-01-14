@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 16:01:43 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/06 20:41:35 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/14 15:39:48 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ int	ft_env(t_cmd *cmd)
 	envs = *cmd->env_ptr;
 	i = -1;
 	while (envs[++i])
-		ft_putendl_fd(envs[i], 1);
+		printf("%s\n", envs[i]);
 	return (0);
 }

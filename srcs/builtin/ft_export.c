@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/08 11:58:48 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/14 15:47:16 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,7 @@ void	print_export_no_argv(t_cmd *cmd)
 		split = ft_split(*envs++, '=');
 		key = split[0];
 		value = split[1];
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(key, 1);
-		ft_putstr_fd("=\"", 1);
-		ft_putstr_fd(value, 1);
-		ft_putendl_fd("\"", 1);
-		while (*split)
-			free(*split++);
+		printf("declare -x %s=\"%s\"\n", key, value);
 	}
 }
 
@@ -108,8 +102,9 @@ int	is_valid_form_export(char *str)
 	cnt = 0;
 	if (!is_valid_str(str))
 	{
+		ft_putstr_fd("export: `", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
+		ft_putendl_fd("\': not a valid identifier", STDERR_FILENO);
 		return (0);
 	}
 	while (str[i])

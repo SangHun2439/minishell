@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:16:56 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/07 22:28:07 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/13 22:48:22 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,6 @@ int	isecho_nopt(char *echoopt)
 	return (1);
 }
 
-void	ft_echo_env(char *cmd_env)
-{
-	char *env_value;
-
-	if (cmd_env[0] == '$' && cmd_env[1] == '?')
-		printf_prev_exit_status();
-	else
-	{
-		env_value = getenv(&cmd_env[1]);
-		if (env_value)
-			ft_putstr_fd(env_value, 1);
-		else
-			ft_putstr_fd("", 1);
-	}
-}
-
 int	ft_echo(t_cmd *cmd)
 {
 	int	i;
@@ -68,10 +52,7 @@ int	ft_echo(t_cmd *cmd)
 	}
 	while (cmd->argv[i])
 	{
-		if (cmd->argv[i][0] == '$')
-			ft_echo_env(cmd->argv[i]);
-		else
-			ft_putstr_fd(cmd->argv[i], 1);
+		ft_putstr_fd(cmd->argv[i], 1);
 		if (cmd->argv[i + 1] != NULL)
 			ft_putstr_fd(" ", 1);
 		++i;

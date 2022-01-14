@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/09 11:28:11 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/14 14:48:27 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**unset_env(t_cmd *cmd, char *argv)
 			return (init_err());
 		ft_memcpy(env_cpy[j], myenv[i], (len + 1));
 	}
-	env_cpy[j] = 0;
+	env_cpy[env_cnt - 1] = 0;
 	return (env_cpy);
 }
 

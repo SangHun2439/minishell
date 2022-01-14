@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/14 19:29:14 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/14 23:06:24 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	ft_unset(t_cmd * cmd)
 			if (res == 1)
 				*cmd->env_ptr = unset_env(cmd, cmd->argv[i]);
 			else
-				break ;
+				continue ;
 		}
 	}
 	return (0);

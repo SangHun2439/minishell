@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/15 12:14:49 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 19:46:46 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@
  * getcwd, chdir : 실패 하면 상세 오류 내용이 errno에 저장됨
  */
 
-void	ft_errno(int error, char *dir)
+void	ft_cd_err(int error, char *dir)
 {
 	ft_putstr_fd("cd: ", STDERR_FILENO);
 	ft_putstr_fd(dir, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(strerror(error), STDERR_FILENO);
 }
 
@@ -29,7 +30,7 @@ int	cd_home(t_cmd *cmd)
 {
 	if (chdir(cmd->home) < 0)
 	{
-		ft_errno(errno, cmd->home);
+		ft_cd_err(errno, cmd->home);
 		return (1);
 	}
 	return (0);
@@ -37,7 +38,7 @@ int	cd_home(t_cmd *cmd)
 
 int	cd_home_env(t_cmd *cmd)
 {
-	char *env_home;
+	char	*env_home;
 
 	env_home = getenv("HOME");
 	if (!env_home)
@@ -51,7 +52,7 @@ int	cd_home_env(t_cmd *cmd)
 	{
 		if (chdir(env_home) < 0)
 		{
-			ft_errno(errno, env_home);
+			ft_cd_err(errno, env_home);
 			return (1);
 		}
 	}
@@ -62,11 +63,14 @@ void	change_pwd(t_cmd *cmd)
 {
 	char	*old;
 	char	*new;
+	char	*pwd;
 
 	if (!getenv("PWD"))
 		return ;
 	old = ft_strjoin("OLDPWD=", getenv("PWD"));
-	new = getcwd(NULL, 0);
+	pwd = getcwd(NULL, 0);
+	new = ft_strjoin("PWD=", pwd);
+	free(pwd);
 	*cmd->env_ptr = export_override(cmd, new);
 	free(new);
 	if (getenv("OLDPWD"))
@@ -78,7 +82,7 @@ int	absolute_path(t_cmd *cmd)
 {
 	if (chdir(cmd->argv[1]) < 0)
 	{
-		ft_errno(errno, cmd->argv[1]);
+		ft_cd_err(errno, cmd->argv[1]);
 		return (1);
 	}
 	return (0);
@@ -100,14 +104,14 @@ int	relative_path(t_cmd *cmd)
 			path_str = ft_strdup(tmp);
 		if (chdir(path_str) < 0)
 		{
-			ft_errno(errno, tmp);
+			ft_cd_err(errno, path_str);
 			res = 1;
 		}
 		free(path_str);
 	}
 	else if (chdir(tmp) < 0)
 	{
-		ft_errno(errno, tmp);
+		ft_cd_err(errno, tmp);
 		res = 1;
 	}
 	return (res);

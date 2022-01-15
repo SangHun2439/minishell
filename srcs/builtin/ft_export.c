@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/14 20:46:26 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 12:09:11 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ void	print_export_no_argv(t_cmd *cmd)
 		key = split[0];
 		value = split[1];
 		printf("declare -x %s=\"%s\"\n", key, value);
+		free_split(split);
 	}
-	while (*split)
-		free(*split++);
 }
 
 int		length_to_equ(char *s1)
@@ -41,30 +40,31 @@ int		length_to_equ(char *s1)
 	return (i);
 }
 
-void	export_override(t_cmd *cmd, char *argv_ptr)
+char	**export_override(t_cmd *cmd, char *argv)
 {
-	char	*export_key;
 	int		len;
 	int		i;
+	int		env_cnt;
 	char	**myenv;
+	char	**env_cpy;
 
-	i = 0;
-	len = 0;
+	env_cnt = 0;
 	myenv = *cmd->env_ptr;
-	export_key = (char *)malloc(sizeof(char) * (length_to_equ(argv_ptr) + 1));
-	ft_memcpy(export_key, argv_ptr, length_to_equ(argv_ptr) + 1);
-	while (myenv[i])
+	while (myenv[env_cnt])
+		env_cnt++;
+	env_cpy = (char **)malloc(sizeof(char *) * (env_cnt + 1));
+	i = -1;
+	while (myenv[++i])
 	{
 		len = length_to_equ(myenv[i]);
-		if (!ft_strncmp(myenv[i], export_key, len))
-		{
-			free(myenv[i]);
-			myenv[i] = (char *)malloc(sizeof(char) * (ft_strlen(argv_ptr) + 1));
-			ft_memcpy(myenv[i], argv_ptr, ft_strlen(argv_ptr) + 1);
-		}
-		i++;
+		if (!ft_strncmp(myenv[i], argv, len))
+			env_cpy[i] = ft_strdup(argv);
+		else
+			env_cpy[i] = ft_strdup(myenv[i]);
 	}
-	free(export_key);
+	env_cpy[i] = 0;
+	free_split(myenv);
+	return (env_cpy);
 }
 
 int	is_valid_str(char *str)
@@ -168,6 +168,7 @@ char	**export_env(t_cmd *cmd, char *argv)
 	env_cpy[i] = (char *)malloc(sizeof(char) * (ft_strlen(argv) + 1));
 	env_cpy[i] = ft_memcpy(env_cpy[i], argv, ft_strlen(argv) + 1);
 	env_cpy[env_cnt + 1] = 0;
+	free_split(myenv);
 	return (env_cpy);
 }
 
@@ -191,7 +192,7 @@ int	ft_export(t_cmd *cmd)
 		{
 			res = is_envs_export(cmd, cmd->argv[i]);
 			if (res == 1)
-				export_override(cmd, cmd->argv[i]);
+				*cmd->env_ptr = export_override(cmd, cmd->argv[i]);
 			else
 				*cmd->env_ptr = export_env(cmd, cmd->argv[i]);
 		}

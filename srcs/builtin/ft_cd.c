@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/14 15:24:31 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 12:14:49 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_errno(int error, char *dir)
 {
 	ft_putstr_fd("cd: ", STDERR_FILENO);
 	ft_putstr_fd(dir, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(strerror(error), STDERR_FILENO);
 }
 
@@ -67,11 +66,11 @@ void	change_pwd(t_cmd *cmd)
 	if (!getenv("PWD"))
 		return ;
 	old = ft_strjoin("OLDPWD=", getenv("PWD"));
-	new = ft_strjoin("PWD=", getcwd(NULL, 0));
-	export_override(cmd, new);
+	new = getcwd(NULL, 0);
+	*cmd->env_ptr = export_override(cmd, new);
 	free(new);
 	if (getenv("OLDPWD"))
-		export_override(cmd, old);
+		*cmd->env_ptr = export_override(cmd, old);
 	free(old);
 }
 

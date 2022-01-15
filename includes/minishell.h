@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/14 22:53:45 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 11:59:41 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int		ft_unset(t_cmd * cmd);
 int		ft_cd(t_cmd *cmd);
 
 int		is_valid_str(char *str);
-void	export_override(t_cmd *cmd, char *argv_ptr);
+char	**export_override(t_cmd *cmd, char *argv);
 
 int		is_direc(char *path);
 

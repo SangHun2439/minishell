@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/15 12:09:11 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 12:17:56 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ int	is_envs_export(t_cmd *cmd, char *argv)
 
 char	**export_env(t_cmd *cmd, char *argv)
 {
-	int		len;
 	int		env_cnt;
 	int		i;
 	char	**myenv;
@@ -155,18 +154,10 @@ char	**export_env(t_cmd *cmd, char *argv)
 	env_cpy = (char **)malloc(sizeof(char *) * (env_cnt + 2));
 	if (!env_cpy)
 		return (init_err());
-	i = 0;
-	while (i < env_cnt)
-	{
-		len = ft_strlen(myenv[i]);
-		env_cpy[i] = (char *)malloc(sizeof(char) * (len + 1));
-		if (!env_cpy[i])
-			return (init_err());
-		env_cpy[i] = ft_memcpy(env_cpy[i], myenv[i], (len + 1));
-		i++;
-	}
-	env_cpy[i] = (char *)malloc(sizeof(char) * (ft_strlen(argv) + 1));
-	env_cpy[i] = ft_memcpy(env_cpy[i], argv, ft_strlen(argv) + 1);
+	i = -1;
+	while (++i < env_cnt)
+		env_cpy[i] = ft_strdup(myenv[i]);
+	env_cpy[i] = ft_strdup(argv);
 	env_cpy[env_cnt + 1] = 0;
 	free_split(myenv);
 	return (env_cpy);

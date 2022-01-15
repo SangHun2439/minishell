@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/15 11:19:00 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 12:25:09 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,13 @@ char	**unset_env(t_cmd *cmd, char *argv)
 	j = -1;
 	while (myenv[++i])
 	{
-		len = ft_strlen(argv);
+		len = length_to_equ_unset(myenv[i]);
 		if (!ft_strncmp(myenv[i], argv, len))
 			i++;
 		j++;
 		if (i == env_cnt)
 			break ;
-		len = ft_strlen(myenv[i]);
-		env_cpy[j] = (char *)malloc(sizeof(char) * (len + 1));
-		if (!env_cpy[j])
-			return (init_err());
-		ft_memcpy(env_cpy[j], myenv[i], (len + 1));
+		env_cpy[j] = ft_strdup(myenv[i]);
 	}
 	env_cpy[env_cnt - 1] = 0;
 	free_split(myenv);

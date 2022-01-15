@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/15 19:46:46 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 20:10:13 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,26 @@ void	ft_cd_err(int error, char *dir)
 	ft_putendl_fd(strerror(error), STDERR_FILENO);
 }
 
-int	cd_home(t_cmd *cmd)
-{
-	if (chdir(cmd->home) < 0)
-	{
-		ft_cd_err(errno, cmd->home);
-		return (1);
-	}
-	return (0);
-}
-
-int	cd_home_env(t_cmd *cmd)
+int	cd_home(t_cmd *cmd, char *tmp)
 {
 	char	*env_home;
 
 	env_home = getenv("HOME");
 	if (!env_home)
 	{
-		ft_putendl_fd("cd: HOME not set", STDERR_FILENO);
+		if (tmp && tmp[0] == '~')
+		{
+			if (chdir(cmd->home) < 0)
+			{
+				ft_cd_err(errno, cmd->home);
+				return (1);
+			}
+			return (0);
+		}
+		else
+			ft_putendl_fd("cd: HOME not set", STDERR_FILENO);
 		return (1);
 	}
-	if (!ft_strcmp(env_home, cmd->home))
-		return (cd_home(cmd));
 	else
 	{
 		if (chdir(env_home) < 0)
@@ -119,15 +117,12 @@ int	relative_path(t_cmd *cmd)
 
 int	ft_cd(t_cmd	*cmd)
 {
-	char *tmp;
 	int	res;
 
-	tmp = cmd->argv[1];
-	if (!tmp || !ft_strcmp(tmp, ""))
-		res = cd_home_env(cmd);
-	else if (!ft_strcmp(tmp, "~"))
-		res = cd_home(cmd);
-	else if (tmp[0] == '/')
+	if (!cmd->argv[1] || !ft_strcmp(cmd->argv[1], "") \
+		|| !ft_strcmp(cmd->argv[1], "~"))
+		res = cd_home(cmd, cmd->argv[1]);
+	else if (*(cmd->argv[1]) == '/')
 		res = absolute_path(cmd);
 	else
 		res = relative_path(cmd);

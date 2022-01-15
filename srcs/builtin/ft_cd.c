@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/15 20:10:13 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 20:15:01 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	absolute_path(t_cmd *cmd)
 
 int	relative_path(t_cmd *cmd)
 {
-	int	res;
+	int		res;
 	char	*tmp;
 	char	*path_str;
 

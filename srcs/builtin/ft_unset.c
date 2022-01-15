@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/15 12:25:09 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 20:17:07 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	is_valid_form_unset(char *str)
 
 int	is_envs_unset(t_cmd *cmd, char *argv)
 {
-	char **myenv;
-	int	i;
-	int	argv_len;
-	int	myenv_len;
+	char	**myenv;
+	int		i;
+	int		argv_len;
+	int		myenv_len;
 
 	myenv = *cmd->env_ptr;
 	i = -1;
@@ -59,12 +59,12 @@ int	is_envs_unset(t_cmd *cmd, char *argv)
 
 char	**unset_env(t_cmd *cmd, char *argv)
 {
-	int	len;
-	int	env_cnt;
-	int	i;
-	int	j;
-	char **myenv;
-	char **env_cpy;
+	int		len;
+	int		env_cnt;
+	int		i;
+	int		j;
+	char	**myenv;
+	char	**env_cpy;
 
 	env_cnt = 0;
 	myenv = *cmd->env_ptr;
@@ -90,7 +90,7 @@ char	**unset_env(t_cmd *cmd, char *argv)
 	return (env_cpy);
 }
 
-int	ft_unset(t_cmd * cmd)
+int	ft_unset(t_cmd *cmd)
 {
 	int	i;
 	int	res;

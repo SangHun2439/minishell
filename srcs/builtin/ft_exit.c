@@ -6,48 +6,45 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:35:43 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/03 22:23:06 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 20:19:37 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-long long	ft_atol(const char *argv_ptr, int *flg_exit)
+long long	ft_atol(const char *arg, int *flg_exit)
 {
-	int	sign;
-	long long res;
+	int			sign;
+	long long	res;
 
 	sign = 1;
 	*flg_exit = 0;
-	if (*argv_ptr == '-')
+	if (*arg == '-')
 		sign = -1;
-	if (*argv_ptr == '-' || *argv_ptr == '+')
-		argv_ptr++;
+	if (*arg == '-' || *arg == '+')
+		arg++;
 	res = 0;
-	while (*flg_exit != 1 && ft_isdigit(*argv_ptr))
+	while (*flg_exit != 1 && ft_isdigit(*arg))
 	{
-		res = res * 10 + (*argv_ptr++ - '0');
-		if (sign == 1 && res >= LLONG_MAX / 10 && *argv_ptr > LLONG_MAX % 10 + '0')
+		res = res * 10 + (*arg++ - '0');
+		if (sign == 1 && res >= LLONG_MAX / 10 && *arg > LLONG_MAX % 10 + '0')
 			*flg_exit = 1;
-		if (sign == -1 && res >= LLONG_MAX / 10 && *argv_ptr > LONG_MAX % 10 + '1')
+		if (sign == -1 && res >= LLONG_MAX / 10 && *arg > LONG_MAX % 10 + '1')
 			*flg_exit = 1;
 	}
-	/* LLONG_MAX 범위 밖의 값 or numeric이 아니면 echo $? 값이 255 고정*/
-	if (*flg_exit || *argv_ptr != '\0')
+	if (*flg_exit || *arg != '\0')
 	{
 		*flg_exit = 1;
 		return (255);
 	}
-	/* 해당 조건아닌 경우 sign * res 값 가지고
-	 * 256으로 나눈 나머지가 echo $?로 표시됨*/
 	return (sign * res);
 }
 
 int	ft_exit(t_cmd *cmd)
 {
-	long long exit_ret;
-	int	i;
-	int	flg_exit;
+	long long	exit_ret;
+	int			i;
+	int			flg_exit;
 
 	i = 0;
 	while (cmd->argv[i])

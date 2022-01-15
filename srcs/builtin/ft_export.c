@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/15 12:17:56 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 20:21:11 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	print_export_no_argv(t_cmd *cmd)
 {
-	char **envs;
-	char **split;
-	char *key;
-	char *value;
+	char	**envs;
+	char	**split;
+	char	*key;
+	char	*value;
 
 	envs = *cmd->env_ptr;
 	while (*envs)
@@ -30,7 +30,7 @@ void	print_export_no_argv(t_cmd *cmd)
 	}
 }
 
-int		length_to_equ(char *s1)
+int	length_to_equ(char *s1)
 {
 	int	i;
 
@@ -97,7 +97,7 @@ int	is_valid_str(char *str)
 int	is_valid_form_export(char *str)
 {
 	int	i;
-	int idx;
+	int	idx;
 	int	cnt;
 
 	i = 0;
@@ -126,8 +126,8 @@ int	is_valid_form_export(char *str)
 int	is_envs_export(t_cmd *cmd, char *argv)
 {
 	char	**myenv;
-	int	i;
-	int	argv_len;
+	int		i;
+	int		argv_len;
 
 	myenv = *cmd->env_ptr;
 	i = -1;

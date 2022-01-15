@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 16:01:43 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/14 15:39:48 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/15 20:17:38 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_env(t_cmd *cmd)
 {
-	char **envs;
-	int	i;
+	char	**envs;
+	int		i;
 
 	if (cmd->argv[1])
 	{

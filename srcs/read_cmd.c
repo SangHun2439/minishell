@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 18:10:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/12 14:07:17 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 18:27:50 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	eof_handler(void)
 char	*rl_gets(void)
 {
 	static char	*line_read;
-	extern int	rl_catch_signals;
 
 	rl_catch_signals = 0;
 	if (line_read)

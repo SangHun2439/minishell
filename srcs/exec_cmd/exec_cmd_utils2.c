@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 23:30:20 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 13:08:04 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 18:40:23 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,23 @@ char	*get_tmpf_name(int num)
 	return (res);
 }
 
+int	heredoc_event_hook(void)
+{
+		return (0);
+}
+
 void	rlw_tmpf(int fd, char *arg)
 {
 	char	*line;
 	int		len;
 
+	line = 0;
 	len = ft_strlen(arg);
+	signal(SIGINT, heredoc_sigint_handler);
+	rl_event_hook = heredoc_event_hook;
+	g_vars.heredoc_exit = 0;
 	line = readline(">");
-	while (line && ft_strncmp(line, arg, len))
+	while (line && ft_strncmp(line, arg, len) && !g_vars.heredoc_exit)
 	{
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
@@ -65,4 +74,5 @@ void	rlw_tmpf(int fd, char *arg)
 	}
 	if (line)
 		free(line);
+	signal(SIGINT, sig_handler);
 }

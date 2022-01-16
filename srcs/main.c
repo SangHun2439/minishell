@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/14 19:35:51 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/16 18:27:11 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ int	main(int argc, char **argv)
 		line = rl_gets();
 		parse_status = parse_cmd(&cmd_list, line, &environ, homepath);
 		if (parse_status != EMPTYLINE)
-			g_last_status = parse_status;
+			g_vars.last_status = parse_status;
 		if (parse_status == 0)
 			// ft_lstiter(cmd_list, print_cmd_info);
 			// 입력된 명령어에 따라 실행
-			g_last_status = exec_cmd(cmd_list);
-		// printf("%d\n", g_last_status);
+			g_vars.last_status = exec_cmd(cmd_list);
+		// printf("%d\n", g_vars.last_status);
 		ft_lstclear(&cmd_list, del_cmd);
 	}
 }

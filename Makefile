@@ -16,26 +16,27 @@ init_err \
 utils \
 my_perr \
 end_handle \
-./parse_cmd/parse_cmd \
-./parse_cmd/parse_cmd2 \
-./parse_cmd/parse_cmd3 \
-./parse_cmd/parse_cmd_utils \
-./parse_cmd/parse_cmd_utils2 \
-./parse_cmd/parse_cmd_errhandle \
-./parse_cmd/parse_cmd_errhandle2 \
-./exec_cmd/exec_cmd \
-./exec_cmd/exec_cmd2 \
-./exec_cmd/exec_cmd_utils \
-./exec_cmd/exec_cmd_utils2 \
-./exec_cmd/exec_cmd_redi \
-./exec_cmd/exec_cmd_end \
-./builtin/ft_echo \
-./builtin/ft_pwd \
-./builtin/ft_export \
-./builtin/ft_env \
-./builtin/ft_exit \
-./builtin/ft_unset \
-./builtin/ft_cd
+parse_cmd/parse_cmd \
+parse_cmd/parse_cmd2 \
+parse_cmd/parse_cmd3 \
+parse_cmd/parse_cmd_utils \
+parse_cmd/parse_cmd_utils2 \
+parse_cmd/parse_cmd_errhandle \
+parse_cmd/parse_cmd_errhandle2 \
+exec_cmd/exec_cmd \
+exec_cmd/exec_cmd2 \
+exec_cmd/exec_cmd_utils \
+exec_cmd/exec_cmd_utils2 \
+exec_cmd/exec_cmd_redi \
+exec_cmd/exec_cmd_end \
+exec_cmd/exec_cmd_end2 \
+builtin/ft_echo \
+builtin/ft_pwd \
+builtin/ft_export \
+builtin/ft_env \
+builtin/ft_exit \
+builtin/ft_unset \
+builtin/ft_cd
 
 SRCS = $(addsuffix .c ,$(addprefix $(SRC_DIR), $(SRC_NAME)))
 OBJS = $(SRCS:.c=.o)

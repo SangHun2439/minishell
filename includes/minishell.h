@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 18:35:39 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 19:36:14 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ void	exec_free_split(char **str_arr);
 char	*get_tmpf_name(int num);
 int		end_heredoc_err(char *fname);
 void	rlw_tmpf(int fd, char *arg);
+int		is_path(char *str, char **argv, char **env);
+int		fork_err(char *full_path);
+int		child_do(char *full_path, char **argv, char **envp);
 /* exec_cmd */
 
 /* parser */

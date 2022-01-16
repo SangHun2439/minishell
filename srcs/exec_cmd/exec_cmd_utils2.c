@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 23:30:20 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 18:40:23 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 19:17:27 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	exec_free_split(char **str_arr)
 {
 	int	i;
 
+	if (str_arr == 0)
+		return ;
 	i = 0;
 	while (str_arr[i])
 		free(str_arr[i++]);

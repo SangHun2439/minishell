@@ -6,11 +6,45 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:39:58 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/14 22:52:21 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/16 19:33:34 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	errno_print(int	error, char *str)
+{
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(strerror(error), STDERR_FILENO);
+}
+
+int	is_path(char *str, char **argv, char **env)
+{
+	pid_t	pid;
+
+	if (is_direc(str))
+	{
+		errno_print(EISDIR, str);
+		return (126);
+	}
+	pid = fork();
+	if (pid == -1)
+		return (execve_err());
+	if (pid == 0)
+	{
+		execve(str, argv, env);
+		errno_print(errno, str);
+		if (errno == ENOENT)
+			exit (127);
+		if (errno == EACCES)
+			exit (126);
+		exit (126);
+	}
+	if (pid > 0)
+		return (parents_do(pid, NULL));
+	return (NODO);
+}
 
 int	parents_do(pid_t pid, char *full_path)
 {
@@ -27,4 +61,11 @@ int	parents_do(pid_t pid, char *full_path)
 	else if (WIFSIGNALED(status))
 		res = 128 + WTERMSIG(status);
 	return (res);
+}
+
+int	child_do(char *full_path, char **argv, char **envp)
+{
+	if (execve(full_path, argv, envp) == -1)
+		return (execve_err());
+	return (0);
 }

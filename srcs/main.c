@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 18:27:11 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 22:39:46 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,15 @@ int	main(int argc, char **argv)
 	extern char	**environ;
 	char 		**my_environ;
 	int			parse_status;
-	char		*homepath;
 
 	if (argc != 1)
 		return (0);
 	init(argv, &cmd_list, environ, &my_environ);
 	environ = my_environ;
-	homepath = getenv("HOME");
-	if (!getenv("HOME"))
-		return (0);
 	while (1)
 	{
 		line = rl_gets();
-		parse_status = parse_cmd(&cmd_list, line, &environ, homepath);
+		parse_status = parse_cmd(&cmd_list, line, &environ);
 		if (parse_status != EMPTYLINE)
 			g_vars.last_status = parse_status;
 		if (parse_status == 0)

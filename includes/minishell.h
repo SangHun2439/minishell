@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 19:36:14 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 22:40:04 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ typedef struct s_redi
 
 typedef struct s_vars
 {
-	int	last_status;
-	int	heredoc_exit;
+	int		last_status;
+	int		heredoc_exit;
+	char	*homepath;
 }	t_vars;
 
 t_vars	g_vars;
@@ -105,7 +106,7 @@ int		child_do(char *full_path, char **argv, char **envp);
 /* exec_cmd */
 
 /* parser */
-int		parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr, char *homepath);
+int		parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr);
 int		_isspace(char chr);
 int		is_redi(const char *str);
 void	redi_move_ptr(char **line_ptr, int redi_status);

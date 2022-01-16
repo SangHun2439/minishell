@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 21:11:45 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 18:26:31 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 22:39:16 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,17 @@ char	**env_cpy(char **src)
 
 int	init(char **argv, t_list **cmd_list_ptr, char **environ, char ***my_environ)
 {
+	char	*homepath;
+
 	(void)argv;
 	*cmd_list_ptr = 0;
+	homepath = getenv("HOME");
+	if (!homepath)
+		init_err();
+	homepath = ft_strdup(homepath);
+	if (!homepath)
+		init_err();
+	g_vars.homepath = homepath;
 	g_vars.last_status = 0;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);

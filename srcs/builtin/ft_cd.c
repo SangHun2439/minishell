@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/15 20:15:01 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/16 22:43:00 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_cd_err(int error, char *dir)
 	ft_putendl_fd(strerror(error), STDERR_FILENO);
 }
 
-int	cd_home(t_cmd *cmd, char *tmp)
+int	cd_home(char *tmp)
 {
 	char	*env_home;
 
@@ -35,9 +35,9 @@ int	cd_home(t_cmd *cmd, char *tmp)
 	{
 		if (tmp && tmp[0] == '~')
 		{
-			if (chdir(cmd->home) < 0)
+			if (chdir(g_vars.homepath) < 0)
 			{
-				ft_cd_err(errno, cmd->home);
+				ft_cd_err(errno, g_vars.homepath);
 				return (1);
 			}
 			return (0);
@@ -97,7 +97,7 @@ int	relative_path(t_cmd *cmd)
 	if (tmp[0] == '~')
 	{
 		if (tmp[1] == '/')
-			path_str = ft_strjoin(cmd->home, &tmp[1]);
+			path_str = ft_strjoin(g_vars.homepath, &tmp[1]);
 		else
 			path_str = ft_strdup(tmp);
 		if (chdir(path_str) < 0)
@@ -121,7 +121,7 @@ int	ft_cd(t_cmd	*cmd)
 
 	if (!cmd->argv[1] || !ft_strcmp(cmd->argv[1], "") \
 		|| !ft_strcmp(cmd->argv[1], "~"))
-		res = cd_home(cmd, cmd->argv[1]);
+		res = cd_home(cmd->argv[1]);
 	else if (*(cmd->argv[1]) == '/')
 		res = absolute_path(cmd);
 	else

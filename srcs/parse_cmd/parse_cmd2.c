@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:04:30 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/12 23:18:16 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 18:27:16 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	get_recent_status(char **str_ptr, char **res)
 	char	*recent_status;
 
 	(*str_ptr)++;
-	recent_status = ft_itoa(g_last_status);
+	recent_status = ft_itoa(g_vars.last_status);
 	if (!recent_status)
 		return (FAIL);
 	while (*recent_status)

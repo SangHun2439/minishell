@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:16:56 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/15 19:34:26 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/16 18:26:53 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	printf_prev_exit_status(void)
 {
 	char	*s;
 
-	s = ft_itoa(g_last_status);
+	s = ft_itoa(g_vars.last_status);
 	ft_putstr_fd(s, 1);
 }
 

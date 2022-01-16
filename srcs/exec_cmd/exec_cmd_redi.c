@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 21:56:46 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 13:07:55 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 18:33:02 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	redirect_heredoc(char *arg, int num)
 		return (end_heredoc_err(fname));
 	rlw_tmpf(fd, arg);
 	close(fd);
+	if (g_vars.heredoc_exit != 0)
+		return (heredoc_sigint_end(fname));
 	fd = open(fname, O_RDONLY);
 	unlink(fname);
 	if (fd < 0)

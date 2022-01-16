@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 23:21:43 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 13:08:01 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 18:35:58 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,12 @@ int	end_heredoc_err(char *fname)
 {
 	free(fname);
 	exec_perr_and_init();
+	return (1);
+}
+
+int	heredoc_sigint_end(char *fname)
+{
+	unlink(fname);
+	free(fname);
 	return (1);
 }

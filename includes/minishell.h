@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/15 11:59:41 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/16 18:35:39 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,13 @@ typedef struct s_redi
 	char	*arg;
 }	t_redi;
 
-int	g_last_status;
+typedef struct s_vars
+{
+	int	last_status;
+	int	heredoc_exit;
+}	t_vars;
+
+t_vars	g_vars;
 
 # define TRUE 1
 # define FALSE 0
@@ -87,6 +93,7 @@ void	save_fd_std(int *fd_stdout, int *fd_stdin);
 int		end_exec_ft(int res, int fd_stdout, int fd_stdin);
 void	exec_perr_and_init(void);
 int		end_redirect_err(void);
+int		heredoc_sigint_end(char *fname);
 int		execve_err(void);
 void	exec_free_split(char **str_arr);
 char	*get_tmpf_name(int num);
@@ -133,10 +140,10 @@ void	del_cmd(void *content);
 void	free_split(char **str_arr);
 int		init(char **argv, t_list **cmd_list_ptr, \
 char **environ, char ***my_environ);
+void	heredoc_sigint_handler(int sig);
 void	sig_handler(int sig);
 char	*ft_strndup(const char *s1, size_t max);
 void	*err_handle3(void);
-
 /* builtin */
 
 int		ft_echo(t_cmd *cmd);

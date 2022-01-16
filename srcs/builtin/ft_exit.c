@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:35:43 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/15 20:19:37 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/16 18:26:58 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_exit(t_cmd *cmd)
 	if (isatty(STDIN_FILENO))
 		ft_putendl_fd("exit", STDERR_FILENO);
 	if (i == 1)
-		exit(g_last_status);
+		exit(g_vars.last_status);
 	exit_ret = ft_atol(cmd->argv[1], &flg_exit);
 	if (flg_exit)
 	{

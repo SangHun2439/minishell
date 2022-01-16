@@ -6,11 +6,21 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 11:55:32 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/13 17:52:28 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 18:27:34 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	heredoc_sigint_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_vars.heredoc_exit = 1;
+		rl_done = 1;
+		return ;
+	}
+}
 
 void	sigint_handler(void)
 {

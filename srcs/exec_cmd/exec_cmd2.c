@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:39:58 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 19:33:34 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/17 21:19:37 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	errno_print(int	error, char *str)
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(strerror(error), STDERR_FILENO);
+	errno = 0;
 }
 
 int	is_path(char *str, char **argv, char **env)
@@ -66,6 +67,9 @@ int	parents_do(pid_t pid, char *full_path)
 int	child_do(char *full_path, char **argv, char **envp)
 {
 	if (execve(full_path, argv, envp) == -1)
-		return (execve_err());
+	{
+		exec_perr_and_init();
+		exit (FAIL);
+	}
 	return (0);
 }

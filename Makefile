@@ -30,6 +30,8 @@ exec_cmd/exec_cmd_utils2 \
 exec_cmd/exec_cmd_redi \
 exec_cmd/exec_cmd_end \
 exec_cmd/exec_cmd_end2 \
+exec_cmd/exec_cmd_pipe \
+exec_cmd/exec_cmd_pipe2 \
 builtin/ft_echo \
 builtin/ft_pwd \
 builtin/ft_export \

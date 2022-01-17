@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 22:40:04 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/17 22:30:44 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,16 @@ void	rlw_tmpf(int fd, char *arg);
 int		is_path(char *str, char **argv, char **env);
 int		fork_err(char *full_path);
 int		child_do(char *full_path, char **argv, char **envp);
+int		exec_builtin(t_cmd *cmd);
+void	errno_print(int	error, char *str);
+int		exec_pipe(t_list *cmd_list, char **path);
+int		parents_do_pipe(pid_t pid, int **pipe_arr);
+int		exec_util_pipe(t_cmd *cmd, char **path);
+void	is_path_pipe(char *str, char **argv, char **env);
+void	child_do_pipe(t_cmd *cmd, char **path, int **pipe_arr, int num);
+int		execve_err_pipe(void);
+int		**pipe_init_alloc_err(int **pipe_arr, int end);
+int		**pipe_init_err(int **pipe_arr, int end);
 /* exec_cmd */
 
 /* parser */
@@ -122,7 +132,6 @@ int		parse_init(char **line_ptr, char ***cmd_arr_ptr);
 int		case_cmd(char **one_cmd_ptr, t_list **cmd_line_list_ptr);
 int		case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status);
 char	*get_word_move_addr(char **str_ptr);
-void	perr_and_init(void);
 int		parse_err(void);
 int		parse_err_cmd(char **cmd_arr, int res);
 int		parse_err_mem2(char **cmd_arr, t_cmd *cmd);

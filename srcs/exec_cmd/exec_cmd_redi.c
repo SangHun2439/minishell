@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 21:56:46 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 18:33:02 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:32:42 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	redirect_heredoc(char *arg, int num)
 	int		fd;
 
 	fname = get_tmpf_name(num);
-	fd = open(fname, O_WRONLY|O_CREAT|O_EXCL|O_TRUNC, 0600);
+	fd = open(fname, O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
 	if (fd < 0)
 		return (end_heredoc_err(fname));
 	rlw_tmpf(fd, arg);

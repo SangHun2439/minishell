@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 21:02:43 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/13 22:45:06 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/18 19:38:18 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@ int	is_quote(char c)
 	if (c == '\'')
 		return (SMALL_QUOTE);
 	return (0);
-}
-
-void	_free_split(char **str_arr)
-{
-	int	i;
-
-	i = 0;
-	while (str_arr[i])
-		free(str_arr[i++]);
-	free(str_arr);
 }
 
 int	write_str(char **res, char c)

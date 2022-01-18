@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:30:38 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 12:39:09 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/18 20:04:15 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ int	exec_util(t_cmd *cmd, char **path)
 	return (NOCMD);
 }
 
-int	exec_ft_with_redi(t_cmd *cmd, char **path, int num)
+int	exec_ft_with_redi(t_cmd *cmd, char **path)
 {
 	int	res;
 	int	fd_stdout;
 	int	fd_stdin;
 
 	save_fd_std(&fd_stdout, &fd_stdin);
-	res = redirect(cmd->redi_list, num);
+	res = redirect(cmd->redi_list);
 	if (res != 0)
 		return (end_exec_ft(res, fd_stdout, fd_stdin));
 	res = exec_builtin(cmd);
@@ -89,12 +89,12 @@ int	exec_ft_with_redi(t_cmd *cmd, char **path, int num)
 	return (end_exec_ft(res, fd_stdout, fd_stdin));
 }
 
-int	exec_ft(t_cmd *cmd, char **path, int num)
+int	exec_ft(t_cmd *cmd, char **path)
 {
 	int	res;
 
 	if (cmd->redi_list)
-		return (exec_ft_with_redi(cmd, path, num));
+		return (exec_ft_with_redi(cmd, path));
 	res = exec_builtin(cmd);
 	if (res != NOCMD)
 		return (res);
@@ -126,9 +126,9 @@ int	exec_cmd(t_list *cmd_list)
 	else
 		path = ft_split(path_str, ':');
 	if (!cmd_list->next)
-		res = exec_ft(cmd_list->content, path, 0);
+		res = exec_ft(cmd_list->content, path);
 	else
 		res = exec_pipe(cmd_list, path);
-	exec_free_split(path);
+	free_split(path);
 	return (res);
 }

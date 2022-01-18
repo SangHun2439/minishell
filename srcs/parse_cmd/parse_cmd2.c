@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:04:30 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 13:36:36 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/18 19:47:29 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	case_redi(char **one_cmd_ptr, t_list **redi_list_ptr, int redi_status)
 	redi->arg = get_word_move_addr(one_cmd_ptr);
 	if (!redi->arg)
 		return (parse_err_redi(redi));
+	if (redi->redi_status == REDIRECT_HEREDOC)
+	{
+		if (write_tmp_file(redi) != 0)
+			return (parse_err_redi(redi));
+	}
 	new_lst = ft_lstnew(redi);
 	if (!new_lst)
 		return (mem_err_redi2(redi));

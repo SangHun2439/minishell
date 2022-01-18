@@ -21,12 +21,13 @@ parse_cmd/parse_cmd2 \
 parse_cmd/parse_cmd3 \
 parse_cmd/parse_cmd_utils \
 parse_cmd/parse_cmd_utils2 \
+parse_cmd/parse_cmd_utils3 \
 parse_cmd/parse_cmd_errhandle \
 parse_cmd/parse_cmd_errhandle2 \
+parse_cmd/parse_cmd_errhandle3 \
 exec_cmd/exec_cmd \
 exec_cmd/exec_cmd2 \
 exec_cmd/exec_cmd_utils \
-exec_cmd/exec_cmd_utils2 \
 exec_cmd/exec_cmd_redi \
 exec_cmd/exec_cmd_end \
 exec_cmd/exec_cmd_end2 \

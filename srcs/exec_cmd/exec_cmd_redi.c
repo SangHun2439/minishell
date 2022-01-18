@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 21:56:46 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 17:32:42 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 20:02:44 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,16 @@ int	redirect_append(char *arg)
 	return (0);
 }
 
-int	redirect_heredoc(char *arg, int num)
+int	redirect_heredoc(char *arg)
 {
-	char	*fname;
 	int		fd;
 
-	fname = get_tmpf_name(num);
-	fd = open(fname, O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
+	fd = open(arg, O_RDONLY);
+	unlink(arg);
 	if (fd < 0)
-		return (end_heredoc_err(fname));
-	rlw_tmpf(fd, arg);
-	close(fd);
-	if (g_vars.heredoc_exit != 0)
-		return (heredoc_sigint_end(fname));
-	fd = open(fname, O_RDONLY);
-	unlink(fname);
-	if (fd < 0)
-		return (end_heredoc_err(fname));
+		return (end_redirect_err());
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	free(fname);
 	return (0);
 }
 
@@ -71,7 +61,7 @@ int	redirect_output(char *arg)
 	return (0);
 }
 
-int	redirect(t_list *redi_list, int num)
+int	redirect(t_list *redi_list)
 {
 	t_redi	*redi;
 	int		res;
@@ -82,7 +72,7 @@ int	redirect(t_list *redi_list, int num)
 		if (redi->redi_status == REDIRECT_APPEND)
 			res = redirect_append(redi->arg);
 		else if (redi->redi_status == REDIRECT_HEREDOC)
-			res = redirect_heredoc(redi->arg, num);
+			res = redirect_heredoc(redi->arg);
 		else if (redi->redi_status == REDIRECT_INPUT)
 			res = redirect_input(redi->arg);
 		else if (redi->redi_status == REDIRECT_OUTPUT)

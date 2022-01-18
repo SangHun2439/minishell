@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 19:27:59 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 12:39:41 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/18 19:42:29 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int	fork_err(char *full_path)
 {
 	free(full_path);
-	exec_perr_and_init();
+	put_errmsg();
 	return (1);
 }
 
 int	execve_err_pipe(void)
 {
-	exec_perr_and_init();
+	put_errmsg();
 	while (wait(0) > 0)
 		;
 	errno = 0;

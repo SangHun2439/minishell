@@ -1,55 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd_utils2.c                                  :+:      :+:    :+:   */
+/*   parse_cmd_utils3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/27 23:30:20 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 12:40:21 by jeson            ###   ########.fr       */
+/*   Created: 2022/01/18 19:37:58 by sangjeon          #+#    #+#             */
+/*   Updated: 2022/01/18 19:56:08 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	exec_perr_and_init(void)
-{
-	if (!errno)
-		return ;
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	errno = 0;
-}
-
-void	exec_free_split(char **str_arr)
-{
-	int	i;
-
-	if (str_arr == 0)
-		return ;
-	i = 0;
-	while (str_arr[i])
-		free(str_arr[i++]);
-	free(str_arr);
-}
-
-char	*get_tmpf_name(int num)
-{
-	char	*num_str;
-	char	*res;
-
-	num_str = ft_itoa(num);
-	if (!num_str)
-		return (0);
-	res = ft_strjoin("my_tmp_", num_str);
-	if (!res)
-	{
-		free(num_str);
-		return (0);
-	}
-	free(num_str);
-	return (res);
-}
 
 int	heredoc_event_hook(void)
 {
@@ -77,4 +38,46 @@ void	rlw_tmpf(int fd, char *arg)
 	if (line)
 		free(line);
 	signal(SIGINT, sig_handler);
+}
+
+char	*get_tmpf_name(int num)
+{
+	char	*num_str;
+	char	*res;
+
+	num_str = ft_itoa(num);
+	if (!num_str)
+		return (0);
+	res = ft_strjoin("my_tmp_", num_str);
+	if (!res)
+	{
+		free(num_str);
+		return (0);
+	}
+	free(num_str);
+	return (res);
+}
+
+int	write_tmp_file(t_redi *redi)
+{
+	static int	id;
+	char		*fname;
+	int			fd;
+
+	fname = get_tmpf_name(id);
+	if (!fname)
+		return (heredoc_err_mem(redi->arg));
+	fd = open(fname, O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
+	if (fd < 0)
+		return (heredoc_err_fd(fname, redi->arg));
+	rlw_tmpf(fd, redi->arg);
+	close(fd);
+	free(redi->arg);
+	if (g_vars.heredoc_exit != 0)
+		return (heredoc_err_sigint(fname));
+	redi->arg = fname;
+	id++;
+	if (id == 32769)
+		id = 0;
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 16:46:20 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 20:04:37 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,13 @@ void	*err_handle3(void);
 /* main */
 
 /* exec_cmd */
-int		redirect(t_list *redi_list, int num);
+int		redirect(t_list *redi_list);
 int		redirect_append(char *arg);
-int		redirect_heredoc(char *arg, int num);
+int		redirect_heredoc(char *arg);
 int		redirect_input(char *arg);
 int		redirect_output(char *arg);
-int		_pipe(t_list *cmd_lisr, char **path);
 int		exec_cmd(t_list *cmd_list);
-int		exec_ft(t_cmd *cmd, char **path, int num);
+int		exec_ft(t_cmd *cmd, char **path);
 char	*get_full_path(char *each_cmd, char *each_path);
 int		get_child_return(pid_t pid);
 int		parents_do(pid_t pid, char *full_path);
@@ -103,14 +102,8 @@ int		file_exist(char *path);
 void	getback_fd_std(int fd_stdout, int fd_stdin);
 void	save_fd_std(int *fd_stdout, int *fd_stdin);
 int		end_exec_ft(int res, int fd_stdout, int fd_stdin);
-void	exec_perr_and_init(void);
 int		end_redirect_err(void);
-int		heredoc_sigint_end(char *fname);
 int		execve_err(void);
-void	exec_free_split(char **str_arr);
-char	*get_tmpf_name(int num);
-int		end_heredoc_err(char *fname);
-void	rlw_tmpf(int fd, char *arg);
 int		is_path(char *str, char **argv, char **env);
 int		fork_err(char *full_path);
 int		child_do(char *full_path, char **argv, char **envp);
@@ -136,7 +129,6 @@ int		list_clear(t_list **cmd_line_list_ptr, t_list **redi_list_ptr);
 void	del_redi_one(void *content);
 int		parse_err_redi(t_redi *redi);
 int		mem_err_redi2(t_redi *redi);
-void	_free_split(char **str_arr);
 int		fill_cmd_redi_list(char **one_cmd_ptr, \
 t_list	**cmd_line_list_ptr, t_list **redi_list_ptr);
 int		parse_init(char **line_ptr, char ***cmd_arr_ptr);
@@ -156,6 +148,10 @@ int		parse_err_convert_env(char *str);
 int		convert_env_return(char *str);
 int		only_dollar(char **res);
 int		get_recent_status(char **str_ptr, char **res);
+int		write_tmp_file(t_redi *redi);
+int		heredoc_err_mem(char *arg);
+int		heredoc_err_fd(char *fname, char *arg);
+int		heredoc_err_sigint(char *fname);
 /* parser */
 
 /* builtin */

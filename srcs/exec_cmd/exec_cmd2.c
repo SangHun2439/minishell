@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:39:58 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 12:38:08 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/18 19:42:46 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	child_do(char *full_path, char **argv, char **envp)
 {
 	if (execve(full_path, argv, envp) == -1)
 	{
-		exec_perr_and_init();
+		put_errmsg();
 		exit (FAIL);
 	}
 	return (0);

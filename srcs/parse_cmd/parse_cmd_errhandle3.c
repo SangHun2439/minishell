@@ -1,45 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd_end.c                                     :+:      :+:    :+:   */
+/*   parse_cmd_errhandle3.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/27 23:21:43 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 19:42:22 by sangjeon         ###   ########.fr       */
+/*   Created: 2022/01/18 19:39:16 by sangjeon          #+#    #+#             */
+/*   Updated: 2022/01/18 20:18:17 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	end_exec_ft(int res, int fd_stdout, int fd_stdin)
+int	heredoc_err_mem(char *arg)
 {
-	getback_fd_std(fd_stdout, fd_stdin);
-	return (res);
-}
-
-int	end_redirect_err(void)
-{
+	free(arg);
 	put_errmsg();
 	return (1);
 }
 
-int	execve_err(void)
-{
-	put_errmsg();
-	return (1);
-}
-
-int	end_heredoc_err(char *fname)
+int	heredoc_err_fd(char *fname, char *arg)
 {
 	free(fname);
+	free(arg);
 	put_errmsg();
 	return (1);
 }
 
-int	heredoc_sigint_end(char *fname)
+int	heredoc_err_sigint(char *fname)
 {
 	unlink(fname);
 	free(fname);
+	errno = 0;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 19:42:44 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 12:39:27 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/18 20:07:19 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	child_do_pipe(t_cmd *cmd, char **path, int **pipe_arr, int num)
 	connect_pipe(pipe_arr[num], pipe_arr[num + 1]);
 	if (cmd->redi_list)
 	{
-		res = redirect(cmd->redi_list, num);
+		res = redirect(cmd->redi_list);
 		if (res != 0)
 			exit(res);
 	}

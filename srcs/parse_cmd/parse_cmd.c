@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 00:59:16 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 16:38:33 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 17:25:23 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_valid_cmd(char *cmd)
 			return (0);
 		if (*cmd == ';')
 			return (0);
-		if (ft_strncmp(cmd, "||", 2) != 0)
+		if (ft_strncmp(cmd, "||", 2) == 0)
 			return (0);
 		cmd++;
 	}

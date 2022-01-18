@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:30:38 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 20:04:15 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 00:15:22 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int	exec_cmd(t_list *cmd_list)
 		res = exec_ft(cmd_list->content, path);
 	else
 		res = exec_pipe(cmd_list, path);
-	free_split(path);
+	if (path)
+		free_split(path);
 	return (res);
 }

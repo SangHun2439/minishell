@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 12:33:16 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/18 16:46:20 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,18 @@ t_vars	g_vars;
 # define SMALL_QUOTE 2
 
 # define EMPTYLINE -1
+
+/* main */
+void	*init_err(void);
+void	del_cmd(void *content);
+void	free_split(char **str_arr);
+int		init(char **argv, t_list **cmd_list_ptr, \
+char **environ, char ***my_environ);
+void	heredoc_sigint_handler(int sig);
+void	sig_handler(int sig);
+char	*ft_strndup(const char *s1, size_t max);
+void	*err_handle3(void);
+/* main */
 
 /* exec_cmd */
 int		redirect(t_list *redi_list, int num);
@@ -146,18 +158,7 @@ int		only_dollar(char **res);
 int		get_recent_status(char **str_ptr, char **res);
 /* parser */
 
-void	*init_err(void);
-void	print_cmd_info(void *content);
-void	del_cmd(void *content);
-void	free_split(char **str_arr);
-int		init(char **argv, t_list **cmd_list_ptr, \
-char **environ, char ***my_environ);
-void	heredoc_sigint_handler(int sig);
-void	sig_handler(int sig);
-char	*ft_strndup(const char *s1, size_t max);
-void	*err_handle3(void);
 /* builtin */
-
 int		ft_echo(t_cmd *cmd);
 int		ft_env(t_cmd *cmd);
 int		ft_exit(t_cmd *cmd);
@@ -165,12 +166,12 @@ int		ft_export(t_cmd *cmd);
 int		ft_pwd(void);
 int		ft_unset(t_cmd *cmd);
 int		ft_cd(t_cmd *cmd);
-
 int		is_valid_str(char *str);
 char	**env_overriding(t_cmd *cmd, char *argv);
 int		is_direc(char *path);
 void	ft_cd_err(int error, char *dir);
 int		length_to_equ(const char *s1);
 void	export_no_parm(t_cmd *cmd);
+/* builtin */
 
 #endif

@@ -6,14 +6,41 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 00:59:16 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 13:29:50 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/18 16:38:33 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	is_valid_cmd(char *cmd)
+{
+	while (*cmd)
+	{
+		if (*cmd == '(')
+			return (0);
+		if (*cmd == ')')
+			return (0);
+		if (*cmd == '*')
+			return (0);
+		if (*cmd == '&')
+			return (0);
+		if (*cmd == '#')
+			return (0);
+		if (*cmd == '\\')
+			return (0);
+		if (*cmd == ';')
+			return (0);
+		if (ft_strncmp(cmd, "||", 2) != 0)
+			return (0);
+		cmd++;
+	}
+	return (1);
+}
+
 int	parse_init(char **line_ptr, char ***cmd_arr_ptr)
 {
+	if (!is_valid_cmd(*line_ptr))
+		return (parse_unexpected_err());
 	while (**line_ptr && _isspace(**line_ptr))
 		(*line_ptr)++;
 	if (!(**line_ptr))

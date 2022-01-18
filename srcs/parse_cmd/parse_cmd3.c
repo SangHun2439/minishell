@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 20:08:08 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/13 22:41:03 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/18 23:54:30 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	write_env_val(char **res, char *env_key)
 		return (SUCCESS);
 	while (*env_val)
 	{
-		if (write_str(res, *env_val) != SUCCESS)
+		if (write_str(res, *env_val, 0) != SUCCESS)
 			return (parse_err_convert_env(env_key));
 		env_val++;
 	}
@@ -59,7 +59,7 @@ int	normal_case(char **str_ptr, char **res)
 	}
 	else
 	{
-		if (write_str(res, **str_ptr) != SUCCESS)
+		if (write_str(res, **str_ptr, 0) != SUCCESS)
 			return (FAIL);
 		(*str_ptr)++;
 	}
@@ -73,7 +73,7 @@ int	quote_handle(char **str_ptr, char **res, int quote_flag)
 	{
 		if (quote_flag == SMALL_QUOTE)
 		{
-			if (write_str(res, **str_ptr) != SUCCESS)
+			if (write_str(res, **str_ptr, 0) != SUCCESS)
 				return (FAIL);
 			(*str_ptr)++;
 		}
@@ -113,7 +113,7 @@ char	*get_word_move_addr(char **str_ptr)
 				return (parse_err_get_word(word));
 		}
 	}
-	if (write_str(&word, 0) != SUCCESS)
+	if (write_str(&word, 0, 0) != SUCCESS)
 		return (parse_err_get_word(word));
 	return (word);
 }

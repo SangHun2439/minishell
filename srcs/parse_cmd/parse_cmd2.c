@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:04:30 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 19:47:29 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 23:54:00 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_list **cmd_line_list_ptr, t_list **redi_list_ptr)
 
 int	only_dollar(char **res)
 {
-	if (write_str(res, '$') != SUCCESS)
+	if (write_str(res, '$', 0) != SUCCESS)
 		return (1);
 	return (0);
 }
@@ -83,16 +83,22 @@ int	only_dollar(char **res)
 int	get_recent_status(char **str_ptr, char **res)
 {
 	char	*recent_status;
+	char	*for_free;
 
 	(*str_ptr)++;
 	recent_status = ft_itoa(g_vars.last_status);
+	for_free = recent_status;
 	if (!recent_status)
 		return (FAIL);
 	while (*recent_status)
 	{
-		if (write_str(res, *recent_status) != SUCCESS)
+		if (write_str(res, *recent_status, 0) != SUCCESS)
+		{
+			free(for_free);
 			return (1);
+		}
 		recent_status++;
 	}
+	free(for_free);
 	return (SUCCESS);
 }

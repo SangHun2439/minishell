@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 20:04:37 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 23:53:19 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int		parse_err_mem2(char **cmd_arr, t_cmd *cmd);
 int		parse_err_mem3(t_list **cmd_line_list, t_list **redi_list);
 int		parse_unexpected_err(void);
 int		is_quote(char c);
-int		write_str(char **res, char c);
+int		write_str(char **res, char c, int clear_flag);
 char	*unclosedquotes_err(char *str);
 char	*parse_err_get_word(char *str);
 int		parse_err_convert_env(char *str);
@@ -152,6 +152,8 @@ int		write_tmp_file(t_redi *redi);
 int		heredoc_err_mem(char *arg);
 int		heredoc_err_fd(char *fname, char *arg);
 int		heredoc_err_sigint(char *fname);
+int		is_sep(char c);
+char	**split_cmd(char *cmd);
 /* parser */
 
 /* builtin */

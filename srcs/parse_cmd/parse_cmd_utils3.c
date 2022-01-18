@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 19:37:58 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 19:56:08 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 22:22:24 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,17 @@ int	write_tmp_file(t_redi *redi)
 	if (id == 32769)
 		id = 0;
 	return (0);
+}
+
+void	del_redi_one(void *content)
+{
+	t_redi	*redi;
+
+	redi = content;
+	if (!content)
+		return ;
+	if (redi->redi_status == REDIRECT_HEREDOC && file_exist(redi->arg))
+		unlink(redi->arg);
+	free(redi->arg);
+	free(redi);
 }

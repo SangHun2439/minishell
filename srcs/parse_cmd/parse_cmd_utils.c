@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 00:00:30 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 22:00:49 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 22:22:41 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ int	is_redi(const char *str)
 		return (REDIRECT_INPUT);
 	else
 		return (0);
+}
+
+int	is_sep(char c)
+{
+	if (c == '|')
+		return (1);
+	return (0);
 }
 
 void	redi_move_ptr(char **line_ptr, int redi_status)
@@ -71,17 +78,4 @@ char	**list_to_arr(t_list *list)
 	}
 	arr[len] = 0;
 	return (arr);
-}
-
-void	del_redi_one(void *content)
-{
-	t_redi	*redi;
-
-	redi = content;
-	if (!content)
-		return ;
-	if (redi->redi_status == REDIRECT_HEREDOC && file_exist(redi->arg))
-		unlink(redi->arg);
-	free(redi->arg);
-	free(redi);
 }

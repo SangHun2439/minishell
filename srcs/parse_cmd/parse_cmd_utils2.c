@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 21:02:43 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 19:38:18 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 23:52:11 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,18 @@ int	is_quote(char c)
 	return (0);
 }
 
-int	write_str(char **res, char c)
+int	write_str(char **res, char c, int clear_flag)
 {
 	static char	buf[PARSE_CMD_BUF_SIZE + 1];
 	static int	idx;
 	char		*tmp;
 
+	if (clear_flag)
+	{
+		idx = 0;
+		ft_bzero(buf, PARSE_CMD_BUF_SIZE + 1);
+		return (0);
+	}
 	buf[idx++] = c;
 	if (c == 0 || idx == PARSE_CMD_BUF_SIZE)
 	{
@@ -41,9 +47,7 @@ int	write_str(char **res, char c)
 		buf[idx] = 0;
 		*res = ft_strjoin(*res, buf);
 		idx = 0;
-		while (buf[idx])
-			buf[idx++] = 0;
-		idx = 0;
+		ft_bzero(buf, PARSE_CMD_BUF_SIZE + 1);
 		if (tmp != 0)
 			free(tmp);
 		if (!*res)

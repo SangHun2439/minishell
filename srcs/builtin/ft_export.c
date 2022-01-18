@@ -6,66 +6,11 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/15 20:21:11 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/18 12:23:46 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_export_no_argv(t_cmd *cmd)
-{
-	char	**envs;
-	char	**split;
-	char	*key;
-	char	*value;
-
-	envs = *cmd->env_ptr;
-	while (*envs)
-	{
-		split = ft_split(*envs++, '=');
-		key = split[0];
-		value = split[1];
-		printf("declare -x %s=\"%s\"\n", key, value);
-		free_split(split);
-	}
-}
-
-int	length_to_equ(char *s1)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s1[i] != '=')
-		i++;
-	return (i);
-}
-
-char	**export_override(t_cmd *cmd, char *argv)
-{
-	int		len;
-	int		i;
-	int		env_cnt;
-	char	**myenv;
-	char	**env_cpy;
-
-	env_cnt = 0;
-	myenv = *cmd->env_ptr;
-	while (myenv[env_cnt])
-		env_cnt++;
-	env_cpy = (char **)malloc(sizeof(char *) * (env_cnt + 1));
-	i = -1;
-	while (myenv[++i])
-	{
-		len = length_to_equ(myenv[i]);
-		if (!ft_strncmp(myenv[i], argv, len))
-			env_cpy[i] = ft_strdup(argv);
-		else
-			env_cpy[i] = ft_strdup(myenv[i]);
-	}
-	env_cpy[i] = 0;
-	free_split(myenv);
-	return (env_cpy);
-}
 
 int	is_valid_str(char *str)
 {
@@ -173,7 +118,7 @@ int	ft_export(t_cmd *cmd)
 	flg_form = 0;
 	if (!cmd->argv[1])
 	{
-		print_export_no_argv(cmd);
+		export_no_parm(cmd);
 		return (0);
 	}
 	while (cmd->argv[i])
@@ -183,7 +128,7 @@ int	ft_export(t_cmd *cmd)
 		{
 			res = is_envs_export(cmd, cmd->argv[i]);
 			if (res == 1)
-				*cmd->env_ptr = export_override(cmd, cmd->argv[i]);
+				*cmd->env_ptr = env_overriding(cmd, cmd->argv[i]);
 			else
 				*cmd->env_ptr = export_env(cmd, cmd->argv[i]);
 		}

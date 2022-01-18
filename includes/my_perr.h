@@ -6,12 +6,12 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:45:25 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/12 14:03:18 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:33:58 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MY_ERR_H
-# define MY_ERR_H
+#ifndef MY_PERR_H
+# define MY_PERR_H
 
 # include <errno.h>
 # include <string.h>

@@ -6,32 +6,15 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/16 22:43:00 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:24:16 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
-
-/*
- * getcwd(buf, size) : buf = NULL 이면 현재 작업 디렉토리 경로 가져옴
- * getcwd, chdir : 실패 하면 상세 오류 내용이 errno에 저장됨
- */
-
-void	ft_cd_err(int error, char *dir)
-{
-	ft_putstr_fd("cd: ", STDERR_FILENO);
-	ft_putstr_fd(dir, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(strerror(error), STDERR_FILENO);
-}
 
 int	cd_home(char *tmp)
 {
-	char	*env_home;
-
-	env_home = getenv("HOME");
-	if (!env_home)
+	if (!getenv("HOME"))
 	{
 		if (tmp && tmp[0] == '~')
 		{
@@ -48,9 +31,9 @@ int	cd_home(char *tmp)
 	}
 	else
 	{
-		if (chdir(env_home) < 0)
+		if (chdir(getenv("HOME")) < 0)
 		{
-			ft_cd_err(errno, env_home);
+			ft_cd_err(errno, getenv("HOME"));
 			return (1);
 		}
 	}
@@ -69,10 +52,10 @@ void	change_pwd(t_cmd *cmd)
 	pwd = getcwd(NULL, 0);
 	new = ft_strjoin("PWD=", pwd);
 	free(pwd);
-	*cmd->env_ptr = export_override(cmd, new);
+	*cmd->env_ptr = env_overriding(cmd, new);
 	free(new);
 	if (getenv("OLDPWD"))
-		*cmd->env_ptr = export_override(cmd, old);
+		*cmd->env_ptr = env_overriding(cmd, old);
 	free(old);
 }
 

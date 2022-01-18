@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 22:30:44 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:33:16 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@
 # include <signal.h>
 # include <limits.h>
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	char	**argv;
 	t_list	*redi_list;
 	char	***env_ptr;
-	char	*home;
 }	t_cmd;
 
 typedef struct s_redi
@@ -104,7 +103,7 @@ int		is_path(char *str, char **argv, char **env);
 int		fork_err(char *full_path);
 int		child_do(char *full_path, char **argv, char **envp);
 int		exec_builtin(t_cmd *cmd);
-void	errno_print(int	error, char *str);
+void	errno_print(int error, char *str);
 int		exec_pipe(t_list *cmd_list, char **path);
 int		parents_do_pipe(pid_t pid, int **pipe_arr);
 int		exec_util_pipe(t_cmd *cmd, char **path);
@@ -164,13 +163,14 @@ int		ft_env(t_cmd *cmd);
 int		ft_exit(t_cmd *cmd);
 int		ft_export(t_cmd *cmd);
 int		ft_pwd(void);
-int		ft_unset(t_cmd * cmd);
+int		ft_unset(t_cmd *cmd);
 int		ft_cd(t_cmd *cmd);
 
 int		is_valid_str(char *str);
-char	**export_override(t_cmd *cmd, char *argv);
-
+char	**env_overriding(t_cmd *cmd, char *argv);
 int		is_direc(char *path);
-
+void	ft_cd_err(int error, char *dir);
+int		length_to_equ(const char *s1);
+void	export_no_parm(t_cmd *cmd);
 
 #endif

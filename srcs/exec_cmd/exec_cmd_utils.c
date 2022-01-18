@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 22:40:32 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/14 18:51:53 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/18 12:40:00 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	file_exist(char *path)
 
 int	is_direc(char *path)
 {
-	struct stat buf;
+	struct stat	buf;
 
 	stat(path, &buf);
 	if (S_ISDIR(buf.st_mode))

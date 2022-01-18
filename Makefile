@@ -38,7 +38,8 @@ builtin/ft_export \
 builtin/ft_env \
 builtin/ft_exit \
 builtin/ft_unset \
-builtin/ft_cd
+builtin/ft_cd	\
+builtin/builtin_utils
 
 SRCS = $(addsuffix .c ,$(addprefix $(SRC_DIR), $(SRC_NAME)))
 OBJS = $(SRCS:.c=.o)

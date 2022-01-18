@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 19:27:59 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 21:52:11 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:39:41 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	**pipe_init_err(int **pipe_arr, int end)
 
 int	**pipe_init_alloc_err(int **pipe_arr, int end)
 {
-	int i;
+	int	i;
 
 	put_errmsg();
 	i = 0;

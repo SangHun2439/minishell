@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:30:38 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 22:18:17 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:39:09 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ int	exec_builtin(t_cmd *cmd)
 
 	cmd_name = cmd->argv[0];
 	if (!ft_strcmp(cmd_name, "echo"))
-	 	return (ft_echo(cmd));
+		return (ft_echo(cmd));
 	else if (!ft_strcmp(cmd_name, "cd"))
-	 	return (ft_cd(cmd));
+		return (ft_cd(cmd));
 	else if (!ft_strcmp(cmd_name, "pwd"))
-	 	return (ft_pwd());
+		return (ft_pwd());
 	else if (!ft_strcmp(cmd_name, "export"))
-	 	return (ft_export(cmd));
+		return (ft_export(cmd));
 	else if (!ft_strcmp(cmd_name, "unset"))
-	 	return (ft_unset(cmd));
+		return (ft_unset(cmd));
 	else if (!ft_strcmp(cmd_name, "env"))
-	 	return (ft_env(cmd));
+		return (ft_env(cmd));
 	else if (!ft_strcmp(cmd_name, "exit"))
-	 	return (ft_exit(cmd));
+		return (ft_exit(cmd));
 	return (NOCMD);
 }
 

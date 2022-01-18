@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 18:10:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 18:27:50 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 13:08:35 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*rl_gets(void)
 		free(line_read);
 		line_read = 0;
 	}
-	line_read = readline("eakshell~");
+	line_read = readline("eakshell~$ ");
 	if (!line_read)
 		eof_handler();
 	if (line_read && *line_read)

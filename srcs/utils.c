@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/12 21:50:51 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:45:36 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	print_cmd_info(void *content)
 {
 	t_cmd	*cmd;
 	char	**arr;
-	// char	**env;
 
 	cmd = content;
 	arr = cmd->argv;

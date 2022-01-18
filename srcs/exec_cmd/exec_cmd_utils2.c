@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 23:30:20 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 19:17:27 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:40:21 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_tmpf_name(int num)
 
 int	heredoc_event_hook(void)
 {
-		return (0);
+	return (0);
 }
 
 void	rlw_tmpf(int fd, char *arg)

@@ -6,13 +6,13 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:39:58 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 21:19:37 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:38:08 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	errno_print(int	error, char *str)
+void	errno_print(int error, char *str)
 {
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);

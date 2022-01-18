@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 19:42:44 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 22:32:52 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:39:27 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	parents_do_pipe(pid_t pid, int **pipe_arr)
 {
 	int	res;
 	int	status;
-	int i;
+	int	i;
 
 	res = 0;
 	status = 0;

@@ -13,7 +13,6 @@ ifeq ($(UNAME),Darwin)
 	ifeq ($(UNAME_M),x86_64)
 		CFLAGS	+= -Igoinfre/.brew/opt/readline/include
 		LIB		+= -Lgoinfre/.brew/opt/readline/lib
-		READLINE_I_DIR  = -I/opt/homebrew/opt/readline/include
 	endif
 	ifeq ($(UNAME_M),arm64)
 		CFLAGS	+= -I/opt/homebrew/opt/readline/include

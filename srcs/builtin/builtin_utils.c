@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:20:57 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/19 09:23:51 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:50:28 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,37 @@ char	**env_overriding(t_cmd *cmd, char *argv)
 	return (env_cpy);
 }
 
+char	**ft_export_arr(t_cmd *cmd, char *str)
+{
+	char	**my_arr;
+	char	**cpy_arr;
+	int		i;
+
+	i = 0;
+	if (is_envs_export(cmd, str))
+		return (0);
+	my_arr = *cmd->export_arr;
+	while (my_arr[i])
+		i++;
+	cpy_arr = (char **)malloc(sizeof(char *) * (i + 2));
+	if (!cpy_arr)
+		return (init_err());
+	i = -1;
+	while(my_arr[++i])
+		cpy_arr[i] = my_arr[i];
+	cpy_arr[i] = ft_strdup(str);
+	cpy_arr[i + 1] = 0;
+	free(my_arr)
+	return (cpy_arr);
+}
+
 void	export_no_parm(t_cmd *cmd)
 {
 	char	**envs;
 	char	**split;
 	char	*key;
 	char	*value;
+	char	**export_arr;
 
 	envs = *cmd->env_ptr;
 	while (*envs)
@@ -73,4 +98,7 @@ void	export_no_parm(t_cmd *cmd)
 		printf("declare -x %s=\"%s\"\n", key, value);
 		free_split(split);
 	}
+	export_arr = cmd->export_arr;
+	while (*export_arr)
+		printf("declare -x %s\n", *export_arr++);
 }

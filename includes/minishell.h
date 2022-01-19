@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 12:46:59 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 14:53:31 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_cmd
 	char	**argv;
 	t_list	*redi_list;
 	char	***env_ptr;
+	char	**export_arr;
 }	t_cmd;
 
 typedef struct s_redi

@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/19 14:47:39 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/19 15:50:18 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int	is_valid_str(char *str)
 	return (0);
 }
 
-int	is_valid_form_export(char *str)
+int	is_valid_form_export(char *str, int	*cnt)
 {
 	int	i;
 	int	idx;
-	int	cnt;
+	int	*cnt;
 
-	i = 0;
-	cnt = 0;
+	i = -1;
+	*cnt = 0;
 	if (!is_valid_str(str))
 	{
 		ft_putstr_fd("export: `", STDERR_FILENO);
@@ -54,16 +54,15 @@ int	is_valid_form_export(char *str)
 		ft_putendl_fd("\': not a valid identifier", STDERR_FILENO);
 		return (0);
 	}
-	while (str[i])
+	while (str[++i])
 	{
-		if (str[i] == '=')
+		if (str[++i] == '=')
 		{
-			cnt++;
+			*cnt = *cnt + 1;
 			idx = i;
 		}
-		i++;
 	}
-	if (cnt >= 1 && idx != 0)
+	if (*cnt >= 1 && idx != 0)
 		return (1);
 	return (0);
 }
@@ -101,10 +100,10 @@ char	**export_env(t_cmd *cmd, char *argv)
 		return (init_err());
 	i = -1;
 	while (++i < env_cnt)
-		env_cpy[i] = ft_strdup(myenv[i]);
+		env_cpy[i] = myenv[i];
 	env_cpy[i] = ft_strdup(argv);
 	env_cpy[env_cnt + 1] = 0;
-	free_split(myenv);
+	free(myenv);
 	return (env_cpy);
 }
 
@@ -113,18 +112,19 @@ int	ft_export(t_cmd *cmd)
 	int	i;
 	int	res;
 	int	flg_form;
+	int	cnt;
 
-	i = 1;
+	i = 0;
 	flg_form = 0;
 	if (!cmd->argv[1])
 	{
 		export_no_parm(cmd);
 		return (0);
 	}
-	while (cmd->argv[i])
+	while (cmd->argv[++i])
 	{
-		flg_form = is_valid_form_export(cmd->argv[i]);
-		if (flg_form == 1)
+		flg_form = is_valid_form_export(cmd->argv[i], &cnt);
+		if (flg_form == 1 && cnt > 0)
 		{
 			res = is_envs_export(cmd, cmd->argv[i]);
 			if (res == 1)
@@ -132,7 +132,8 @@ int	ft_export(t_cmd *cmd)
 			else
 				*cmd->env_ptr = export_env(cmd, cmd->argv[i]);
 		}
-		i++;
+		else if (flg_form == 1 && cnt == 0)
+			*cmd->export_arr = ft_export_arr(cmd, cmd->argv[i]);
 	}
 	return (0);
 }

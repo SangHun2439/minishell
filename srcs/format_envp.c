@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 18:36:11 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 19:19:38 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 00:12:37 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,13 @@ char	**format_envp(void)
 	while (env_list)
 	{
 		env = env_list->content;
+		env_list = env_list->next;
+		if (env->flag)
+			continue ;
 		arr[i] = format_one(env);
 		if (!arr[i])
 			return (format_envp_err(&arr));
 		i++;
-		env_list = env_list->next;
 	}
 	arr[i] = 0;
 	return (arr);

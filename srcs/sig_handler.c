@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 11:55:32 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 18:27:34 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 13:06:57 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	heredoc_sigint_handler(int sig)
 {
+	extern int	rl_done;
+
 	if (sig == SIGINT)
 	{
 		g_vars.heredoc_exit = 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:20:57 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/19 16:41:27 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/19 16:47:50 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_cd_err(int error, char *dir)
 void	env_overriding(char *argv)
 {
 	t_list	*env;
-	char	*tmp;
 
 	env = g_var.env_list;
 	while (env)

@@ -6,28 +6,25 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 17:59:57 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 12:47:54 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/19 16:47:04 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	t_list		*cmd_list;
-	extern char	**environ;
-	char		**my_environ;
 	int			parse_status;
 
 	if (argc != 1)
 		return (0);
-	init(argv, &cmd_list, environ, &my_environ);
-	environ = my_environ;
+	init(argv, &cmd_list, envp);
 	while (1)
 	{
 		line = rl_gets();
-		parse_status = parse_cmd(&cmd_list, line, &environ);
+		parse_status = parse_cmd(&cmd_list, line);
 		if (parse_status != EMPTYLINE)
 			g_vars.last_status = parse_status;
 		if (parse_status == 0)

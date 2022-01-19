@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 14:53:31 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/19 16:41:43 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,17 @@
 # include <signal.h>
 # include <limits.h>
 
+typedef struct s_env
+{
+	char	*key;
+	char	*val;
+	int		flag;
+}	t_env;
+
 typedef struct s_cmd
 {
 	char	**argv;
 	t_list	*redi_list;
-	char	***env_ptr;
-	char	**export_arr;
 }	t_cmd;
 
 typedef struct s_redi
@@ -45,6 +50,7 @@ typedef struct s_vars
 	int		last_status;
 	int		heredoc_exit;
 	char	*homepath;
+	t_list	*env_list;
 }	t_vars;
 
 t_vars	g_vars;
@@ -77,11 +83,10 @@ t_vars	g_vars;
 # define EMPTYLINE -1
 
 /* main */
-void	*init_err(void);
+void	init_err(void);
+int	init(char **argv, t_list **cmd_list_ptr, char **envp);
 void	del_cmd(void *content);
 void	free_split(char **str_arr);
-int		init(char **argv, t_list **cmd_list_ptr, \
-char **environ, char ***my_environ);
 void	heredoc_sigint_handler(int sig);
 void	sig_handler(int sig);
 char	*ft_strndup(const char *s1, size_t max);

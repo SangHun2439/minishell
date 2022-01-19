@@ -6,46 +6,46 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 21:11:45 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 22:39:16 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:44:01 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**env_cpy(char **src)
+void	envp_to_list(char **envp)
 {
-	char	**res;
-	int		env_cnt;
-	int		len;
-	int		i;
+	char	**one_env_arr;
+	t_env	*env;
+	t_list	*env_list;
 
-	env_cnt = 0;
-	while (src[env_cnt])
-		env_cnt++;
-	res = (char **)malloc(sizeof(char *) * (env_cnt + 1));
-	if (!res)
-		return (init_err());
-	i = 0;
-	while (i < env_cnt)
+	while (*envp)
 	{
-		len = ft_strlen(src[i]);
-		res[i] = (char *)malloc(sizeof(char) * (len + 1));
-		if (!res[i])
-			return (init_err());
-		res[i] = ft_memcpy(res[i], src[i], len + 1);
-		i++;
+		one_env_arr = ft_split(*envp, '=');
+		if (!one_env_arr)
+			init_err();
+		env = malloc(sizeof(t_env *));
+		if (!env)
+			init_err();
+		env->key = one_env_arr[0];
+		env->val = one_env_arr[1];
+		env->flag = 0;
+		env_list = ft_lstnew(env);
+		if (!env_list)
+			init_err();
+		ft_lstadd_back(&g_vars.env_list, env_list);
+		free(one_env_arr);
+		envp++;
 	}
-	res[env_cnt] = 0;
-	return (res);
 }
 
-int	init(char **argv, t_list **cmd_list_ptr, char **environ, char ***my_environ)
+int	init(char **argv, t_list **cmd_list_ptr, char **envp)
 {
 	char	*homepath;
 
 	(void)argv;
+	envp_to_list(envp);
 	*cmd_list_ptr = 0;
-	homepath = getenv("HOME");
+	homepath = find_value("HOME");
 	if (!homepath)
 		init_err();
 	homepath = ft_strdup(homepath);
@@ -55,6 +55,5 @@ int	init(char **argv, t_list **cmd_list_ptr, char **environ, char ***my_environ)
 	g_vars.last_status = 0;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-	*my_environ = env_cpy(environ);
 	return (0);
 }

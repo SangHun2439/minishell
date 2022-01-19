@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 19:37:58 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 13:13:22 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 14:02:51 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	heredoc_event_hook(void)
 
 void	rlw_tmpf(int fd, char *arg)
 {
-	char	*line;
-	int		len;
-	extern rl_hook_func_t *rl_event_hook;
+	char					*line;
+	int						len;
+	extern rl_hook_func_t	*rl_event_hook;
 
 	line = 0;
 	len = ft_strlen(arg);

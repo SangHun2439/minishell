@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 19:19:12 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:29:38 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	*err_handle3(void);
 char	*find_val(char *str);
 int		is_key(char *str);
 char	**format_envp(void);
+void	del_env_one(void *content);
 /* main */
 
 /* exec_cmd */

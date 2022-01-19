@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 18:37:12 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:27:58 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,17 @@ int	is_key(char *str)
 		env_list = env_list->next;
 	}
 	return (0);
+}
+
+void	del_env_one(void *content)
+{
+	t_env	*env;
+
+	env = content;
+	if (!env)
+		return ;
+	if (env->key)
+		free(env->key);
+	if (env->val)
+		free(env->val);
 }

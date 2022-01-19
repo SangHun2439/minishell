@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/18 12:23:46 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/19 14:47:39 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	is_valid_form_export(char *str)
 		}
 		i++;
 	}
-	if (cnt == 1 && idx != 0)
+	if (cnt >= 1 && idx != 0)
 		return (1);
 	return (0);
 }

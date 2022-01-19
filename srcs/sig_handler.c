@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 11:55:32 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 14:31:45 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 14:38:23 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	sigint_handler(void)
 		rl_redisplay();
 		errno = 0;
 	}
-	else
-		write(STDOUT_FILENO, "\n", 1);
 }
 
 void	sigquit_handler(void)

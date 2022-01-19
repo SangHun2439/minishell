@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:39:58 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 14:36:57 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:07:31 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	exit_path(char *str)
 	exit(res);
 }
 
-int	is_path(char *str, char **argv, char **env)
+int	is_path(char *str, char **argv)
 {
 	pid_t	pid;
 
@@ -49,7 +49,7 @@ int	is_path(char *str, char **argv, char **env)
 		return (execve_err());
 	if (pid == 0)
 	{
-		execve(str, argv, env);
+		execve(str, argv, format_envp());
 		exit_path(str);
 	}
 	if (pid > 0)
@@ -84,10 +84,8 @@ int	parents_do(pid_t pid, char *full_path)
 
 int	child_do(char *full_path, char **argv, char **envp)
 {
-	if (execve(full_path, argv, envp) == -1)
-	{
-		put_errmsg();
-		exit (FAIL);
-	}
+	execve(full_path, argv, envp);
+	put_errmsg();
+	exit (FAIL);
 	return (0);
 }

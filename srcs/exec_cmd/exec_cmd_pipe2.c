@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 19:42:44 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 20:07:19 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 17:13:24 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	child_do_pipe(t_cmd *cmd, char **path, int **pipe_arr, int num)
 	if (res != NOCMD)
 		exit(res);
 	if (ft_strchr(cmd->argv[0], '/') != NULL)
-		is_path_pipe(cmd->argv[0], cmd->argv, *(cmd->env_ptr));
+		is_path_pipe(cmd->argv[0], cmd->argv);
 	res = exec_util_pipe(cmd, path);
 	if (res != NOCMD)
 		exit(res);

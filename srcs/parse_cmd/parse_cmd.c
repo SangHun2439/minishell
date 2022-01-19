@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 00:59:16 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 09:24:39 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 17:10:11 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int	parse_init(char **line_ptr, char ***cmd_arr_ptr)
 	return (0);
 }
 
-int	init_cmd(t_list *cmd_line_list, t_list *redi_list, char ***env_ptr, \
-t_cmd **cmd_ptr)
+int	init_cmd(t_list *cmd_line_list, t_list *redi_list, t_cmd **cmd_ptr)
 {
 	t_list	*lst;
 
@@ -81,11 +80,10 @@ t_cmd **cmd_ptr)
 		return (FAIL);
 	}
 	(*cmd_ptr)->redi_list = redi_list;
-	(*cmd_ptr)->env_ptr = env_ptr;
 	return (SUCCESS);
 }
 
-int	parse_one_cmd(char *one_cmd, char ***env_ptr, t_cmd **cmd_ptr)
+int	parse_one_cmd(char *one_cmd, t_cmd **cmd_ptr)
 {
 	t_list	*cmd_line_list;
 	t_list	*redi_list;
@@ -107,10 +105,10 @@ int	parse_one_cmd(char *one_cmd, char ***env_ptr, t_cmd **cmd_ptr)
 	}
 	if (res != 0)
 		return (parse_err_mem3(&cmd_line_list, &redi_list));
-	return (init_cmd(cmd_line_list, redi_list, env_ptr, cmd_ptr));
+	return (init_cmd(cmd_line_list, redi_list, cmd_ptr));
 }
 
-int	parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr)
+int	parse_cmd(t_list **cmd_list_ptr, char *line)
 {
 	char	**cmd_arr;
 	int		i;
@@ -124,7 +122,7 @@ int	parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr)
 	i = 0;
 	while (cmd_arr[i])
 	{
-		res = parse_one_cmd(cmd_arr[i], env_ptr, &cmd);
+		res = parse_one_cmd(cmd_arr[i], &cmd);
 		if (res != 0)
 			return (parse_err_cmd(cmd_arr, res));
 		new_lst = ft_lstnew(cmd);

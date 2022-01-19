@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 09:45:48 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 12:46:48 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:09:52 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ int	**pipe_init(int len)
 	return (pipe_arr);
 }
 
-void	is_path_pipe(char *str, char **argv, char **env)
+void	is_path_pipe(char *str, char **argv)
 {
 	if (is_direc(str))
 	{
 		errno_print(EISDIR, str);
 		exit (126);
 	}
-	execve(str, argv, env);
+	execve(str, argv, format_envp());
 	exit_path(str);
 }
 
@@ -65,7 +65,7 @@ int	exec_util_pipe(t_cmd *cmd, char **path)
 		}
 		if (file_exist(full_path))
 		{
-			execve(full_path, cmd->argv, *(cmd->env_ptr));
+			execve(full_path, cmd->argv, format_envp());
 			errno_print(errno, cmd->argv[0]);
 			exit(FAIL);
 		}

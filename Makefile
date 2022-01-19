@@ -24,9 +24,11 @@ SRC_DIR = ./srcs/
 SRC_NAME = main \
 read_cmd \
 sig_handler \
+format_envp \
 init \
 init_err \
 utils \
+utils2 \
 my_perr \
 end_handle \
 parse_cmd/parse_cmd \

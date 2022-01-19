@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 19:09:35 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:19:12 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_vars	g_vars;
 
 /* main */
 void	init_err(void);
-int	init(char **argv, t_list **cmd_list_ptr, char **envp);
+int		init(char **argv, t_list **cmd_list_ptr, char **envp);
 void	del_cmd(void *content);
 void	free_split(char **str_arr);
 void	heredoc_sigint_handler(int sig);

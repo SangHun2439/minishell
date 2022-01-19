@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 18:36:11 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 19:00:21 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:19:38 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*format_one(t_env *env)
 		return (0);
 	tmp = env->key;
 	i = 0;
-	while(*tmp)
+	while (*tmp)
 		res[i++] = *tmp++;
 	res[i++] = '=';
 	tmp = env->val;

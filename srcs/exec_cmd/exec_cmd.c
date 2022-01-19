@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:30:38 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 09:51:58 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:05:49 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	exec_util(t_cmd *cmd, char **path)
 			if (pid == -1)
 				return (fork_err(full_path));
 			if (pid == 0)
-				return (child_do(full_path, cmd->argv, *(cmd->env_ptr)));
+				return (child_do(full_path, cmd->argv, format_envp()));
 			if (pid > 0)
 				return (parents_do(pid, full_path));
 		}
@@ -79,7 +79,7 @@ int	exec_ft_with_redi(t_cmd *cmd, char **path)
 		return (end_exec_ft(res, fd_stdout, fd_stdin));
 	if (ft_strchr(cmd->argv[0], '/') != NULL)
 	{
-		res = is_path(cmd->argv[0], cmd->argv, *(cmd->env_ptr));
+		res = is_path(cmd->argv[0], cmd->argv);
 		if (res != NODO)
 			return (end_exec_ft(res, fd_stdout, fd_stdin));
 	}
@@ -104,7 +104,7 @@ int	exec_ft(t_cmd *cmd, char **path)
 		return (res);
 	if (ft_strchr(cmd->argv[0], '/') != NULL)
 	{
-		res = is_path(cmd->argv[0], cmd->argv, *(cmd->env_ptr));
+		res = is_path(cmd->argv[0], cmd->argv);
 		if (res != NODO)
 			return (res);
 	}
@@ -124,7 +124,7 @@ int	exec_cmd(t_list *cmd_list)
 
 	if (!cmd_list)
 		return (0);
-	path_str = getenv("PATH");
+	path_str = find_val("PATH");
 	if (!path_str)
 		path = 0;
 	else

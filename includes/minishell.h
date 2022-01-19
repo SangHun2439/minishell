@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 16:41:43 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:09:35 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ void	heredoc_sigint_handler(int sig);
 void	sig_handler(int sig);
 char	*ft_strndup(const char *s1, size_t max);
 void	*err_handle3(void);
+char	*find_val(char *str);
+int		is_key(char *str);
+char	**format_envp(void);
 /* main */
 
 /* exec_cmd */
@@ -110,7 +113,7 @@ void	save_fd_std(int *fd_stdout, int *fd_stdin);
 int		end_exec_ft(int res, int fd_stdout, int fd_stdin);
 int		end_redirect_err(void);
 int		execve_err(void);
-int		is_path(char *str, char **argv, char **env);
+int		is_path(char *str, char **argv);
 int		fork_err(char *full_path);
 int		child_do(char *full_path, char **argv, char **envp);
 int		exec_builtin(t_cmd *cmd);
@@ -118,7 +121,7 @@ void	errno_print(int error, char *str);
 int		exec_pipe(t_list *cmd_list, char **path);
 int		parents_do_pipe(pid_t pid, int **pipe_arr);
 int		exec_util_pipe(t_cmd *cmd, char **path);
-void	is_path_pipe(char *str, char **argv, char **env);
+void	is_path_pipe(char *str, char **argv);
 void	child_do_pipe(t_cmd *cmd, char **path, int **pipe_arr, int num);
 int		execve_err_pipe(void);
 int		**pipe_init_alloc_err(int **pipe_arr, int end);
@@ -127,7 +130,7 @@ void	exit_path(char *str);
 /* exec_cmd */
 
 /* parser */
-int		parse_cmd(t_list **cmd_list_ptr, char *line, char ***env_ptr);
+int		parse_cmd(t_list **cmd_list_ptr, char *line);
 int		_isspace(char chr);
 int		is_redi(const char *str);
 void	redi_move_ptr(char **line_ptr, int redi_status);

@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 20:08:08 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 23:54:30 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 17:15:19 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	write_env_val(char **res, char *env_key)
 {
 	char	*env_val;
 
-	env_val = getenv(env_key);
+	env_val = find_val(env_key);
 	if (!env_val)
 		return (SUCCESS);
 	while (*env_val)

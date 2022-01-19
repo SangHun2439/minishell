@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 16:38:49 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/19 17:01:25 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,34 @@ char	*ft_strndup(const char *s1, size_t max)
 	return (res);
 }
 
-char	*find_value(char *str)
+char	*find_val(char *str)
 {
-	t_list	*env;
+	t_list	*env_list;
+	t_env	*env;
 
-	env = g_var.env_list;
-	while (env)
+	env_list = g_vars.env_list;
+	while (env_list)
 	{
+		env = env_list->content;
 		if (!ft_strcmp(env->key, str))
-			return (env->value);
-		env = env->next;
+			return (env->val);
+		env_list = env_list->next;
 	}
 	return (0);
 }
 
 int	is_key(char *str)
 {
-	t_list	*env;
+	t_list	*env_list;
+	t_env	*env;
 
-	env = g_var.env_list;
-	while (env)
+	env_list = g_vars.env_list;
+	while (env_list)
 	{
+		env = env_list->content;
 		if (!ft_strcmp(env->key, str))
 			return (1);
-		env = env->next;
+		env_list = env_list->next;
 	}
 	return (0);
 }

@@ -1,11 +1,24 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
-INC = -Iincludes -Ilibft -I/opt/homebrew/opt/readline/include
+INC = -Iincludes -Ilibft
 LIB_NAME = ft
 LIB_DIR = ./libft
-LIB = -Llibft -L/opt/homebrew/opt/readline/lib -lft -lreadline
+LIB = -Llibft -lft -lreadline
 NAME = minishell
+
+UNAME := $(shell uname)
+ifeq ($(UNAME),Darwin)
+	UNAME_M := $(shell uname -m)
+	ifeq ($(UNAME_M),x86_64)
+		INC	+= -I${HOME}/.brew/opt/readline/include
+		LIB	+= -L${HOME}/.brew/opt/readline/lib
+	endif
+	ifeq ($(UNAME_M),arm64)
+		INC	+= -I/opt/homebrew/opt/readline/include
+		LIB	+= -L/opt/homebrew/opt/readline/lib
+	endif
+endif
 
 SRC_DIR = ./srcs/
 SRC_NAME = main \

@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:20:57 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/19 15:50:28 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/19 16:41:27 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,85 +20,31 @@ void	ft_cd_err(int error, char *dir)
 	ft_putendl_fd(strerror(error), STDERR_FILENO);
 }
 
-int	length_to_equ(const char *s1)
+void	env_overriding(char *argv)
 {
-	size_t	len;
+	t_list	*env;
+	char	*tmp;
 
-	len = 0;
-	while (s1[len] && s1[len] != '=')
-		len++;
-	return (len);
+	env = g_var.env_list;
+	while (env)
+	{
+		if (!ft_strcmp(env, env->key))
+			env->value = argv;
+		env = env->next;
+	}
 }
 
-char	**env_overriding(t_cmd *cmd, char *argv)
+void	export_no_parm(void)
 {
-	int		len;
-	int		i;
-	int		env_cnt;
-	char	**myenv;
-	char	**env_cpy;
+	t_list	*env;
 
-	env_cnt = 0;
-	myenv = *cmd->env_ptr;
-	while (myenv[env_cnt])
-		env_cnt++;
-	env_cpy = (char **)malloc(sizeof(char *) * (env_cnt + 1));
-	i = -1;
-	while (myenv[++i])
+	env = g_var.env_list;
+	while (env)
 	{
-		len = length_to_equ(myenv[i]);
-		if (!ft_strncmp(myenv[i], argv, len))
-			env_cpy[i] = ft_strdup(argv);
+		if (find_value(env->key))
+			printf("declare -x %s=\"%s\"\n", env->key, env->value);
 		else
-			env_cpy[i] = ft_strdup(myenv[i]);
+			printf("declare -x %s\n", env->key);
+		env = env->next;
 	}
-	env_cpy[i] = 0;
-	free_split(myenv);
-	return (env_cpy);
-}
-
-char	**ft_export_arr(t_cmd *cmd, char *str)
-{
-	char	**my_arr;
-	char	**cpy_arr;
-	int		i;
-
-	i = 0;
-	if (is_envs_export(cmd, str))
-		return (0);
-	my_arr = *cmd->export_arr;
-	while (my_arr[i])
-		i++;
-	cpy_arr = (char **)malloc(sizeof(char *) * (i + 2));
-	if (!cpy_arr)
-		return (init_err());
-	i = -1;
-	while(my_arr[++i])
-		cpy_arr[i] = my_arr[i];
-	cpy_arr[i] = ft_strdup(str);
-	cpy_arr[i + 1] = 0;
-	free(my_arr)
-	return (cpy_arr);
-}
-
-void	export_no_parm(t_cmd *cmd)
-{
-	char	**envs;
-	char	**split;
-	char	*key;
-	char	*value;
-	char	**export_arr;
-
-	envs = *cmd->env_ptr;
-	while (*envs)
-	{
-		split = ft_split(*envs++, '=');
-		key = split[0];
-		value = split[1];
-		printf("declare -x %s=\"%s\"\n", key, value);
-		free_split(split);
-	}
-	export_arr = cmd->export_arr;
-	while (*export_arr)
-		printf("declare -x %s\n", *export_arr++);
 }

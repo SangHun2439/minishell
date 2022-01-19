@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 09:45:48 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 22:30:06 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 12:46:48 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,7 @@ void	is_path_pipe(char *str, char **argv, char **env)
 		exit (126);
 	}
 	execve(str, argv, env);
-	errno_print(errno, str);
-	if (errno == ENOENT)
-		exit (127);
-	if (errno == EACCES)
-		exit (126);
-	exit (126);
+	exit_path(str);
 }
 
 int	exec_util_pipe(t_cmd *cmd, char **path)

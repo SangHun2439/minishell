@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 09:23:14 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 12:46:59 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	child_do_pipe(t_cmd *cmd, char **path, int **pipe_arr, int num);
 int		execve_err_pipe(void);
 int		**pipe_init_alloc_err(int **pipe_arr, int end);
 int		**pipe_init_err(int **pipe_arr, int end);
+void	exit_path(char *str);
 /* exec_cmd */
 
 /* parser */

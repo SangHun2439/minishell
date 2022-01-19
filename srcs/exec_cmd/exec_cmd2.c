@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:39:58 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 12:34:57 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 12:50:45 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,25 @@
 
 void	errno_print(int error, char *str)
 {
-	if (!errno)
+	if (!error)
 		return ;
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(strerror(error), STDERR_FILENO);
+	errno = 0;
+}
+
+void	exit_path(char *str)
+{
+	int	res;
+
+	res = 1;
+	if (errno == ENOENT)
+		res = 127;
+	if (errno == EACCES)
+		res = 126;
+	errno_print(errno, str);
+	exit(res);
 }
 
 int	is_path(char *str, char **argv, char **env)
@@ -35,14 +49,8 @@ int	is_path(char *str, char **argv, char **env)
 		return (execve_err());
 	if (pid == 0)
 	{
-		errno = 0;
 		execve(str, argv, env);
-		errno_print(errno, str);
-		if (errno == ENOENT)
-			exit(127);
-		if (errno == EACCES)
-			exit(126);
-		exit(1);
+		exit_path(str);
 	}
 	if (pid > 0)
 		return (parents_do(pid, NULL));

@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 11:55:32 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 13:06:57 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 14:31:45 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	sigint_handler(void)
 
 	if (waitpid(-1, &status, WNOHANG) == -1 && errno == ECHILD)
 	{
+		g_vars.last_status = 1;
 		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);

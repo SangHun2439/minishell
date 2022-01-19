@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:39:58 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 12:50:45 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 14:36:57 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,15 @@ int	parents_do(pid_t pid, char *full_path)
 	if (WIFEXITED(status))
 		res = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
+	{
 		res = 128 + WTERMSIG(status);
+		if (res == SIGINT + 128)
+			printf("\n");
+		else if (res == SIGQUIT + 128)
+			printf("Quit: 3\n");
+		else
+			printf("Terminated by signal %d\n", res - 128);
+	}
 	return (res);
 }
 

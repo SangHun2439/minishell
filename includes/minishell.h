@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 23:53:19 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:23:14 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ int		heredoc_err_fd(char *fname, char *arg);
 int		heredoc_err_sigint(char *fname);
 int		is_sep(char c);
 char	**split_cmd(char *cmd);
+void	quote_check(int *flag_ptr, char c);
 /* parser */
 
 /* builtin */

@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 16:30:38 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 00:15:22 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:51:58 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	exec_ft_with_redi(t_cmd *cmd, char **path)
 	res = redirect(cmd->redi_list);
 	if (res != 0)
 		return (end_exec_ft(res, fd_stdout, fd_stdin));
+	if (!cmd->argv[0])
+		return (end_exec_ft(0, fd_stdout, fd_stdin));
 	res = exec_builtin(cmd);
 	if (res != NOCMD)
 		return (end_exec_ft(res, fd_stdout, fd_stdin));
@@ -95,6 +97,8 @@ int	exec_ft(t_cmd *cmd, char **path)
 
 	if (cmd->redi_list)
 		return (exec_ft_with_redi(cmd, path));
+	if (!cmd->argv[0])
+		return (0);
 	res = exec_builtin(cmd);
 	if (res != NOCMD)
 		return (res);

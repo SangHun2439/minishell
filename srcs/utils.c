@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 22:39:57 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:38:49 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,32 @@ char	*ft_strndup(const char *s1, size_t max)
 	}
 	res[i] = '\0';
 	return (res);
+}
+
+char	*find_value(char *str)
+{
+	t_list	*env;
+
+	env = g_var.env_list;
+	while (env)
+	{
+		if (!ft_strcmp(env->key, str))
+			return (env->value);
+		env = env->next;
+	}
+	return (0);
+}
+
+int	is_key(char *str)
+{
+	t_list	*env;
+
+	env = g_var.env_list;
+	while (env)
+	{
+		if (!ft_strcmp(env->key, str))
+			return (1);
+		env = env->next;
+	}
+	return (0);
 }

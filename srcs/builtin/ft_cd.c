@@ -6,26 +6,20 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 23:42:36 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/21 00:24:27 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cd_home()
+int	cd_home(void)
 {
 	if (!find_val("HOME"))
-	{
-		ft_putendl_fd("cd: HOME not set", STDERR_FILENO);
-		return (1);
-	}
+		return (ft_home_not_set());
 	else
 	{
 		if (chdir(find_val("HOME")) < 0)
-		{
-			ft_cd_err(errno, find_val("HOME"));
-			return (1);
-		}
+			return (ft_cd_err(errno, find_val("HOME")));
 	}
 	return (0);
 }
@@ -72,21 +66,19 @@ int	relative_path(t_cmd *cmd)
 	if (tmp[0] == '~')
 	{
 		if (tmp[1] == '/')
-			path_str = ft_strjoin(g_vars.homepath, &tmp[1]);
+		{
+			if (!find_val("HOME"))
+				return (ft_home_not_set());
+			path_str = ft_strjoin(find_val("HOME"), &tmp[1]);
+		}
 		else
 			path_str = ft_strdup(tmp);
 		if (chdir(path_str) < 0)
-		{
-			ft_cd_err(errno, path_str);
-			res = 1;
-		}
+			res = ft_cd_err(errno, path_str);
 		free(path_str);
 	}
 	else if (chdir(tmp) < 0)
-	{
-		ft_cd_err(errno, tmp);
-		res = 1;
-	}
+		res = ft_cd_err(errno, tmp);
 	return (res);
 }
 

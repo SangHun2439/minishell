@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 15:32:52 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 21:36:05 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ void	export_env(char *argv, int *cnt)
 	if (!env)
 		init_err();
 	env->key = envp[0];
-	env->val = envp[1];
+	if (envp[1])
+		env->val = envp[1];
+	else
+		env->val = ft_strdup("");
 	if (*cnt > 0)
 		env->flag = 0;
 	else

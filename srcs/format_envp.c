@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 18:36:11 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 12:06:55 by jeson            ###   ########.fr       */
+/*   Created: 2022/01/20 14:49:39 by jeson             #+#    #+#             */
+/*   Updated: 2022/01/20 14:49:47 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,13 @@ char	**format_envp(void)
 	while (env_list)
 	{
 		env = env_list->content;
+		env_list = env_list->next;
+		if (env->flag)
+			continue ;
 		arr[i] = format_one(env);
 		if (!arr[i])
 			return (format_envp_err(&arr));
 		i++;
-		env_list = env_list->next;
 	}
 	arr[i] = 0;
 	return (arr);

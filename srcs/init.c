@@ -6,7 +6,7 @@
 /*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 21:11:45 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 23:45:46 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 23:49:00 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	envp_to_list(char **envp)
 
 int	init(char **argv, t_list **cmd_list_ptr, char **envp)
 {
-	char	*homepath;
-
 	(void)argv;
 	ft_lstclear(&g_vars.env_list, del_env_one);
 	envp_to_list(envp);

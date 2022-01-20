@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 14:03:47 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 19:16:19 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ void	del_env_one(void *content)
 		free(env->key);
 	if (env->val)
 		free(env->val);
+	free(env);
 }

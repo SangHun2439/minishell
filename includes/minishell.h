@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 19:29:38 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:45:41 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,11 +177,11 @@ int		ft_pwd(void);
 int		ft_unset(t_cmd *cmd);
 int		ft_cd(t_cmd *cmd);
 int		is_valid_str(char *str);
-char	**env_overriding(t_cmd *cmd, char *argv);
+void	env_overriding(char *str, int *cnt);
 int		is_direc(char *path);
 void	ft_cd_err(int error, char *dir);
 int		length_to_equ(const char *s1);
-void	export_no_parm(t_cmd *cmd);
+void	export_no_parm();
 /* builtin */
 
 #endif

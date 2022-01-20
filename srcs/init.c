@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 21:11:45 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 19:29:29 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:40:58 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init(char **argv, t_list **cmd_list_ptr, char **envp)
 	ft_lstclear(&g_vars.env_list, del_env_one);
 	envp_to_list(envp);
 	*cmd_list_ptr = 0;
-	homepath = find_value("HOME");
+	homepath = find_val("HOME");
 	if (!homepath)
 		init_err();
 	homepath = ft_strdup(homepath);

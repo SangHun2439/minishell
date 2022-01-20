@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/18 12:24:16 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 14:21:58 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	cd_home(char *tmp)
 {
-	if (!getenv("HOME"))
+	if (!find_val("HOME"))
 	{
 		if (tmp && tmp[0] == '~')
 		{
@@ -31,31 +31,33 @@ int	cd_home(char *tmp)
 	}
 	else
 	{
-		if (chdir(getenv("HOME")) < 0)
+		if (chdir(find_val("HOME")) < 0)
 		{
-			ft_cd_err(errno, getenv("HOME"));
+			ft_cd_err(errno, find_val("HOME"));
 			return (1);
 		}
 	}
 	return (0);
 }
 
-void	change_pwd(t_cmd *cmd)
+void	change_pwd()
 {
 	char	*old;
 	char	*new;
 	char	*pwd;
+	int		i;
 
-	if (!getenv("PWD"))
+	if (!find_val("PWD"))
 		return ;
-	old = ft_strjoin("OLDPWD=", getenv("PWD"));
+	old = ft_strjoin("OLDPWD=", find_val("PWD"));
 	pwd = getcwd(NULL, 0);
 	new = ft_strjoin("PWD=", pwd);
 	free(pwd);
-	*cmd->env_ptr = env_overriding(cmd, new);
+	i = 1;
+	env_overriding(new, &i);
 	free(new);
-	if (getenv("OLDPWD"))
-		*cmd->env_ptr = env_overriding(cmd, old);
+	if (find_val("OLDPWD"))
+		env_overriding(old, &i);
 	free(old);
 }
 
@@ -110,6 +112,6 @@ int	ft_cd(t_cmd	*cmd)
 	else
 		res = relative_path(cmd);
 	if (res == 0)
-		change_pwd(cmd);
+		change_pwd();
 	return (res);
 }

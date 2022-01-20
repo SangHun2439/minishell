@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/19 15:50:18 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 14:27:00 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	is_valid_form_export(char *str, int	*cnt)
 {
 	int	i;
 	int	idx;
-	int	*cnt;
 
 	i = -1;
 	*cnt = 0;
@@ -62,49 +61,34 @@ int	is_valid_form_export(char *str, int	*cnt)
 			idx = i;
 		}
 	}
-	if (*cnt >= 1 && idx != 0)
+	if (idx != 0)
 		return (1);
 	return (0);
 }
 
-int	is_envs_export(t_cmd *cmd, char *argv)
+void	export_env(char *argv, int *cnt)
 {
-	char	**myenv;
-	int		i;
-	int		argv_len;
+	t_list	*env_list;
+	t_env	*env;
+	char	**envp;
 
-	myenv = *cmd->env_ptr;
-	i = -1;
-	while (myenv[++i])
-	{
-		argv_len = length_to_equ(argv);
-		if (!ft_strncmp(argv, myenv[i], argv_len + 1))
-			return (1);
-	}
-	return (0);
-}
-
-char	**export_env(t_cmd *cmd, char *argv)
-{
-	int		env_cnt;
-	int		i;
-	char	**myenv;
-	char	**env_cpy;
-
-	env_cnt = 0;
-	myenv = *cmd->env_ptr;
-	while (myenv[env_cnt])
-		env_cnt++;
-	env_cpy = (char **)malloc(sizeof(char *) * (env_cnt + 2));
-	if (!env_cpy)
-		return (init_err());
-	i = -1;
-	while (++i < env_cnt)
-		env_cpy[i] = myenv[i];
-	env_cpy[i] = ft_strdup(argv);
-	env_cpy[env_cnt + 1] = 0;
-	free(myenv);
-	return (env_cpy);
+	envp = ft_split(argv, '=');
+	if (!envp)
+		init_err();
+	env = malloc(sizeof(t_env *));
+	if (!env)
+		init_err();
+	env->key = envp[0];
+	env->val = envp[1];
+	if (*cnt > 0)
+		env->flag = 0;
+	else
+		env->flag = 1;
+	env_list = ft_lstnew(env);
+	if (!env_list)
+		init_err();
+	ft_lstadd_back(&g_vars.env_list, env_list);
+	free(envp);
 }
 
 int	ft_export(t_cmd *cmd)
@@ -118,22 +102,20 @@ int	ft_export(t_cmd *cmd)
 	flg_form = 0;
 	if (!cmd->argv[1])
 	{
-		export_no_parm(cmd);
+		export_no_parm();
 		return (0);
 	}
 	while (cmd->argv[++i])
 	{
 		flg_form = is_valid_form_export(cmd->argv[i], &cnt);
-		if (flg_form == 1 && cnt > 0)
+		if (flg_form == 1)
 		{
-			res = is_envs_export(cmd, cmd->argv[i]);
+			res = is_key(cmd->argv[i]);
 			if (res == 1)
-				*cmd->env_ptr = env_overriding(cmd, cmd->argv[i]);
+				env_overriding(cmd->argv[i], &cnt);
 			else
-				*cmd->env_ptr = export_env(cmd, cmd->argv[i]);
+				export_env(cmd->argv[i], &cnt);
 		}
-		else if (flg_form == 1 && cnt == 0)
-			*cmd->export_arr = ft_export_arr(cmd, cmd->argv[i]);
 	}
 	return (0);
 }

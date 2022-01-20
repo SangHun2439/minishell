@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:20:57 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/19 17:01:24 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 14:28:47 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,40 @@ void	ft_cd_err(int error, char *dir)
 	ft_putendl_fd(strerror(error), STDERR_FILENO);
 }
 
-void	env_overriding(char *env_key)
+int	length_to_equ(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	return (i);
+}
+
+void	env_overriding(char *str, int *cnt)
 {
 	t_list	*env_list;
 	t_env	*env;
+	char	**split;
+	char	*str_key;
 
+	if (*cnt == 0)
+		return ;
 	env_list = g_vars.env_list;
+	str_key = ft_strndup(str, length_to_equ(str));
 	while (env_list)
 	{
 		env = env_list->content;
-		if (!ft_strcmp(env, env->key))
-			env->val = env_key;
+		split = ft_split(str, '=');
+		if (!split)
+			init_err();
+		if (!ft_strcmp(env->key, str_key))
+			env->val = split[1];
+		free(str_key);
+		if (env->val)
+			env->flag = 0;
+		else
+			env->flag = 1;
 		env_list = env_list->next;
 	}
 }
@@ -44,9 +67,9 @@ void	export_no_parm(void)
 	while (env_list)
 	{
 		env = env_list->content;
-		if (find_value(env->key))
+		if (env->flag == 0)
 			printf("declare -x %s=\"%s\"\n", env->key, env->val);
-		else
+		else if (env->flag == 1)
 			printf("declare -x %s\n", env->key);
 		env_list = env_list->next;
 	}

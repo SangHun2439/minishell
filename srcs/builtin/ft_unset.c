@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/18 12:22:14 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 13:30:42 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,57 +29,53 @@ int	is_valid_form_unset(char *str)
 	return (1);
 }
 
-int	is_envs_unset(t_cmd *cmd, char *argv, int *idx)
+t_list	*prev_node(char *str)
 {
-	char	**myenv;
-	int		i;
-	char	*tmp;
-	int		res;
+	t_list	*node_return;
+	t_env	*env;
+	t_list	*tmp;
 
-	myenv = *cmd->env_ptr;
-	res = 0;
-	*idx = -1;
-	i = -1;
-	while (myenv[++i])
+	node_return = g_vars.env_list;
+	while (node_return)
 	{
-		tmp = ft_strndup(myenv[i], length_to_equ(myenv[i]));
-		if (!ft_strcmp(tmp, argv))
-		{
-			*idx = i;
-			res = 1;
-		}
-		free(tmp);
+		if (node_return->next)
+			tmp = node_return->next;
+		env = tmp->content;
+		if (!ft_strcmp(env->key, str))
+			return (node_return);
+		node_return = node_return->next;
 	}
-	return (res);
+	return (NULL);
 }
 
-char	**unset_env(t_cmd *cmd, int *idx)
+void	unset_env(char *key)
 {
-	int		env_cnt;
-	int		i;
-	char	**myenv;
-	char	**env_cpy;
+	t_list	*env_list;
+	t_env	*env;
+	t_list	*prev;
+	t_list	*ptr;
 
-	env_cnt = 0;
-	myenv = *cmd->env_ptr;
-	while (myenv[env_cnt])
-		env_cnt++;
-	env_cpy = (char **)malloc(sizeof(char *) * env_cnt);
-	if (!env_cpy)
-		return (init_err());
-	i = -1;
-	while (myenv[++i])
+	env_list = g_vars.env_list;
+	while (env_list)
 	{
-		if (i + 1 == env_cnt)
-			break ;
-		if (i < *idx)
-			env_cpy[i] = ft_strdup(myenv[i]);
-		else
-			env_cpy[i] = ft_strdup(myenv[i + 1]);
+		env = env_list->content;
+		if (!ft_strcmp(env->key, key))
+		{
+			prev = prev_node(key);
+			if (!prev)
+			{
+				ptr = env_list->next;
+				ft_lstdelone(env_list, del_env_one);
+				env_list = ptr;
+			}
+			else
+			{
+				prev->next = env_list->next;
+				ft_lstdelone(env_list, del_env_one);
+			}
+		}
+		env_list = env_list->next;
 	}
-	env_cpy[env_cnt - 1] = 0;
-	free_split(myenv);
-	return (env_cpy);
 }
 
 int	ft_unset(t_cmd *cmd)
@@ -87,7 +83,6 @@ int	ft_unset(t_cmd *cmd)
 	int	i;
 	int	res;
 	int	flg_form;
-	int	idx;
 
 	i = 0;
 	flg_form = 0;
@@ -96,9 +91,9 @@ int	ft_unset(t_cmd *cmd)
 		flg_form = is_valid_form_unset(cmd->argv[i]);
 		if (flg_form == 1)
 		{
-			res = is_envs_unset(cmd, cmd->argv[i], &idx);
+			res = is_key(cmd->argv[i]);
 			if (res == 1)
-				*cmd->env_ptr = unset_env(cmd, &idx);
+				unset_env(cmd->argv[i]);
 			else
 				continue ;
 		}

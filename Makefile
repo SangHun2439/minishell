@@ -22,15 +22,13 @@ endif
 
 SRC_DIR = ./srcs/
 SRC_NAME = main \
+main_end \
 read_cmd \
 sig_handler \
 format_envp \
 init \
-init_err \
 utils \
-utils2 \
 my_perr \
-end_handle \
 parse_cmd/parse_cmd \
 parse_cmd/parse_cmd2 \
 parse_cmd/parse_cmd3 \

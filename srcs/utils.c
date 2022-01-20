@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 19:27:58 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:03:47 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,18 @@ int	is_key(char *str)
 {
 	t_list	*env_list;
 	t_env	*env;
+	char	*str_key;
 
 	env_list = g_vars.env_list;
+	str_key = ft_strndup(str, length_to_equ(str));
 	while (env_list)
 	{
 		env = env_list->content;
-		if (!ft_strcmp(env->key, str))
+		if (!ft_strcmp(env->key, str_key))
 			return (1);
 		env_list = env_list->next;
 	}
+	free(str_key);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 14:21:58 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 16:39:31 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	cd_home(char *tmp)
 	return (0);
 }
 
-void	change_pwd()
+void	change_pwd(void)
 {
 	char	*old;
 	char	*new;

@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:20:57 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 14:28:47 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 15:58:12 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ void	env_overriding(char *str, int *cnt)
 		if (!split)
 			init_err();
 		if (!ft_strcmp(env->key, str_key))
+		{
+			free(env->val);
 			env->val = split[1];
-		free(str_key);
-		if (env->val)
-			env->flag = 0;
-		else
-			env->flag = 1;
+		}
+		env->flag = 0;
 		env_list = env_list->next;
 	}
+	free(str_key);
 }
 
 void	export_no_parm(void)

@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 14:27:00 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 15:32:52 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	is_valid_form_export(char *str, int	*cnt)
 	}
 	while (str[++i])
 	{
-		if (str[++i] == '=')
+		if (str[i] == '=')
 		{
-			*cnt = *cnt + 1;
+			*cnt = 1;
 			idx = i;
 		}
 	}
@@ -75,7 +75,7 @@ void	export_env(char *argv, int *cnt)
 	envp = ft_split(argv, '=');
 	if (!envp)
 		init_err();
-	env = malloc(sizeof(t_env *));
+	env = malloc(sizeof(t_env));
 	if (!env)
 		init_err();
 	env->key = envp[0];

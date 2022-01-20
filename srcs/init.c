@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 21:11:45 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 12:40:58 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 15:21:38 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	envp_to_list(char **envp)
 		one_env_arr = ft_split(*envp, '=');
 		if (!one_env_arr)
 			init_err();
-		env = malloc(sizeof(t_env *));
+		env = malloc(sizeof(t_env));
 		if (!env)
 			init_err();
 		env->key = one_env_arr[0];

@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 13:30:42 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 16:38:48 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ t_list	*prev_node(char *str)
 	node_return = g_vars.env_list;
 	while (node_return)
 	{
-		if (node_return->next)
-			tmp = node_return->next;
+		if (!node_return->next)
+			break ;
+		tmp = node_return->next;
 		env = tmp->content;
 		if (!ft_strcmp(env->key, str))
 			return (node_return);
@@ -53,7 +54,6 @@ void	unset_env(char *key)
 	t_list	*env_list;
 	t_env	*env;
 	t_list	*prev;
-	t_list	*ptr;
 
 	env_list = g_vars.env_list;
 	while (env_list)
@@ -63,16 +63,13 @@ void	unset_env(char *key)
 		{
 			prev = prev_node(key);
 			if (!prev)
-			{
-				ptr = env_list->next;
-				ft_lstdelone(env_list, del_env_one);
-				env_list = ptr;
-			}
+				g_vars.env_list = env_list->next;
 			else
-			{
 				prev->next = env_list->next;
-				ft_lstdelone(env_list, del_env_one);
-			}
+			ft_lstdelone(env_list, del_env_one);
+			if (prev)
+				env_list = prev;
+			break ;
 		}
 		env_list = env_list->next;
 	}

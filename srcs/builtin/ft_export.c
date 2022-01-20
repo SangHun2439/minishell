@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 21:36:05 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 23:02:10 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,16 @@ void	export_env(char *argv, int *cnt)
 {
 	t_list	*env_list;
 	t_env	*env;
-	char	**envp;
+	char	*envp;
 
-	envp = ft_split(argv, '=');
+	envp = ft_strndup(argv, length_to_equ(argv));
 	if (!envp)
 		init_err();
 	env = malloc(sizeof(t_env));
 	if (!env)
 		init_err();
-	env->key = envp[0];
-	if (envp[1])
-		env->val = envp[1];
-	else
-		env->val = ft_strdup("");
+	env->key = envp;
+	env->val = cut_val(argv);
 	if (*cnt > 0)
 		env->flag = 0;
 	else
@@ -91,7 +88,6 @@ void	export_env(char *argv, int *cnt)
 	if (!env_list)
 		init_err();
 	ft_lstadd_back(&g_vars.env_list, env_list);
-	free(envp);
 }
 
 int	ft_export(t_cmd *cmd)

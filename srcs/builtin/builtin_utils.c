@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:20:57 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 22:28:12 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 22:54:28 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,51 @@ void	ft_cd_err(int error, char *dir)
 int	length_to_equ(const char *str)
 {
 	size_t	i;
+	int		cnt;
 
 	i = 0;
+	cnt = 0;
 	while (str[i] && str[i] != '=')
 		i++;
 	return (i);
+}
+
+char	*cut_val(char *str)
+{
+	char	*env_val;
+	int		len_equ;
+	int		len;
+
+	len = ft_strlen(str);
+	len_equ = length_to_equ(str);
+	if (len - len_equ == 1)
+		return (ft_strdup(""));
+	env_val = ft_strndup(&str[len_equ + 1], (len - len_equ - 1));
+	return (env_val);
 }
 
 void	env_overriding(char *str, int *cnt)
 {
 	t_list	*env_list;
 	t_env	*env;
-	char	**split;
+	char	*str_key;
 
 	if (*cnt == 0)
 		return ;
 	env_list = g_vars.env_list;
-	split = ft_split(str, '=');
-	if (!split)
-		init_err();
+	str_key = ft_strndup(str, length_to_equ(str));
 	while (env_list)
 	{
 		env = env_list->content;
-		if (!key_cmp(env->key, str))
+		if (!ft_strcmp(env->key, str_key))
 		{
 			free(env->val);
-			if (!split[1])
-				env->val = ft_strdup("");
-			else
-				env->val = ft_strdup(split[1]);
+			env->val = cut_val(str);
 		}
 		env->flag = 0;
 		env_list = env_list->next;
 	}
-	free_split(split);
+	free(str_key);
 }
 
 void	export_no_parm(void)

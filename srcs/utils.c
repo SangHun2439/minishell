@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 22:23:34 by sangjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 23:18:59 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,32 +56,38 @@ char	*find_val(char *str)
 	return (0);
 }
 
-int	key_cmp(char *env_key, char *str_key)
-{
-	int	i;
-
-	i = 0;
-	while (env_key[i] && str_key[i] && str_key[i] != '=')
-	{
-		if (env_key[i] != str_key[i])
-			return ((unsigned char)env_key[i] - (unsigned char)str_key[i]);
-		i++;
-	}
-	return (0);
-}
-
 int	is_key(char *str)
 {
 	t_list	*env_list;
 	t_env	*env;
+	char	*str_key;
 
 	env_list = g_vars.env_list;
+	str_key = ft_strndup(str, length_to_equ(str));
 	while (env_list)
 	{
 		env = env_list->content;
-		if (!key_cmp(env->key, str))
+		if (!ft_strcmp(env->key, str_key))
+		{
+			free(str_key);
 			return (1);
+		}
 		env_list = env_list->next;
 	}
+	free(str_key);
 	return (0);
+}
+
+void	del_env_one(void *content)
+{
+	t_env	*env;
+
+	env = content;
+	if (!env)
+		return ;
+	if (env->key)
+		free(env->key);
+	if (env->val)
+		free(env->val);
+	free(env);
 }

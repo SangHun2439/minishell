@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:39:58 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 12:06:30 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 18:23:16 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	parents_do(pid_t pid, char *full_path)
 int	child_do(char *full_path, char **argv, char **envp)
 {
 	execve(full_path, argv, envp);
-	put_errmsg();
-	exit (FAIL);
+	exit_path(full_path);
 	return (0);
 }

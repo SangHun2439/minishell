@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   format_envp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 14:49:39 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 14:49:47 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 18:26:04 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	envp_len(void)
 		env = env_list->content;
 		if (!env->flag)
 			len++;
+		env_list = env_list->next;
 	}
 	return (len);
 }

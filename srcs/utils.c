@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 21:28:49 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 21:56:14 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	is_key(char *str)
 	while (env_list)
 	{
 		env = env_list->content;
-		if (!ft_strcmp(env->key, str_key))
+		if (!ft_strcmp(env->key, str))
 		{
 			free(str_key);
 			return (1);

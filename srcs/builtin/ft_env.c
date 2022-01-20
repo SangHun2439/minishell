@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 16:01:43 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 16:13:00 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 23:08:01 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_env(t_cmd *cmd)
 	while (env_list)
 	{
 		env = env_list->content;
-		if (env->flag == 0)
+		if (!env->flag)
 			printf("%s=%s\n", env->key, env->val);
 		env_list = env_list->next;
 	}

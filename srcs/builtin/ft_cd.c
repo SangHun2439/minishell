@@ -6,27 +6,17 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 16:39:31 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 23:42:36 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cd_home(char *tmp)
+int	cd_home()
 {
 	if (!find_val("HOME"))
 	{
-		if (tmp && tmp[0] == '~')
-		{
-			if (chdir(g_vars.homepath) < 0)
-			{
-				ft_cd_err(errno, g_vars.homepath);
-				return (1);
-			}
-			return (0);
-		}
-		else
-			ft_putendl_fd("cd: HOME not set", STDERR_FILENO);
+		ft_putendl_fd("cd: HOME not set", STDERR_FILENO);
 		return (1);
 	}
 	else
@@ -106,7 +96,7 @@ int	ft_cd(t_cmd	*cmd)
 
 	if (!cmd->argv[1] || !ft_strcmp(cmd->argv[1], "") \
 		|| !ft_strcmp(cmd->argv[1], "~"))
-		res = cd_home(cmd->argv[1]);
+		res = cd_home();
 	else if (*(cmd->argv[1]) == '/')
 		res = absolute_path(cmd);
 	else

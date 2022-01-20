@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 21:47:59 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 22:07:13 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ char	*find_val(char *str);
 int		is_key(char *str);
 char	**format_envp(void);
 void	del_env_one(void *content);
+int		key_cmp(char *env_key, char *str_key);
 /* main */
 
 /* exec_cmd */

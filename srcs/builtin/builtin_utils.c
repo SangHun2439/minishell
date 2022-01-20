@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:20:57 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 21:31:40 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 22:28:12 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,17 @@ void	env_overriding(char *str, int *cnt)
 	t_list	*env_list;
 	t_env	*env;
 	char	**split;
-	char	*str_key;
 
 	if (*cnt == 0)
 		return ;
 	env_list = g_vars.env_list;
-	str_key = ft_strndup(str, length_to_equ(str));
 	split = ft_split(str, '=');
 	if (!split)
 		init_err();
 	while (env_list)
 	{
 		env = env_list->content;
-		if (!ft_strcmp(env->key, str_key))
+		if (!key_cmp(env->key, str))
 		{
 			free(env->val);
 			if (!split[1])
@@ -59,7 +57,6 @@ void	env_overriding(char *str, int *cnt)
 		env_list = env_list->next;
 	}
 	free_split(split);
-	free(str_key);
 }
 
 void	export_no_parm(void)

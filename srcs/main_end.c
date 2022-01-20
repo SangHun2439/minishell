@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_end.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 11:02:12 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 12:06:57 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 22:02:21 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,18 @@ void	init_err(void)
 {
 	put_errmsg();
 	exit(1);
+}
+
+void	del_env_one(void *content)
+{
+	t_env	*env;
+
+	env = content;
+	if (!env)
+		return ;
+	if (env->key)
+		free(env->key);
+	if (env->val)
+		free(env->val);
+	free(env);
 }

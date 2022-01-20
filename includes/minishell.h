@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 23:43:21 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 23:45:07 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_vars
 {
 	int		last_status;
 	int		heredoc_exit;
-	char	*homepath;
 	t_list	*env_list;
 }	t_vars;
 

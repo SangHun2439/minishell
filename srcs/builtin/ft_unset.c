@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 16:38:48 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/20 19:35:38 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ void	unset_env(char *key)
 			else
 				prev->next = env_list->next;
 			ft_lstdelone(env_list, del_env_one);
-			if (prev)
-				env_list = prev;
 			break ;
 		}
 		env_list = env_list->next;

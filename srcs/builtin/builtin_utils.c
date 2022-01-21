@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:20:57 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/21 00:23:36 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:55:51 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ char	*cut_val(char *str)
 	len = ft_strlen(str);
 	len_equ = length_to_equ(str);
 	if (len - len_equ == 1)
-		return (ft_strdup(""));
-	env_val = ft_strndup(&str[len_equ + 1], (len - len_equ - 1));
+		env_val = ft_strdup("");
+	else
+		env_val = ft_strndup(&str[len_equ + 1], (len - len_equ - 1));
+	if (!env_val)
+		init_err();
 	return (env_val);
 }

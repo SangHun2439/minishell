@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 02:11:36 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 23:18:59 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:47:45 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	is_key(char *str)
 
 	env_list = g_vars.env_list;
 	str_key = ft_strndup(str, length_to_equ(str));
+	if (!str_key)
+		init_err();
 	while (env_list)
 	{
 		env = env_list->content;

@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/21 11:37:38 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:54:08 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	relative_path(t_cmd *cmd)
 		}
 		else
 			path_str = ft_strdup(tmp);
+		if (!path_str)
+			init_err();
 		if (chdir(path_str) < 0)
 			res = ft_cd_err(errno, path_str);
 		free(path_str);

@@ -3,29 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_pipe2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: sangjeon <sangjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 19:42:44 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 12:06:25 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/21 12:15:00 by sangjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	close_all_pipe(int **pipe_arr)
+{
+	int	i;
+
+	i = 1;
+	while (pipe_arr[i])
+	{
+		close(pipe_arr[i][RPIPE]);
+		close(pipe_arr[i][WPIPE]);
+		i++;
+	}
+}
+
 void	connect_pipe(int *rpipe, int *wpipe)
 {
 	if (rpipe)
-	{
 		dup2(rpipe[RPIPE], STDIN_FILENO);
-		close(rpipe[RPIPE]);
-		close(rpipe[WPIPE]);
-	}
 	if (wpipe)
-	{
 		dup2(wpipe[WPIPE], STDOUT_FILENO);
-		close(wpipe[WPIPE]);
-		close(wpipe[RPIPE]);
-	}
 }
 
 void	child_do_pipe(t_cmd *cmd, char **path, int **pipe_arr, int num)
@@ -33,6 +38,7 @@ void	child_do_pipe(t_cmd *cmd, char **path, int **pipe_arr, int num)
 	int	res;
 
 	connect_pipe(pipe_arr[num], pipe_arr[num + 1]);
+	close_all_pipe(pipe_arr);
 	if (cmd->redi_list)
 	{
 		res = redirect(cmd->redi_list);
@@ -52,23 +58,27 @@ void	child_do_pipe(t_cmd *cmd, char **path, int **pipe_arr, int num)
 	exit(res);
 }
 
-int	parents_do_pipe(pid_t pid, int **pipe_arr)
+void	free_pipe(int **pipe_arr)
 {
-	int	res;
-	int	status;
 	int	i;
 
-	res = 0;
-	status = 0;
 	i = 1;
 	while (pipe_arr[i])
 	{
-		close(pipe_arr[i][RPIPE]);
-		close(pipe_arr[i][WPIPE]);
 		free(pipe_arr[i]);
 		i++;
 	}
 	free(pipe_arr);
+}
+
+int	parents_do_pipe(pid_t pid, int **pipe_arr)
+{
+	int	res;
+	int	status;
+
+	res = 0;
+	status = 0;
+	close_all_pipe(pipe_arr);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		res = WEXITSTATUS(status);
@@ -76,6 +86,7 @@ int	parents_do_pipe(pid_t pid, int **pipe_arr)
 		res = 128 + WTERMSIG(status);
 	while (wait(0) > 0)
 		;
+	free_pipe(pipe_arr);
 	errno = 0;
 	return (res);
 }

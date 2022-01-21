@@ -6,11 +6,19 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:02 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 23:02:10 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:30:37 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_export_err(char *str)
+{
+	ft_putstr_fd("export: `", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd("\': not a valid identifier", STDERR_FILENO);
+	return (1);
+}
 
 int	is_valid_str(char *str)
 {
@@ -46,13 +54,6 @@ int	is_valid_form_export(char *str, int	*cnt)
 
 	i = -1;
 	*cnt = 0;
-	if (!is_valid_str(str))
-	{
-		ft_putstr_fd("export: `", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd("\': not a valid identifier", STDERR_FILENO);
-		return (0);
-	}
 	while (str[++i])
 	{
 		if (str[i] == '=')
@@ -100,12 +101,11 @@ int	ft_export(t_cmd *cmd)
 	i = 0;
 	flg_form = 0;
 	if (!cmd->argv[1])
-	{
-		export_no_parm();
-		return (0);
-	}
+		return (export_no_parm());
 	while (cmd->argv[++i])
 	{
+		if (!is_valid_str(cmd->argv[i]))
+			return (ft_export_err(cmd->argv[i]));
 		flg_form = is_valid_form_export(cmd->argv[i], &cnt);
 		if (flg_form == 1)
 		{

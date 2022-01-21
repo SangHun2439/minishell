@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 15:24:40 by sangjeon          #+#    #+#             */
-/*   Updated: 2022/01/21 00:24:47 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:24:07 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void	env_overriding(char *str, int *cnt);
 int		is_direc(char *path);
 int		ft_cd_err(int error, char *dir);
 int		length_to_equ(const char *str);
-void	export_no_parm(void);
+int		export_no_parm(void);
 char	*cut_val(char *str);
 int		ft_home_not_set(void);
 /* builtin */

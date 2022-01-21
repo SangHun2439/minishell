@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:41:14 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/20 23:19:09 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:35:30 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int	ft_unset(t_cmd *cmd)
 	while (cmd->argv[++i])
 	{
 		flg_form = is_valid_form_unset(cmd->argv[i]);
+		if (!flg_form)
+			return (1);
 		if (flg_form == 1)
 		{
 			res = is_key(cmd->argv[i]);

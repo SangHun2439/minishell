@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:47:41 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/21 00:24:27 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:37:38 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ void	change_pwd(void)
 int	absolute_path(t_cmd *cmd)
 {
 	if (chdir(cmd->argv[1]) < 0)
-	{
-		ft_cd_err(errno, cmd->argv[1]);
-		return (1);
-	}
+		return (ft_cd_err(errno, cmd->argv[1]));
 	return (0);
 }
 

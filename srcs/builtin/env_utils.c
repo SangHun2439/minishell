@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 00:09:39 by jeson             #+#    #+#             */
-/*   Updated: 2022/01/21 00:12:32 by jeson            ###   ########.fr       */
+/*   Updated: 2022/01/21 11:23:57 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	env_overriding(char *str, int *cnt)
 	free(str_key);
 }
 
-void	export_no_parm(void)
+int	export_no_parm(void)
 {
 	t_list	*env_list;
 	t_env	*env;
@@ -51,4 +51,5 @@ void	export_no_parm(void)
 			printf("declare -x %s\n", env->key);
 		env_list = env_list->next;
 	}
+	return (0);
 }
